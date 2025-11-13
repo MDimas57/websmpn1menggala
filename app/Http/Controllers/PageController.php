@@ -21,6 +21,11 @@ class PageController extends Controller
             'photos' => $photos
         ]);
     }
+    public function kontak()
+    {
+        // Saat ini, kita hanya perlu menampilkan halamannya
+        return view('kontak');
+    }
 
     // Nanti Anda bisa tambahkan fungsi lain di sini
     // public function profil() { ... }

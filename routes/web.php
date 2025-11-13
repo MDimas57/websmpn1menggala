@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 // 2. TAMBAHKAN BARIS INI
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
+Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
