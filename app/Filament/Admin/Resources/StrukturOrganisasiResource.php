@@ -23,7 +23,7 @@ class StrukturOrganisasiResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('judul')->label('Judul Struktur Organisasi'),
-            Forms\Components\FileUpload::make('foto')->label('Foto Struktur Organisasi')->image(),
+            Forms\Components\FileUpload::make('foto')->label('Foto Struktur Organisasi')->image() ->directory('katasambutan'),
         ]);
     }
 

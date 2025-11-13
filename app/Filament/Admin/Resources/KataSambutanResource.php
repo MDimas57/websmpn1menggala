@@ -24,7 +24,7 @@ class KataSambutanResource extends Resource
         return $form->schema([
             Forms\Components\TextInput::make('nama_kepsek')->label('Nama Kepala Sekolah'),
             Forms\Components\TextInput::make('jabatan')->label('Jabatan'),
-            Forms\Components\FileUpload::make('foto')->label('Foto Kepala Sekolah')->image(),
+            Forms\Components\FileUpload::make('foto')->label('Foto Kepala Sekolah')->image() ->directory('katasambutan'),
             Forms\Components\Textarea::make('kata_sambutan')->label('Isi Sambutan')->rows(6),
         ]);
     }
