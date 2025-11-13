@@ -3,31 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Galeri; // <-- PENTING! (Atau 'Gallery'?)
+use App\Models\Galeri;
 
 class PageController extends Controller
 {
     /**
-     * Menampilkan halaman Galeri.
+     * Menampilkan halaman Galeri FOTO.
+     * (Method gallery() kita ganti nama menjadi galleryFoto)
      */
-    public function gallery()
+    public function galleryFoto()
     {
-        // 1. Ambil semua data foto dari database
-        //    Saya asumsikan model Anda bernama 'Galeri'
-        $photos = Galeri::latest()->get(); 
+        // Ambil data yang tipenya 'foto' saja
+        $photos = Galeri::where('tipe', 'foto')->latest()->get(); 
 
-        // 2. Kirim data foto itu ke file 'view'
-        return view('gallery', [
+        // Kirim data ke view 'gallery-foto'
+        return view('gallery-foto', [
             'photos' => $photos
         ]);
     }
-    public function kontak()
+
+    /**
+     * Menampilkan halaman Galeri VIDEO.
+     * (Method baru)
+     */
+    public function galleryVideo()
     {
-        // Saat ini, kita hanya perlu menampilkan halamannya
-        return view('kontak');
+        // Ambil data yang tipenya 'video' saja
+        $videos = Galeri::where('tipe', 'video')->latest()->get(); 
+
+        // Kirim data ke view 'gallery-video'
+        return view('gallery-video', [
+            'videos' => $videos
+        ]);
     }
 
-    // Nanti Anda bisa tambahkan fungsi lain di sini
-    // public function profil() { ... }
-    // public function kontak() { ... }
+    /**
+     * Menampilkan halaman Kontak Kami.
+     */
+    public function kontak()
+    {
+        return view('kontak');
+    }
 }

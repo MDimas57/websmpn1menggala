@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
-        "@tailwindcss/postcss": "^4.1.17"
+        "@tailwindcss/postcss": "^4.1.17",
+        "glightbox": "^3.3.1"
     }
 }

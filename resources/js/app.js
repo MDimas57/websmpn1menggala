@@ -1,19 +1,22 @@
 import './bootstrap';
 
-// 1. Import Splide JS dan CSS-nya
+// --- IMPORTS ---
+// 1. Import Splide JS (Slider) dan CSS-nya
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/css'; 
-// Anda bisa ganti 'splide/css' dengan 'splide/css/sea-green' atau 'splide/css/core' jika mau tema lain
 
-// 2. Tunggu hingga halaman selesai dimuat
+// 2. Import GLightbox (Popup Galeri) dan CSS-nya
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';
+
+
+// --- INITIALIZATION ---
+// Tunggu hingga halaman selesai dimuat (CUKUP SATU KALI)
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 3. Cari elemen slider kita (yang akan kita buat di Blade)
-    // Kita beri ID '#banner-slider' agar spesifik
+    // A. Inisialisasi Splide (Slider)
     const mainSlider = document.getElementById('banner-slider');
-
     if (mainSlider) {
-        // 4. Inisialisasi Splide
         new Splide(mainSlider, {
             type       : 'loop', // Tipe 'loop' (berputar) atau 'slide' (berhenti di akhir)
             perPage    : 1,      // Tampilkan 1 slide per halaman
@@ -26,5 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }).mount();
     }
 
-    // Anda bisa tambahkan inisialisasi slider lain di sini jika perlu
+    // B. Inisialisasi GLightbox (Popup Galeri)
+    const lightbox = GLightbox({
+        selector: '.gallery-lightbox',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true
+    });
+
+    // Anda bisa tambahkan inisialisasi JS lain di sini
 });

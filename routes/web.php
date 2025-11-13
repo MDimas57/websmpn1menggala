@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController; // <-- 1. TAMBAHKAN BARIS INI
+use App\Http\Controllers\PageController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. TAMBAHKAN BARIS INI
-Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
+// HAPUS RUTE /gallery LAMA DAN GANTI DENGAN DUA INI
+Route::get('/gallery-foto', [PageController::class, 'galleryFoto'])->name('gallery.foto');
+Route::get('/gallery-video', [PageController::class, 'galleryVideo'])->name('gallery.video');
+
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
