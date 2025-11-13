@@ -42,14 +42,6 @@
             Mendidik generasi masa depan dengan karakter kuat, akademik unggul, dan siap menghadapi tantangan global.
         </p>
 
-        <div class="flex items-center mt-4 space-x-4 opacity-90">
-            <img src="https://placehold.co/50x50/ffffff/000000?text=LOGO" alt="Logo 1" class="w-12 h-12 border-2 border-white rounded-full">
-            <img src="https://placehold.co/50x50/ffffff/000000?text=LOGO" alt="Logo 2" class="w-12 h-12 border-2 border-white rounded-full">
-
-            <div class="pl-4 border-l-2 border-white">
-                <p class="font-semibold leading-tight text-white">Stop Narkotika <br> dan Judi Online</p>
-            </div>
-        </div>
     </div>
 </section>
 
