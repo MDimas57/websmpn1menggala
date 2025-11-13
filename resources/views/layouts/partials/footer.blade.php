@@ -3,14 +3,16 @@
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 
-            <div>
-                <h2 class="mb-4 text-2xl font-bold">SPMB 2025</h2>
-                <p class="text-sm text-gray-300">
-                    Sistem Penerimaan Murid Baru
-                    Kabupaten Lampung Tengah
-                    Tahun 2025.
-                </p>
+            <div class="flex items-start space-x-4">
+                <img src="{{ asset('images/teknokrat.png') }}" alt="Logo SMP Negeri 1 Menggala" class="w-20 h-20 rounded-md">
+                <div>
+                    <h2 class="mb-1 text-2xl font-bold text-white">SMP Negeri 1 Menggala</h2>
+                    <p class="mb-2 text-sm font-semibold text-green-300">Sekolah Unggulan Berkarakter</p>
+                    <p class="text-sm text-gray-300">
+                        Mendidik generasi masa depan dengan karakter kuat, akademik unggul, dan siap menghadapi tantangan global.
+                    </p>
                 </div>
+            </div>
 
             <div>
                 <h3 class="mb-4 text-lg font-semibold">Dokumen</h3>
