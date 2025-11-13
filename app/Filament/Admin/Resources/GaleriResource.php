@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\{TextInput, FileUpload, Select, Grid};
 use Filament\Tables\Columns\{TextColumn, ImageColumn, IconColumn};
+use Filament\Tables\Actions\Action;
 
 class GaleriResource extends Resource
 {
@@ -78,6 +79,22 @@ class GaleriResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->filters([])
             ->actions([
+                // Tombol View
+                Action::make('view')
+                    ->label('Lihat')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->modalHeading('Preview Galeri')
+                    ->modalContent(function (Galeri $record) {
+                        if ($record->tipe === 'foto') {
+                            return view('filament.admin.galeri.preview-foto', ['record' => $record]);
+                        } else {
+                            return view('filament.admin.galeri.preview-video', ['record' => $record]);
+                        }
+                    })
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup'),
+
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

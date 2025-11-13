@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Filament\Admin\Resources;
+
+use App\Filament\Admin\Resources\ProfilSekolahResource\Pages;
+use App\Models\ProfilSekolah;
+use Filament\Forms;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\TextColumn;
+
+class ProfilSekolahResource extends Resource
+{
+    protected static ?string $model = ProfilSekolah::class;
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
+    protected static ?string $navigationGroup = 'Profil Sekolah';
+    protected static ?string $navigationLabel = 'Profil Sekolah';
+
+    public static function form(Forms\Form $form): Forms\Form
+    {
+        return $form->schema([
+            Forms\Components\Textarea::make('profil')->label('Deskripsi Profil Sekolah')->rows(10),
+        ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('profil')->label('Profil Sekolah')->limit(100),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Action::make('view')
+                    ->label('Lihat')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->modalHeading('Preview Profil Sekolah')
+                    ->modalContent(fn ($record) => view('filament.admin.profil-sekolah.preview', compact('record')))
+                    ->modalWidth('3xl'),
+            ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListProfilSekolahs::route('/'),
+            'create' => Pages\CreateProfilSekolah::route('/create'),
+            'edit' => Pages\EditProfilSekolah::route('/{record}/edit'),
+        ];
+    }
+}
