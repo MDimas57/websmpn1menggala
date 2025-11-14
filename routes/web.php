@@ -7,8 +7,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// HAPUS RUTE /gallery LAMA DAN GANTI DENGAN DUA INI
+// Rute Galeri
 Route::get('/gallery-foto', [PageController::class, 'galleryFoto'])->name('gallery.foto');
 Route::get('/gallery-video', [PageController::class, 'galleryVideo'])->name('gallery.video');
 
+// Rute Kontak
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+
+// TAMBAHKAN 3 RUTE BARU DI BAWAH INI
+Route::get('/kata-sambutan', [PageController::class, 'kataSambutan'])->name('profil.sambutan');
+Route::get('/profil-sekolah', [PageController::class, 'profilSekolah'])->name('profil.sekolah');
+Route::get('/struktur-organisasi', [PageController::class, 'strukturOrganisasi'])->name('profil.struktur');

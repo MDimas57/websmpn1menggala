@@ -4,44 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Galeri;
+use App\Models\KataSambutan;       // <-- TAMBAHKAN
+use App\Models\ProfilSekolah;     // <-- TAMBAHKAN
+use App\Models\StrukturOrganisasi; // <-- TAMBAHKAN
 
 class PageController extends Controller
 {
-    /**
-     * Menampilkan halaman Galeri FOTO.
-     * (Method gallery() kita ganti nama menjadi galleryFoto)
-     */
+    // ... (fungsi galleryFoto() dan galleryVideo() Anda ada di sini) ...
     public function galleryFoto()
     {
-        // Ambil data yang tipenya 'foto' saja
         $photos = Galeri::where('tipe', 'foto')->latest()->get(); 
-
-        // Kirim data ke view 'gallery-foto'
-        return view('gallery-foto', [
-            'photos' => $photos
-        ]);
+        return view('gallery-foto', [ 'photos' => $photos ]);
     }
 
-    /**
-     * Menampilkan halaman Galeri VIDEO.
-     * (Method baru)
-     */
     public function galleryVideo()
     {
-        // Ambil data yang tipenya 'video' saja
         $videos = Galeri::where('tipe', 'video')->latest()->get(); 
-
-        // Kirim data ke view 'gallery-video'
-        return view('gallery-video', [
-            'videos' => $videos
-        ]);
+        return view('gallery-video', [ 'videos' => $videos ]);
     }
-
-    /**
-     * Menampilkan halaman Kontak Kami.
-     */
+    
+    // ... (fungsi kontak() Anda ada di sini) ...
     public function kontak()
     {
         return view('kontak');
+    }
+
+    // --- TAMBAHKAN 3 FUNGSI BARU DI BAWAH INI ---
+
+    /**
+     * Menampilkan halaman Kata Sambutan.
+     */
+    public function kataSambutan()
+    {
+        // Ambil data sambutan terbaru (kita asumsikan hanya ada 1)
+        $sambutan = KataSambutan::latest()->first(); 
+        return view('profil.kata-sambutan', ['sambutan' => $sambutan]);
+    }
+
+    /**
+     * Menampilkan halaman Profil Sekolah.
+     */
+    public function profilSekolah()
+    {
+        // Ambil data profil terbaru
+        $profil = ProfilSekolah::latest()->first(); 
+        return view('profil.profil-sekolah', ['profil' => $profil]);
+    }
+
+    /**
+     * Menampilkan halaman Struktur Organisasi.
+     */
+    public function strukturOrganisasi()
+    {
+        // Ambil data struktur terbaru
+        $struktur = StrukturOrganisasi::latest()->get(); 
+        return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
 }
