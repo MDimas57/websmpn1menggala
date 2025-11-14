@@ -10,6 +10,11 @@ class ProfilSekolah extends Model
     use HasFactory;
 
     protected $fillable = [
-        'deskripsi',
+        'logo',
+        'nama_sekolah',
+        'akreditasi',
+        'jumlah_rombel',
+        'jumlah_tenaga_pendidik',
+        'jumlah_peserta_didik', 
     ];
 }

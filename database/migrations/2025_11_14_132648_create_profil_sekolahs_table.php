@@ -9,7 +9,12 @@ return new class extends Migration {
     {
         Schema::create('profil_sekolahs', function (Blueprint $table) {
             $table->id();
-            $table->text('deskripsi')->nullable();
+            $table->string('logo')->nullable(); // path gambar/logo sekolah
+            $table->string('nama_sekolah');
+            $table->string('akreditasi')->nullable();
+            $table->integer('jumlah_rombel')->nullable();
+            $table->integer('jumlah_tenaga_pendidik')->nullable();
+            $table->integer('jumlah_peserta_didik')->nullable();
             $table->timestamps();
         });
     }
