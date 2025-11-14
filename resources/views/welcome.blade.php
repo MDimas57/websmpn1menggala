@@ -5,9 +5,11 @@
 @php
     use App\Models\Banner;
     use App\Models\Berita;
+    use App\Models\Guru; // <-- 1. TAMBAHKAN INI
 
     $banners = Banner::latest()->get();
     $beritaTerbaru = Berita::latest()->take(3)->get();
+    $tenagaPendidik = Guru::latest()->get(); // <-- 2. TAMBAHKAN INI
 @endphp
 
 <!-- SLIDER BANNER (MODIFIED) -->
@@ -64,6 +66,49 @@
         </div>
     </div>
 </div>
+
+<!-- 3. BAGIAN TENAGA PENDIDIK (BARU) -->
+<section class="py-16 bg-white"> <!-- Ganti bg-gray-100 ke bg-white jika ingin selang-seling -->
+    <div class="container px-4 mx-auto max-w-7xl">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Tenaga Pendidik
+        </h2>
+
+        <!-- Kita gunakan $tenagaPendidik dari @php block di atas -->
+        @if($tenagaPendidik && $tenagaPendidik->count() > 0)
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                
+                <!-- Mulai Loop Tenaga Pendidik -->
+                @foreach($tenagaPendidik as $guru)
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <!-- Bagian Biru dengan Foto (sesuai Gambar 1) -->
+                        <div class="bg-blue-700 p-4">
+                            <img src="{{ asset('storage/' . $guru->foto) }}" 
+                                 alt="{{ $guru->nama_lengkap }}" 
+                                 class="w-full h-56 object-cover object-top rounded-lg shadow-md border-4 border-white">
+                        </div>
+                        
+                        <!-- Bagian Teks Putih (sesuai Gambar 1) -->
+                        <div class="p-4 text-center">
+                            <h3 class="font-bold text-gray-900 text-md">
+                                {{ $guru->nama_lengkap }}
+                            </h3>
+                            <p class="text-gray-600 text-sm">
+                                {{ $guru->jenis_gtk }} {{-- Mengambil dari kolom 'Jenis GTK' --}}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                <!-- Selesai Loop Tenaga Pendidik -->
+
+            </div>
+        @else
+            <p class="text-center text-gray-500">
+                Data tenaga pendidik belum tersedia.
+            </p>
+        @endif
+    </div>
+</section>
 
 <!-- Inisialisasi Splide: non-aktifkan panah dan aktifkan autoplay -->
 <script>
