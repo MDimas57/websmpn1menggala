@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ppdb extends Model
+// Ganti 'ppdb' (kecil) menjadi 'Ppdb' (BESAR)
+class Ppdb extends Model
 {
     protected $fillable = [
         'judul',

@@ -62,8 +62,12 @@
                 </div>
             </div>
             
-            {{-- Menggunakan PPDB sesuai kode Anda --}}
-            <a href="/spmb" class="font-semibold text-gray-700 hover:text-purple-800">PPDB</a>
+            {{-- 
+              PERUBAHAN DI BAWAH INI:
+              Link '/spmb' telah diubah menjadi route 'ppdb.index' 
+            --}}
+            <a href="{{ route('ppdb.index') }}" class="font-semibold text-gray-700 hover:text-purple-800">PPDB</a>
+
             <a href="/informasi" class="font-semibold text-gray-700 hover:text-purple-800">INFORMASI</a>
             <a href="/kontak" class="font-semibold text-gray-700 hover:text-purple-800">KONTAK KAMI</a>
         </div>

@@ -7,6 +7,7 @@ use App\Models\Galeri;
 use App\Models\KataSambutan;       // <-- TAMBAHKAN
 use App\Models\ProfilSekolah;     // <-- TAMBAHKAN
 use App\Models\StrukturOrganisasi; // <-- TAMBAHKAN
+use App\Models\Ppdb;
 
 class PageController extends Controller
 {
@@ -60,4 +61,14 @@ class PageController extends Controller
         $struktur = StrukturOrganisasi::latest()->get(); 
         return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
+
+    public function ppdb()
+    {
+        // Ambil semua data dari Model 'Ppdb'
+        $informasiItems = Ppdb::latest()->get();
+
+        // Kirim data tersebut ke view 'pages.ppdb'
+        return view('pages.ppdb', compact('informasiItems'));
+    }
+    
 }

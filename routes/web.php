@@ -14,7 +14,11 @@ Route::get('/gallery-video', [PageController::class, 'galleryVideo'])->name('gal
 // Rute Kontak
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 
-// TAMBAHKAN 3 RUTE BARU DI BAWAH INI
+// Rute Profil (dari kode Anda)
 Route::get('/kata-sambutan', [PageController::class, 'kataSambutan'])->name('profil.sambutan');
 Route::get('/profil-sekolah', [PageController::class, 'profilSekolah'])->name('profil.sekolah');
 Route::get('/struktur-organisasi', [PageController::class, 'strukturOrganisasi'])->name('profil.struktur');
+
+// === TAMBAHAN BARU UNTUK PPDB ===
+// Ini adalah rute baru yang Anda inginkan
+Route::get('/ppdb', [PageController::class, 'ppdb'])->name('ppdb.index');
