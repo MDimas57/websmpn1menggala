@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Galeri;
-use App\Models\KataSambutan;       // <-- TAMBAHKAN
-use App\Models\ProfilSekolah;     // <-- TAMBAHKAN
-use App\Models\StrukturOrganisasi; // <-- TAMBAHKAN
+use App\Models\KataSambutan;
+use App\Models\ProfilSekolah;
+use App\Models\StrukturOrganisasi;
 use App\Models\Ppdb;
+use App\Models\Kontak; // <-- ▼▼▼ TAMBAHKAN INI ▼▼▼
 
 class PageController extends Controller
 {
@@ -27,48 +28,54 @@ class PageController extends Controller
     // ... (fungsi kontak() Anda ada di sini) ...
     public function kontak()
     {
-        return view('kontak');
+        return view('kontak'); // Ini halaman blade Anda, mungkin 'pages.kontak'
     }
 
-    // --- TAMBAHKAN 3 FUNGSI BARU DI BAWAH INI ---
-
-    /**
-     * Menampilkan halaman Kata Sambutan.
-     */
+    // --- (Fungsi profil Anda ada di sini) ---
     public function kataSambutan()
     {
-        // Ambil data sambutan terbaru (kita asumsikan hanya ada 1)
         $sambutan = KataSambutan::latest()->first(); 
         return view('profil.kata-sambutan', ['sambutan' => $sambutan]);
     }
 
-    /**
-     * Menampilkan halaman Profil Sekolah.
-     */
     public function profilSekolah()
     {
-        // Ambil data profil terbaru
         $profil = ProfilSekolah::latest()->first(); 
         return view('profil.profil-sekolah', ['profil' => $profil]);
     }
 
-    /**
-     * Menampilkan halaman Struktur Organisasi.
-     */
     public function strukturOrganisasi()
     {
-        // Ambil data struktur terbaru
         $struktur = StrukturOrganisasi::latest()->get(); 
         return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
 
     public function ppdb()
     {
-        // Ambil semua data dari Model 'Ppdb'
         $informasiItems = Ppdb::latest()->get();
-
-        // Kirim data tersebut ke view 'pages.ppdb'
         return view('pages.ppdb', compact('informasiItems'));
     }
     
+    // ▼▼▼ TAMBAHKAN FUNGSI BARU INI UNTUK MENYIMPAN PESAN ▼▼▼
+    
+    /**
+     * Menyimpan pesan baru dari formulir kontak.
+     */
+    public function storeKontak(Request $request)
+    {
+        // 1. Validasi data. Nama field HARUS SAMA dengan Model & Blade.
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255', // <-- Diubah dari 'nama_lengkap'
+            'email' => 'required|email|max:255',
+            'no_telepon' => 'nullable|string|max:20', // <-- Diubah dari 'nomor_ponsel'
+            'pesan' => 'required|string|min:10',
+        ]);
+
+        // 2. Simpan ke database menggunakan Model Kontak
+        Kontak::create($validated);
+
+        // 3. Kembali ke halaman kontak dengan pesan sukses
+        return redirect()->route('kontak')
+                         ->with('success', 'Pesan Anda telah berhasil terkirim! Terima kasih.');
+    }
 }

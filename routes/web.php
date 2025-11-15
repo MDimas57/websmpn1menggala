@@ -14,6 +14,9 @@ Route::get('/gallery-video', [PageController::class, 'galleryVideo'])->name('gal
 // Rute Kontak
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 
+// ▼▼▼ TAMBAHAN BARU: Rute untuk MENYIMPAN data formulir ▼▼▼
+Route::post('/kontak/store', [PageController::class, 'storeKontak'])->name('kontak.store');
+
 // Rute Profil (dari kode Anda)
 Route::get('/kata-sambutan', [PageController::class, 'kataSambutan'])->name('profil.sambutan');
 Route::get('/profil-sekolah', [PageController::class, 'profilSekolah'])->name('profil.sekolah');

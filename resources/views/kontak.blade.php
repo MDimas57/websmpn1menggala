@@ -13,34 +13,51 @@
             <div class="p-8 bg-white shadow-lg md:col-span-2 rounded-xl">
                 <h2 class="mb-6 text-2xl font-bold text-gray-800">Kirim Pesan</h2>
 
-                {{--
-                  CATATAN:
-                  Saat ini 'action' form masih kosong (#).
-                  Nanti kita perlu membuat Rute 'POST' untuk memproses data ini.
-                --}}
-                <form action="#" method="POST" class="space-y-6">
+                {{-- ▼▼▼ MENAMPILKAN PESAN SUKSES ▼▼▼ --}}
+                @if(session('success'))
+                    <div class="mb-6 p-4 text-green-700 bg-green-100 border border-green-300 rounded-md">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                
+                {{-- ▼▼▼ UBAH 'action' agar mengarah ke Rute 'kontak.store' ▼▼▼ --}}
+                <form action="{{ route('kontak.store') }}" method="POST" class="space-y-6">
                     @csrf {{-- Penting untuk keamanan Laravel --}}
 
                     {{-- Baris 1: Nama, Email, No. Ponsel --}}
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                         <div>
-                            <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                            <input type="text" name="nama_lengkap" id="nama_lengkap" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            {{-- ▼▼▼ DIUBAH 'for' dan 'name' menjadi 'nama' ▼▼▼ --}}
+                            <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            @error('nama')
+                                <span class="text-sm text-red-600">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Alamat Email</label>
-                            <input type="email" name="email" id="email" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            <input type="email" name="email" id="email" value="{{ old('email') }}" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                             @error('email')
+                                <span class="text-sm text-red-600">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
-                            <label for="nomor_ponsel" class="block text-sm font-medium text-gray-700">Nomor Ponsel</label>
-                            <input type="tel" name="nomor_ponsel" id="nomor_ponsel" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            {{-- ▼▼▼ DIUBAH 'for' dan 'name' menjadi 'no_telepon' ▼▼▼ --}}
+                            <label for="no_telepon" class="block text-sm font-medium text-gray-700">Nomor Ponsel</label>
+                            <input type="tel" name="no_telepon" id="no_telepon" value="{{ old('no_telepon') }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                             @error('no_telepon')
+                                <span class="text-sm text-red-600">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     {{-- Baris 2: Pesan --}}
                     <div>
                         <label for="pesan" class="block text-sm font-medium text-gray-700">Pesan atau Saran</label>
-                        <textarea name="pesan" id="pesan" rows="5" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500"></textarea>
+                        <textarea name="pesan" id="pesan" rows="5" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500">{{ old('pesan') }}</textarea>
+                         @error('pesan')
+                            <span class="text-sm text-red-600">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     {{-- Baris 3: Tombol --}}

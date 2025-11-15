@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Kontak extends Model
 {
    protected $fillable = [
-        'nama',
-        'email',
-        'pesan',
-        'no_telepon',
-    ];
+       'nama',
+       'email',
+       'pesan',
+       'no_telepon',
+   ];
 }
