@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePpdb extends CreateRecord
 {
     protected static string $resource = PpdbResource::class;
+     protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index'); 
+    }
 }

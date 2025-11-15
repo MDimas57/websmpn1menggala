@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateProfilSekolah extends CreateRecord
 {
     protected static string $resource = ProfilSekolahResource::class;
+     protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index'); 
+    }
 }

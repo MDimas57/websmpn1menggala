@@ -14,6 +14,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class KataSambutanResource extends Resource
 {
+        public static function getModelLabel(): string
+{
+    return 'Kata Sambutan';
+}
+
+public static function getPluralModelLabel(): string
+{
+    return 'Kata Sambutan';
+}
+
     protected static ?string $model = KataSambutan::class;
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
     protected static ?string $navigationGroup = 'Profil Sekolah';
@@ -25,7 +35,8 @@ class KataSambutanResource extends Resource
             Forms\Components\TextInput::make('nama_kepsek')->label('Nama Kepala Sekolah'),
             Forms\Components\TextInput::make('jabatan')->label('Jabatan'),
             Forms\Components\FileUpload::make('foto')->label('Foto Kepala Sekolah')->image() ->directory('katasambutan'),
-            Forms\Components\Textarea::make('kata_sambutan')->label('Isi Sambutan')->rows(6),
+            Forms\Components\RichEditor::make('kata_sambutan')->label('Isi Sambutan') ->required()
+                    ->columnSpanFull(),
         ]);
     }
 
@@ -39,13 +50,16 @@ class KataSambutanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Action::make('view')
-                    ->label('Lihat')
-                    ->icon('heroicon-o-eye')
-                    ->color('info')
+                Action::make('preview')
+                    ->label('Preview')
                     ->modalHeading('Preview Kata Sambutan')
-                    ->modalContent(fn ($record) => view('filament.admin.kata-sambutan.preview', compact('record')))
-                    ->modalWidth('3xl'),
+                    ->modalWidth('7xl')
+                    ->modalContent(function ($record) {
+                        return view('filament.admin.kata-sambutan.preview', [
+                            'record' => $record,
+                        ]);
+                    })
+                    ->icon('heroicon-o-eye'),
             ]);
     }
 

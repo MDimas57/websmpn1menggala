@@ -15,6 +15,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class ProfilSekolahResource extends Resource
 {
+    public static function getModelLabel(): string
+{
+    return 'Profil Sekolah';
+}
+
+public static function getPluralModelLabel(): string
+{
+    return 'Profil Sekolah';
+}
+
     protected static ?string $model = ProfilSekolah::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
     protected static ?string $navigationGroup = 'Profil Sekolah';
@@ -96,7 +106,7 @@ class ProfilSekolahResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProfilSekolahs::route('/'),
+            'index' => Pages\ListProfilSekolah::route('/'),
             'create' => Pages\CreateProfilSekolah::route('/create'),
             'edit' => Pages\EditProfilSekolah::route('/{record}/edit'),
         ];

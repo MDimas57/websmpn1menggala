@@ -14,10 +14,19 @@ use Filament\Tables\Columns\TextColumn;
 
 class StrukturOrganisasiResource extends Resource
 {
+       public static function getModelLabel(): string
+{
+    return 'Struktur Sekolah';
+}
+
+public static function getPluralModelLabel(): string
+{
+    return 'Struktur Sekolah';
+}
     protected static ?string $model = StrukturOrganisasi::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Profil Sekolah';
-    protected static ?string $navigationLabel = 'Struktur Organisasi';
+    protected static ?string $navigationLabel = 'Struktur Sekolah';
 
     public static function form(Forms\Form $form): Forms\Form
     {
