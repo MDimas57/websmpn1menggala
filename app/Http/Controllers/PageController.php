@@ -9,27 +9,23 @@ use App\Models\ProfilSekolah;
 use App\Models\StrukturOrganisasi;
 use App\Models\Ppdb;
 use App\Models\Kontak;
-use App\Models\Berita; 
-use App\Models\BidangKurikulum;
-use App\Models\BidangKesiswaan;
-use App\Models\BidangHumas;
-use App\Models\SaranaPrasarana;
+use App\Models\Berita; // <-- Digabungkan: Model Berita ditambahkan
 
 class PageController extends Controller
 {
     // ... (fungsi galleryFoto() dan galleryVideo() Anda) ...
     public function galleryFoto()
     {
-        $photos = Galeri::where('tipe', 'foto')->latest()->get(); 
+        $photos = Galeri::where('tipe', 'foto')->latest()->get();
         return view('gallery-foto', [ 'photos' => $photos ]);
     }
 
     public function galleryVideo()
     {
-        $videos = Galeri::where('tipe', 'video')->latest()->get(); 
+        $videos = Galeri::where('tipe', 'video')->latest()->get();
         return view('gallery-video', [ 'videos' => $videos ]);
     }
-    
+
     // ... (fungsi kontak() Anda) ...
     public function kontak()
     {
@@ -39,19 +35,19 @@ class PageController extends Controller
     // --- (Fungsi profil Anda) ---
     public function kataSambutan()
     {
-        $sambutan = KataSambutan::latest()->first(); 
+        $sambutan = KataSambutan::latest()->first();
         return view('profil.kata-sambutan', ['sambutan' => $sambutan]);
     }
 
     public function profilSekolah()
     {
-        $profil = ProfilSekolah::latest()->first(); 
+        $profil = ProfilSekolah::latest()->first();
         return view('profil.profil-sekolah', ['profil' => $profil]);
     }
 
     public function strukturOrganisasi()
     {
-        $struktur = StrukturOrganisasi::latest()->get(); 
+        $struktur = StrukturOrganisasi::latest()->get();
         return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
 
@@ -61,7 +57,7 @@ class PageController extends Controller
         $informasiItems = Ppdb::latest()->get();
         return view('pages.ppdb', compact('informasiItems'));
     }
-    
+
     // ... (fungsi storeKontak() Anda) ...
     public function storeKontak(Request $request)
     {
@@ -82,48 +78,24 @@ class PageController extends Controller
     }
 
     // --- FUNGSI BARU YANG DIGABUNGKAN ---
-    
+
     /**
      * Menampilkan halaman detail Berita.
      */
     public function detailBerita($slug)
     {
-        // Cari berita berdasarkan slug. 
+        // Cari berita berdasarkan slug.
         // firstOrFail() akan otomatis 404 jika tidak ketemu.
         $berita = Berita::where('slug', $slug)->firstOrFail();
-        
-        // Kirim data berita ke view baru 'berita.show'
-        return view('berita.detailberita', ['berita' => $berita]);
-    }
 
-    public function bidangKurikulum()
-    {
-        // Ambil data (asumsi hanya ada 1 data per bidang)
-        $data = BidangKurikulum::latest()->first(); 
-        $judul = "Bidang Kurikulum"; // Judul untuk halaman
-        
-        // Kirim data ke view 'bidang.show' yang akan kita buat
-        return view('bidang.show', compact('data', 'judul'));
-    }
+        // Ambil daftar berita lain (untuk sidebar). Kita ambil terbaru dan biarkan view
+        // yang mengecualikan berita saat ini jika diperlukan.
+        $unreadBeritas = Berita::latest()->get();
 
-    public function bidangKesiswaan()
-    {
-        $data = BidangKesiswaan::latest()->first();
-        $judul = "Bidang Kesiswaan";
-        return view('bidang.show', compact('data', 'judul'));
-    }
-
-    public function bidangHumas()
-    {
-        $data = BidangHumas::latest()->first();
-        $judul = "Bidang Humas";
-        return view('bidang.show', compact('data', 'judul'));
-    }
-
-    public function bidangSarana()
-    {
-        $data = SaranaPrasarana::latest()->first();
-        $judul = "Bidang Sarana Prasarana";
-        return view('bidang.show', compact('data', 'judul'));
+        // Kirim data berita ke view 'berita.detailberita'
+        return view('berita.detailberita', [
+            'berita' => $berita,
+            'unreadBeritas' => $unreadBeritas,
+        ]);
     }
 }
