@@ -31,17 +31,27 @@
             @endforeach
         </ul>
     </div>
-    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-    <div class="absolute bottom-0 left-0 z-20 p-8 text-white md:p-12">
-        <h2 class="text-4xl font-bold text-green-400 md:text-5xl drop-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">
-            SELAMAT DATANG
-        </h2>
-        <h3 class="mt-1 text-3xl font-bold md:text-4xl drop-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">
-            DI SMP NEGERI 1 MENGGALA
-        </h3>
-        <p class="mt-2 text-lg md:text-xl drop-shadow-lg">
-            Mendidik generasi masa depan dengan karakter kuat, akademik unggul, dan siap menghadapi tantangan global.
-        </p>
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/75 via-black/40 to-transparent"></div>
+
+    <div class="absolute bottom-0 left-0 z-20 max-w-3xl p-6 text-white md:p-12">
+        <div class="inline-flex items-center gap-3 mb-4">
+            <span class="block w-16 h-1 bg-green-400 rounded-full animate-pulse"></span>
+        </div>
+
+        <h1 class="text-3xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
+            <span class="block text-transparent bg-gradient-to-r from-yellow-300 via-green-400 to-green-600 bg-clip-text">
+                SELAMAT DATANG
+            </span>
+            <span class="block mt-1 text-2xl font-bold md:text-3xl text-white/90">
+                DI <span class="text-green-300">SMP NEGERI 1 MENGGALA</span>
+            </span>
+        </h1>
+
+        <div class="flex items-center gap-4 mt-6">
+            <a href="{{ url('kata-sambutan') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm md:text-base font-semibold text-white bg-green-500 hover:bg-green-600 rounded-full shadow-lg transition-transform transform hover:-translate-y-0.5">
+                Pelajari Selengkapnya
+            </a>
+        </div>
     </div>
 </section>
 
