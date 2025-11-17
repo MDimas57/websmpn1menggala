@@ -43,11 +43,16 @@ class PageController extends Controller
         return view('profil.kata-sambutan', ['sambutan' => $sambutan]);
     }
 
+    // ▼▼▼ PERBAIKAN DI FUNGSI INI ▼▼▼
     public function profilSekolah()
     {
-        $profil = ProfilSekolah::latest()->first(); 
+        // Mengganti latest()->first() menjadi first()
+        // Ini lebih aman untuk data setting yang hanya ada 1 baris
+        $profil = ProfilSekolah::first(); 
+        
         return view('profil.profil-sekolah', ['profil' => $profil]);
     }
+    // ▲▲▲ AKHIR PERBAIKAN ▲▲▲
 
     public function strukturOrganisasi()
     {
@@ -65,44 +70,29 @@ class PageController extends Controller
     // ... (fungsi storeKontak() Anda) ...
     public function storeKontak(Request $request)
     {
-        // 1. Validasi data.
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'no_telepon' => 'nullable|string|max:20',
             'pesan' => 'required|string|min:10',
         ]);
-
-        // 2. Simpan ke database
         Kontak::create($validated);
-
-        // 3. Kembali ke halaman kontak
         return redirect()->route('kontak')
                          ->with('success', 'Pesan Anda telah berhasil terkirim! Terima kasih.');
     }
 
-    // --- FUNGSI BARU YANG DIGABUNGKAN ---
-    
-    /**
-     * Menampilkan halaman detail Berita.
-     */
+    // ... (fungsi detailBerita() Anda) ...
     public function detailBerita($slug)
     {
-        // Cari berita berdasarkan slug. 
-        // firstOrFail() akan otomatis 404 jika tidak ketemu.
         $berita = Berita::where('slug', $slug)->firstOrFail();
-        
-        // Kirim data berita ke view baru 'berita.show'
         return view('berita.detailberita', ['berita' => $berita]);
     }
 
+    // ... (semua fungsi bidang Anda) ...
     public function bidangKurikulum()
     {
-        // Ambil data (asumsi hanya ada 1 data per bidang)
         $data = BidangKurikulum::latest()->first(); 
-        $judul = "Bidang Kurikulum"; // Judul untuk halaman
-        
-        // Kirim data ke view 'bidang.show' yang akan kita buat
+        $judul = "Bidang Kurikulum";
         return view('bidang.show', compact('data', 'judul'));
     }
 
