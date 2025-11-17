@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->integer('jumlah_rombel')->nullable();
             $table->integer('jumlah_tenaga_pendidik')->nullable();
             $table->integer('jumlah_peserta_didik')->nullable();
+            $table->longText('deskripsi')->nullable(); // <-- ditambahkan
             $table->timestamps();
         });
     }

@@ -16,5 +16,6 @@ class ProfilSekolah extends Model
         'jumlah_rombel',
         'jumlah_tenaga_pendidik',
         'jumlah_peserta_didik', 
+        'deskripsi',
     ];
 }

@@ -16,14 +16,14 @@ use Filament\Tables\Columns\TextColumn;
 class ProfilSekolahResource extends Resource
 {
     public static function getModelLabel(): string
-{
-    return 'Profil Sekolah';
-}
+    {
+        return 'Profil Sekolah';
+    }
 
-public static function getPluralModelLabel(): string
-{
-    return 'Profil Sekolah';
-}
+    public static function getPluralModelLabel(): string
+    {
+        return 'Profil Sekolah';
+    }
 
     protected static ?string $model = ProfilSekolah::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
@@ -59,6 +59,24 @@ public static function getPluralModelLabel(): string
             Forms\Components\TextInput::make('jumlah_peserta_didik')
                 ->label('Jumlah Peserta Didik')
                 ->numeric(),
+
+            Forms\Components\RichEditor::make('deskripsi')
+                ->label('Deskripsi Profil Sekolah')
+                ->columnSpanFull()
+                ->toolbarButtons([
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strike',
+                    'bulletList',
+                    'orderedList',
+                    'blockquote',
+                    'alignLeft',
+                    'alignCenter',
+                    'alignRight',
+                    'alignJustify',   // <-- Agar bisa rata kiri–kanan
+                    'link',
+                ]),
         ]);
     }
 
