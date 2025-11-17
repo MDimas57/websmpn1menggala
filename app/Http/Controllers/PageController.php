@@ -9,7 +9,11 @@ use App\Models\ProfilSekolah;
 use App\Models\StrukturOrganisasi;
 use App\Models\Ppdb;
 use App\Models\Kontak;
-use App\Models\Berita; // <-- Digabungkan: Model Berita ditambahkan
+use App\Models\Berita;
+use App\Models\BidangKurikulum;
+use App\Models\BidangKesiswaan;
+use App\Models\BidangHumas;
+use App\Models\SaranaPrasarana;
 
 class PageController extends Controller
 {
@@ -42,14 +46,10 @@ class PageController extends Controller
     // ▼▼▼ PERBAIKAN DI FUNGSI INI ▼▼▼
     public function profilSekolah()
     {
-<<<<<<< HEAD
-        $profil = ProfilSekolah::latest()->first();
-=======
         // Mengganti latest()->first() menjadi first()
         // Ini lebih aman untuk data setting yang hanya ada 1 baris
-        $profil = ProfilSekolah::first(); 
-        
->>>>>>> f5f5765be36e6adda51df8453df77add25bfe842
+        $profil = ProfilSekolah::first();
+
         return view('profil.profil-sekolah', ['profil' => $profil]);
     }
     // ▲▲▲ AKHIR PERBAIKAN ▲▲▲
@@ -81,12 +81,7 @@ class PageController extends Controller
                          ->with('success', 'Pesan Anda telah berhasil terkirim! Terima kasih.');
     }
 
-<<<<<<< HEAD
-    // --- FUNGSI BARU YANG DIGABUNGKAN ---
-
-    /**
-     * Menampilkan halaman detail Berita.
-     */
+    // ... (fungsi detailBerita() Anda) ...
     public function detailBerita($slug)
     {
         // Cari berita berdasarkan slug.
@@ -96,27 +91,40 @@ class PageController extends Controller
         // Ambil daftar berita lain (untuk sidebar). Kita ambil terbaru dan biarkan view
         // yang mengecualikan berita saat ini jika diperlukan.
         $unreadBeritas = Berita::latest()->get();
-=======
-    // ... (fungsi detailBerita() Anda) ...
-    public function detailBerita($slug)
-    {
-        $berita = Berita::where('slug', $slug)->firstOrFail();
-        return view('berita.detailberita', ['berita' => $berita]);
-    }
-
-    // ... (semua fungsi bidang Anda) ...
-    public function bidangKurikulum()
-    {
-        $data = BidangKurikulum::latest()->first(); 
-        $judul = "Bidang Kurikulum";
-        return view('bidang.show', compact('data', 'judul'));
-    }
->>>>>>> f5f5765be36e6adda51df8453df77add25bfe842
 
         // Kirim data berita ke view 'berita.detailberita'
         return view('berita.detailberita', [
             'berita' => $berita,
             'unreadBeritas' => $unreadBeritas,
         ]);
+    }
+
+    // ... (semua fungsi bidang Anda) ...
+    public function bidangKurikulum()
+    {
+        $data = BidangKurikulum::latest()->first();
+        $judul = "Bidang Kurikulum";
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangKesiswaan()
+    {
+        $data = BidangKesiswaan::latest()->first();
+        $judul = "Bidang Kesiswaan";
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangHumas()
+    {
+        $data = BidangHumas::latest()->first();
+        $judul = "Bidang Humas";
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangSarana()
+    {
+        $data = SaranaPrasarana::latest()->first();
+        $judul = "Bidang Sarana Prasarana";
+        return view('bidang.show', compact('data', 'judul'));
     }
 }
