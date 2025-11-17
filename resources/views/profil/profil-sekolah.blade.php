@@ -54,9 +54,18 @@
                 </div>
                 
                 <!-- 
-                  BAGIAN DESKRIPSI DIHAPUS 
-                  SESUAI PERMINTAAN KARENA TIDAK ADA DI MODEL
+                  ▼▼▼ BAGIAN DESKRIPSI BARU DITAMBAHKAN DI SINI ▼▼▼
                 -->
+                <div class="p-8">
+                    <!-- 'prose' sangat penting untuk styling HTML dari admin panel -->
+                    <div class="prose max-w-none">
+                        <!-- 
+                          Menggunakan 'deskripsi' sesuai nama kolom baru di Model Anda 
+                        -->
+                        {!! $profil->deskripsi !!}
+                    </div>
+                </div>
+                <!-- ▲▲▲ AKHIR BAGIAN DESKRIPSI ▲▲▲ -->
 
             </div>
         @else

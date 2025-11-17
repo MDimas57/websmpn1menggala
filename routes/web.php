@@ -31,3 +31,5 @@ Route::get('/bidang/kurikulum', [App\Http\Controllers\PageController::class, 'bi
 Route::get('/bidang/kesiswaan', [App\Http\Controllers\PageController::class, 'bidangKesiswaan'])->name('bidang.kesiswaan');
 Route::get('/bidang/humas', [App\Http\Controllers\PageController::class, 'bidangHumas'])->name('bidang.humas');
 Route::get('/bidang/sarana-prasarana', [App\Http\Controllers\PageController::class, 'bidangSarana'])->name('bidang.sarana');
+Route::get('/informasi', [PageController::class, 'informasiIndex'])->name('informasi.index');
+Route::get('/informasi/{id}', [PageController::class, 'informasiShow'])->name('informasi.show');

@@ -14,6 +14,7 @@ use App\Models\BidangKurikulum;
 use App\Models\BidangKesiswaan;
 use App\Models\BidangHumas;
 use App\Models\SaranaPrasarana;
+use App\Models\Informasi;
 
 class PageController extends Controller
 {
@@ -127,4 +128,35 @@ class PageController extends Controller
         $judul = "Bidang Sarana Prasarana";
         return view('bidang.show', compact('data', 'judul'));
     }
+
+  public function informasiIndex()
+{
+    // Ambil SEMUA informasi untuk sidebar
+    $semuaInformasi = Informasi::latest()->get(); 
+    
+    // Ambil item PERTAMA untuk ditampilkan sebagai default
+    $infoDetail = Informasi::latest()->first();
+    
+    return view('informasi.index', [
+        'semuaInformasi' => $semuaInformasi,
+        'infoDetail' => $infoDetail
+    ]);
+}
+
+/**
+ * Menampilkan item Informasi yang spesifik (saat diklik)
+ */
+public function informasiShow($id)
+{
+    // Ambil SEMUA informasi untuk sidebar
+    $semuaInformasi = Informasi::latest()->get(); 
+    
+    // Ambil item SPESIFIK berdasarkan ID yang diklik
+    $infoDetail = Informasi::findOrFail($id);
+    
+    return view('informasi.index', [
+        'semuaInformasi' => $semuaInformasi,
+        'infoDetail' => $infoDetail
+    ]);
+}
 }
