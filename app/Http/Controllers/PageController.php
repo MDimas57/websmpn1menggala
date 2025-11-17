@@ -8,11 +8,12 @@ use App\Models\KataSambutan;
 use App\Models\ProfilSekolah;
 use App\Models\StrukturOrganisasi;
 use App\Models\Ppdb;
-use App\Models\Kontak; // <-- ▼▼▼ TAMBAHKAN INI ▼▼▼
+use App\Models\Kontak;
+use App\Models\Berita; // <-- Digabungkan: Model Berita ditambahkan
 
 class PageController extends Controller
 {
-    // ... (fungsi galleryFoto() dan galleryVideo() Anda ada di sini) ...
+    // ... (fungsi galleryFoto() dan galleryVideo() Anda) ...
     public function galleryFoto()
     {
         $photos = Galeri::where('tipe', 'foto')->latest()->get(); 
@@ -25,13 +26,13 @@ class PageController extends Controller
         return view('gallery-video', [ 'videos' => $videos ]);
     }
     
-    // ... (fungsi kontak() Anda ada di sini) ...
+    // ... (fungsi kontak() Anda) ...
     public function kontak()
     {
         return view('kontak'); // Ini halaman blade Anda, mungkin 'pages.kontak'
     }
 
-    // --- (Fungsi profil Anda ada di sini) ---
+    // --- (Fungsi profil Anda) ---
     public function kataSambutan()
     {
         $sambutan = KataSambutan::latest()->first(); 
@@ -50,32 +51,44 @@ class PageController extends Controller
         return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
 
+    // ... (fungsi ppdb() Anda) ...
     public function ppdb()
     {
         $informasiItems = Ppdb::latest()->get();
         return view('pages.ppdb', compact('informasiItems'));
     }
     
-    // ▼▼▼ TAMBAHKAN FUNGSI BARU INI UNTUK MENYIMPAN PESAN ▼▼▼
-    
-    /**
-     * Menyimpan pesan baru dari formulir kontak.
-     */
+    // ... (fungsi storeKontak() Anda) ...
     public function storeKontak(Request $request)
     {
-        // 1. Validasi data. Nama field HARUS SAMA dengan Model & Blade.
+        // 1. Validasi data.
         $validated = $request->validate([
-            'nama' => 'required|string|max:255', // <-- Diubah dari 'nama_lengkap'
+            'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'no_telepon' => 'nullable|string|max:20', // <-- Diubah dari 'nomor_ponsel'
+            'no_telepon' => 'nullable|string|max:20',
             'pesan' => 'required|string|min:10',
         ]);
 
-        // 2. Simpan ke database menggunakan Model Kontak
+        // 2. Simpan ke database
         Kontak::create($validated);
 
-        // 3. Kembali ke halaman kontak dengan pesan sukses
+        // 3. Kembali ke halaman kontak
         return redirect()->route('kontak')
                          ->with('success', 'Pesan Anda telah berhasil terkirim! Terima kasih.');
+    }
+
+    // --- FUNGSI BARU YANG DIGABUNGKAN ---
+    
+    /**
+     * Menampilkan halaman detail Berita.
+     */
+    public function detailBerita($slug)
+    {
+        // Cari berita berdasarkan slug. 
+        // firstOrFail() akan otomatis 404 jika tidak ketemu.
+        $berita = Berita::where('slug', $slug)->firstOrFail();
+        
+        // Kirim data berita ke view baru 'berita.show'
+        return view('berita.detailberita', ['berita' => $berita]);
     }
 }

@@ -25,3 +25,4 @@ Route::get('/struktur-organisasi', [PageController::class, 'strukturOrganisasi']
 // === TAMBAHAN BARU UNTUK PPDB ===
 // Ini adalah rute baru yang Anda inginkan
 Route::get('/ppdb', [PageController::class, 'ppdb'])->name('ppdb.index');
+Route::get('/berita/{slug}', [PageController::class, 'detailBerita'])->name('berita.show');
