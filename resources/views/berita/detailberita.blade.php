@@ -10,7 +10,6 @@
         </h1>
         
         <!-- Info Meta (Tanggal & Penulis) -->
-        <!-- Pastikan Anda memiliki kolom 'penulis' di tabel 'beritas' Anda -->
         <div class="text-gray-500 text-sm mb-6">
             <span>Oleh: {{ $berita->penulis ?? 'Admin' }}</span>
             <span class="mx-2">|</span>
@@ -24,10 +23,13 @@
                  class="w-full h-auto rounded-lg shadow-md mb-8">
         @endif
 
-        <!-- Isi Berita -->
-        {{-- Kita gunakan {!! ... !!} untuk merender HTML dari rich text editor --}}
-        <div class="prose max-w-none">
-            {!! $berita->isi_berita !!}
+        <!-- 
+          PERUBAHAN DI SINI: 
+          Menghapus class 'prose' untuk memastikan konten tampil 
+          meskipun plugin @tailwindcss/typography tidak terpasang.
+        -->
+        <div classclass="max-w-none text-gray-700 space-y-4">
+            {!! $berita->konten !!}
         </div>
 
     </div>
