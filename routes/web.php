@@ -26,3 +26,8 @@ Route::get('/struktur-organisasi', [PageController::class, 'strukturOrganisasi']
 // Ini adalah rute baru yang Anda inginkan
 Route::get('/ppdb', [PageController::class, 'ppdb'])->name('ppdb.index');
 Route::get('/berita/{slug}', [PageController::class, 'detailBerita'])->name('berita.show');
+
+Route::get('/bidang/kurikulum', [App\Http\Controllers\PageController::class, 'bidangKurikulum'])->name('bidang.kurikulum');
+Route::get('/bidang/kesiswaan', [App\Http\Controllers\PageController::class, 'bidangKesiswaan'])->name('bidang.kesiswaan');
+Route::get('/bidang/humas', [App\Http\Controllers\PageController::class, 'bidangHumas'])->name('bidang.humas');
+Route::get('/bidang/sarana-prasarana', [App\Http\Controllers\PageController::class, 'bidangSarana'])->name('bidang.sarana');

@@ -9,7 +9,11 @@ use App\Models\ProfilSekolah;
 use App\Models\StrukturOrganisasi;
 use App\Models\Ppdb;
 use App\Models\Kontak;
-use App\Models\Berita; // <-- Digabungkan: Model Berita ditambahkan
+use App\Models\Berita; 
+use App\Models\BidangKurikulum;
+use App\Models\BidangKesiswaan;
+use App\Models\BidangHumas;
+use App\Models\SaranaPrasarana;
 
 class PageController extends Controller
 {
@@ -90,5 +94,36 @@ class PageController extends Controller
         
         // Kirim data berita ke view baru 'berita.show'
         return view('berita.detailberita', ['berita' => $berita]);
+    }
+
+    public function bidangKurikulum()
+    {
+        // Ambil data (asumsi hanya ada 1 data per bidang)
+        $data = BidangKurikulum::latest()->first(); 
+        $judul = "Bidang Kurikulum"; // Judul untuk halaman
+        
+        // Kirim data ke view 'bidang.show' yang akan kita buat
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangKesiswaan()
+    {
+        $data = BidangKesiswaan::latest()->first();
+        $judul = "Bidang Kesiswaan";
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangHumas()
+    {
+        $data = BidangHumas::latest()->first();
+        $judul = "Bidang Humas";
+        return view('bidang.show', compact('data', 'judul'));
+    }
+
+    public function bidangSarana()
+    {
+        $data = SaranaPrasarana::latest()->first();
+        $judul = "Bidang Sarana Prasarana";
+        return view('bidang.show', compact('data', 'judul'));
     }
 }

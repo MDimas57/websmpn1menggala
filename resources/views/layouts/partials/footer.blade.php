@@ -1,13 +1,22 @@
-<footer class="p-8 mt-12 text-white md:p-12 bg-slate-900">
+@php
+// File ini hanya contoh. Anda bisa letakkan kode ini di file layout Anda (misal: app.blade.php)
+@endphp
+
+<!-- 
+  PERUBAHAN 1: Mengganti bg-slate-900 menjadi bg-amber-800 (sesuai tema header)
+-->
+<footer class="p-8 mt-12 text-white md:p-12 bg-amber-800">
     <div class="container mx-auto max-w-7xl">
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 
             <div class="flex items-start space-x-4">
+                <!-- Pastikan path 'images/teknokrat.png' ini benar -->
                 <img src="{{ asset('images/teknokrat.png') }}" alt="Logo SMP Negeri 1 Menggala" class="w-20 h-20 rounded-md">
                 <div>
                     <h2 class="mb-1 text-2xl font-bold text-white">SMP Negeri 1 Menggala</h2>
-                    <p class="mb-2 text-sm font-semibold text-green-300">Sekolah Unggulan Berkarakter</p>
+                    <!-- PERUBAHAN 2: Mengganti text-green-300 menjadi text-yellow-300 agar serasi -->
+                    <p class="mb-2 text-sm font-semibold text-yellow-300">Sekolah Unggulan Berkarakter</p>
                     <p class="text-sm text-gray-300">
                         Mendidik generasi masa depan dengan karakter kuat, akademik unggul, dan siap menghadapi tantangan global.
                     </p>
@@ -38,11 +47,8 @@
                     </p>
                     <p>
                         <span class="block font-semibold">Alamat Kami:</span>
-                        Dinas Pendidikan Kabupaten Lampung Tengah<br>
-                        JL. H Muchtar RT. 03 / RW. 01,<br>
-                        Komplek Perkantoran Gunung Sugih No. 1,<br>
-                        Lampung Tengah, Gn. Sugih,<br>
-                        Kec. Gn. Sugih, Lampung 34161
+                        Jl. Suay Umpu No. 308 Menggala Kota<br>
+                        Kabupaten Tulang Bawang Lampung,34596<br>
                     </p>
                 </div>
             </div>
@@ -50,7 +56,7 @@
             <div>
                 <h3 class="mb-4 text-lg font-semibold">Link Terkait</h3>
                 <div class="flex flex-col space-y-3">
-
+                    <!-- Biarkan tombol ini hijau agar menonjol (Call to Action) -->
                     <a href="#" class="block w-full px-4 py-3 font-medium text-center text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700">
                         SPADA
                     </a>
@@ -63,7 +69,8 @@
 
         </div>
 
-        <hr class="my-8 border-gray-700">
+        <!-- PERUBAHAN 3: Mengganti border-gray-700 menjadi border-amber-700 -->
+        <hr class="my-8 border-amber-700">
 
         <div class="flex flex-col items-center justify-between text-sm text-gray-400 md:flex-row">
 
