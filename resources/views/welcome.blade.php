@@ -9,8 +9,7 @@
     use Illuminate\Support\Str;
 
     $banners = Banner::latest()->get();
-    $beritaTerbaru = Berita::latest()->where('status', 'publish')->take(20)->get();
-    $beritaTerbaru = Berita::latest()->take(20)->get();
+    $beritaTerbaru = Berita::latest()->take(15)->get();
     $tenagaPendidik = Guru::latest()->get();
 @endphp
 
@@ -34,68 +33,65 @@
         </ul>
     </div>
 
-    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/75 via-black/40 to-transparent"></div>
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-    <div class="absolute bottom-0 left-0 z-20 max-w-3xl p-6 text-white md:p-12">
-        <div class="inline-flex items-center gap-3 mb-4">
-            <span class="block w-16 h-1 bg-green-400 rounded-full animate-pulse"></span>
+    <div class="absolute bottom-0 left-0 z-20 max-w-3xl p-8 text-white md:p-16">
+
+        <div class="inline-flex items-center gap-3 mb-6">
+            <span class="block w-20 h-1.5 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50"></span>
         </div>
 
-        <h1 class="text-3xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
-            <span class="block text-transparent bg-gradient-to-r from-yellow-300 via-green-400 to-green-600 bg-clip-text">
+        <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl lg:text-7xl drop-shadow-lg">
+            <span class="block text-yellow-400">
                 SELAMAT DATANG
             </span>
-            <span class="block mt-1 text-2xl font-bold md:text-3xl text-white/90">
-                DI <span class="text-green-300">SMP NEGERI 1 MENGGALA</span>
+            <span class="block mt-2 text-2xl font-bold text-white md:text-4xl">
+                DI SMP NEGERI 1 MENGGALA
             </span>
         </h1>
 
-        <div class="flex items-center gap-4 mt-6">
+        <div class="flex items-center gap-4 mt-8">
             <a href="{{ url('kata-sambutan') }}"
-               class="inline-flex items-center gap-2 px-4 py-2 text-sm md:text-base font-semibold text-white bg-green-500 hover:bg-green-600 rounded-full shadow-lg transition-transform transform hover:-translate-y-0.5">
+               class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold text-yellow-900 transition-transform transform bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 hover:-translate-y-1">
                 Pelajari Selengkapnya
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
     </div>
 </section>
 
 
-<div class="py-20 bg-white md:py-24">
-    <div class="container px-4 mx-auto max-w-7xl">
-        
-        <div class="flex flex-col justify-between pb-4 mb-12 border-b border-gray-200 md:flex-row md:items-end">
-            <div class="pl-6 border-l-8 border-blue-600">
-                <h2 class="text-3xl font-extrabold text-gray-900">Berita Terbaru</h2>
-                <p class="mt-2 text-lg text-gray-500">Update kegiatan dan prestasi terkini sekolah.</p>
+<div class="py-24 bg-gray-50">
+    <div class="container mx-auto max-w-7xl px-4">
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-gray-200 pb-6">
+            <div class="border-l-8 border-yellow-500 pl-6">
+                <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Berita Terbaru</h2>
+                <p class="mt-3 text-lg text-gray-500">Update kegiatan dan prestasi terkini sekolah.</p>
             </div>
-            <a href="#" class="items-center hidden mt-4 font-semibold text-blue-600 transition-colors md:inline-flex hover:text-blue-800 md:mt-0">
-                Lihat Semua Berita 
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
         </div>
 
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($beritaTerbaru as $berita)
 
-                <article class="flex gap-4">
+                <article class="group flex gap-5 bg-white p-5 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-yellow-200">
+
                     <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}"
-                       class="relative flex-shrink-0 block w-1/3 overflow-hidden rounded-xl">
-                        <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}"
+                       class="flex-shrink-0 block w-1/3 overflow-hidden rounded-xl relative h-32"> <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}"
                              alt="{{ $berita->judul }}"
-                             class="object-cover w-full h-32 transition-transform duration-500 shadow-lg hover:scale-110">
+                             class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
                     </a>
 
-                    <div class="flex flex-col justify-center flex-1">
-                        <h3 class="mb-2 text-base font-bold leading-tight text-gray-800 transition-colors hover:text-blue-600">
+                    <div class="flex flex-col justify-between flex-1">
+                        <h3 class="text-lg font-bold leading-snug text-gray-800 group-hover:text-blue-700 transition-colors">
                             <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">
                                 {{ Str::limit($berita->judul, 60) }}
                             </a>
                         </h3>
 
-                        <div class="flex items-center gap-3 mt-auto text-xs text-gray-400">
-                            <div class="flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.75 3a.75.75 0 00-1.5 0v1.5H3a3 3 0 00-3 3v8a3 3 0 003 3h10a3 3 0 003-3v-8a3 3 0 00-3-3h-1.25V3a.75.75 0 00-1.5 0v1.5H5.75V3z" clip-rule="evenodd" />
+                        <div class="flex items-center gap-4 text-xs font-medium text-gray-400 mt-2">
+                            <div class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                                 </svg>
                                 <time>{{ $berita->created_at ? $berita->created_at->format('d M Y') : '-' }}</time>
                             </div>
@@ -104,32 +100,30 @@
                 </article>
 
             @empty
-                <p class="col-span-1 text-center text-gray-500 md:col-span-3">
-                    Belum ada berita untuk ditampilkan.
-                </p>
+                <div class="col-span-3 text-center py-12">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    </div>
+                    <p class="text-lg text-gray-500 font-medium">Belum ada berita untuk ditampilkan.</p>
+                </div>
             @endforelse
-        </div>
-        
-        <div class="mt-8 text-center md:hidden">
-            <a href="#" class="inline-block px-6 py-2 font-semibold text-blue-600 transition-colors border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white">
-                Lihat Semua Berita
-            </a>
         </div>
     </div>
 </div>
 
 
-<section class="relative py-24 bg-white">
-    <div class="absolute top-0 left-0 w-full h-1/2 bg-green-50/50 -z-10 rounded-b-[3rem]"></div>
+<section class="py-24 bg-white relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-yellow-50 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute top-1/2 -left-24 w-72 h-72 bg-blue-50 rounded-full blur-3xl -z-10"></div>
 
     <div class="container px-4 mx-auto max-w-7xl">
 
-        <div class="mb-16 text-center">
-            <span class="text-sm font-bold tracking-widest text-green-600 uppercase">Sumber Daya Manusia</span>
-            <h2 class="mt-2 mb-4 text-4xl font-extrabold text-gray-900">Tenaga Pendidik</h2>
-            <div class="w-24 h-1.5 bg-gradient-to-r from-green-400 to-emerald-600 mx-auto rounded-full"></div>
-            <p class="max-w-2xl mx-auto mt-4 text-gray-500">
-                Guru-guru berdedikasi yang siap membimbing siswa menuju masa depan yang gemilang.
+        <div class="text-center mb-20">
+            <span class="text-blue-600 font-bold tracking-widest uppercase text-sm bg-blue-50 px-3 py-1 rounded-full">SDM Unggul</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-4 mb-6">Tenaga Pendidik</h2>
+            <div class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto rounded-full shadow-md"></div>
+            <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Guru-guru berdedikasi tinggi yang siap membimbing siswa menuju masa depan yang gemilang dan berkarakter.
             </p>
         </div>
 
@@ -155,30 +149,29 @@
                      }
                  }'>
 
-                <div class="p-2 splide__track"> 
-                    <ul class="splide__list">
+                <div class="splide__track p-4"> <ul class="splide__list">
                         @foreach($tenagaPendidik as $guru)
                             <li class="splide__slide">
                                 <a href="{{ route('guru.show', $guru->id) }}"
-                                   class="block overflow-hidden transition-all duration-300 transform bg-white border border-white group rounded-2xl hover:shadow-xl hover:-translate-y-1">
-                                    
-                                    <div class="relative h-64 overflow-hidden">
-                                        <div class="absolute inset-0 z-10 transition-colors bg-black/20 group-hover:bg-black/0"></div>
-                                        
+                                   class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-yellow-100 transition-all duration-300 transform hover:-translate-y-2">
+
+                                    <div class="relative h-72 overflow-hidden bg-gray-100">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity z-10"></div>
+
                                         <img src="{{ asset('storage/' . $guru->foto) }}"
                                              alt="{{ $guru->nama_lengkap }}"
-                                             class="object-cover object-top w-full h-full transition-transform duration-500 group-hover:scale-110">
+                                             class="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-105">
                                     </div>
 
-                                    <div class="relative p-6 text-center">
-                                        <div class="absolute z-20 flex items-center justify-center w-10 h-10 transform -translate-x-1/2 bg-green-500 border-4 border-white rounded-full -top-6 left-1/2">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <div class="p-6 text-center relative -mt-12 z-20">
+                                        <div class="mx-auto w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center border-4 border-white shadow-lg mb-3 group-hover:bg-yellow-300 transition-colors">
+                                            <svg class="w-8 h-8 text-yellow-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         </div>
 
-                                        <h3 class="mt-4 text-lg font-bold text-gray-900 transition-colors group-hover:text-green-600">
+                                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
                                             {{ $guru->nama_lengkap }}
                                         </h3>
-                                        <p class="mt-1 text-sm text-gray-500">
+                                        <p class="text-sm font-medium text-gray-500 mt-1 uppercase tracking-wide">
                                             {{ $guru->jenis_gtk }}
                                         </p>
                                     </div>
@@ -190,9 +183,9 @@
             </div>
 
         @else
-            <p class="text-center text-gray-500">
-                Data tenaga pendidik belum tersedia.
-            </p>
+            <div class="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                <p class="text-lg text-gray-500">Data tenaga pendidik belum tersedia.</p>
+            </div>
         @endif
 
     </div>

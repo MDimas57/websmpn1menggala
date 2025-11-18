@@ -1,71 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray-100 py-12">
-    <!-- 
-      PERUBAHAN 1:
-      - Menghapus bg-white, shadow, rounded, dan p-8
-      - Mengganti max-w-4xl menjadi max-w-7xl
-    -->
+<div class="py-16 bg-gray-50">
     <div class="container mx-auto max-w-7xl px-4">
-        
-        <!-- Judul Halaman (dinamis dari Controller) -->
-        <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-            {{ $judul ?? 'Bidang Sekolah' }}
-        </h1>
-        
-        <!-- Cek apakah data ada -->
+
+        <div class="mb-10 overflow-hidden bg-white shadow-lg rounded-xl">
+            <div class="p-8 bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
+                <h1 class="text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                    {{ $judul ?? 'Bidang Sekolah' }}
+                </h1>
+            </div>
+        </div>
+
         @if($data)
-            <!-- Menggunakan 'bg-white' di sini untuk card utama -->
-            <div class="flex flex-col md:flex-row gap-8 bg-white shadow-lg rounded-xl p-8">
-                
-                <!-- Kolom Kiri: Foto, Nama, Jabatan -->
+            <div class="flex flex-col md:flex-row gap-8 bg-white shadow-xl rounded-2xl p-8 md:p-10 border border-gray-100">
+
                 <div class="md:w-1/3 flex-shrink-0 text-center">
-                    
-                    <!-- PERUBAHAN 2: Menambahkan bg-blue-700 seperti di kartu guru Anda -->
-                    <div class="bg-blue-700 rounded-lg p-4 mb-4">
+
+                    {{-- Bagian FOTO yang disesuaikan --}}
+                    <div class="bg-gradient-to-br from-yellow-500 to-blue-500 rounded-tl-3xl rounded-br-3xl p-5 mb-6 shadow-xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 opacity-20 transform -rotate-3 skew-y-3 scale-150 pointer-events-none"></div>
                         @if($data->foto)
-                            <img src="{{ asset('storage/' . $data->foto) }}" 
-                                 alt="{{ $data->nama }}" 
-                                 class="w-full h-auto rounded-lg shadow-md border-4 border-white">
+                            <img src="{{ asset('storage/' . $data->foto) }}"
+                                 alt="{{ $data->nama }}"
+                                 class="w-full h-auto rounded-lg shadow-lg border-4 border-white object-cover object-top relative z-10">
                         @else
-                            <img src="https://placehold.co/400x400/eeeeee/cccccc?text=Foto" 
-                                 alt="{{ $data->nama }}" 
-                                 class="w-full h-auto rounded-lg shadow-md border-4 border-white">
+                            <img src="https://placehold.co/400x400/eeeeee/cccccc?text=Foto"
+                                 alt="{{ $data->nama }}"
+                                 class="w-full h-auto rounded-lg shadow-lg border-4 border-white relative z-10">
                         @endif
                     </div>
-                    
-                    <h2 class="text-xl font-bold text-gray-800">{{ $data->nama }}</h2>
-                    <p class="text-md text-gray-600">{{ $data->jabatan }}</p>
+
+                    <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight">{{ $data->nama }}</h2>
+                    <p class="text-md font-semibold text-yellow-600 mt-1">
+                        <span class="inline-block px-3 py-0.5 bg-yellow-100 rounded-full text-sm">
+                            {{ $data->jabatan }}
+                        </span>
+                    </p>
+
+                    <div class="w-12 h-1 bg-blue-500 rounded-full mx-auto mt-4"></div>
+
                 </div>
-                
-                <!-- Kolom Kanan: Deskripsi dan File Upload -->
+
                 <div class="md:w-2/3">
-                    
-                    <!-- 
-                      PERUBAHAN 3:
-                      Menghapus Judul "Deskripsi" 
-                      (karena judul seperti "KODE ETIK GURU" ada di dalam data $data->deskripsi)
-                    -->
-                    <div class="prose max-w-none mb-6">
+
+                    <div class="prose prose-lg max-w-none mb-8 text-gray-600 leading-relaxed text-justify space-y-4">
                         {!! $data->deskripsi !!}
                     </div>
-                    
-                    <!-- Tampilkan tombol download HANYA JIKA ada file -->
+
                     @if($data->file_upload)
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 pt-4 border-t">Dokumen Terkait</h3>
-                        <a href="{{ asset('storage/' . $data->file_upload) }}" 
-                           target="_blank" 
-                           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 pt-6 border-t border-gray-100 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Dokumen Terkait
+                        </h3>
+
+                        <a href="{{ asset('storage/' . $data->file_upload) }}"
+                            target="_blank"
+                            class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-bold rounded-lg shadow-lg hover:bg-blue-800 transition-colors transform hover:-translate-y-0.5">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Download File
+                            Download Dokumen
                         </a>
                     @endif
                 </div>
             </div>
         @else
-            <!-- Ini akan tampil jika data untuk bidang tsb belum diisi di admin -->
-            <p class="text-center text-gray-500">Data untuk bidang ini belum tersedia.</p>
+            <div class="p-16 text-center bg-white shadow-lg rounded-2xl border border-gray-100">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
+                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Data Bidang Belum Tersedia</h3>
+                <p class="mt-2 text-gray-500">Silakan tambahkan data Koordinator dan deskripsi melalui panel admin.</p>
+            </div>
         @endif
 
     </div>
