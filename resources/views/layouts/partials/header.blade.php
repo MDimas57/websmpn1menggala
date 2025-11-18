@@ -14,12 +14,12 @@
                 SELAMAT DATANG DI WEBSITE RESMI SMPN 1 MENGGALA &nbsp;&nbsp;|&nbsp;&nbsp;
                 Telepon: (0725) 123456 &nbsp;&nbsp;|&nbsp;&nbsp;
                 Email: info@smpnegeri1menggala.com &nbsp;&nbsp;|&nbsp;&nbsp;
-                Alamat: Menggala Kota, Kec. Menggala, Kab. Tulang Bawang, Lampung 34617
+                Alamat: Jl. Suay Umpu No. 308  Menggala Kota, Kabupaten Tulang Bawang, Lampung, 34596
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                SELAMAT DATANG DI WEBSITE RESMI SMPN 1 MENGGALA &nbsp;&nbsp;|&nbsp;&nbsp;
+                SELAMAT DATANG DI WEBSITE  RESMI SMPN 1 MENGGALA &nbsp;&nbsp;|&nbsp;&nbsp;
                 Telepon: (0725) 123456 &nbsp;&nbsp;|&nbsp;&nbsp;
                 Email: info@smpnegeri1menggala.com &nbsp;&nbsp;|&nbsp;&nbsp;
-                Alamat: Menggala Kota, Kec. Menggala, Kab. Tulang Bawang, Lampung 34617
+                Alamat: Jl. Suay Umpu No. 308  Menggala Kota, Kabupaten Tulang Bawang, Lampung, 34596
             </div>
         </div>
     </div>
