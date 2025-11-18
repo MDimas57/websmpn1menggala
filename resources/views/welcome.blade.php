@@ -11,7 +11,6 @@
     $banners = Banner::latest()->get();
 
     $beritaTerbaru = Berita::latest()->where('status', 'publish')->take(20)->get();
-    $beritaTerbaru = Berita::latest()->take(20)->get();
     $tenagaPendidik = Guru::latest()->get();
 @endphp
 
