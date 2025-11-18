@@ -9,8 +9,7 @@
     use Illuminate\Support\Str;
 
     $banners = Banner::latest()->get();
-    // 1. TETAP 20 BERITA
-    $beritaTerbaru = Berita::latest()->take(20)->get();
+    $beritaTerbaru = Berita::latest()->where('status', 'publish')->take(20)->get();
     $tenagaPendidik = Guru::latest()->get();
 @endphp
 

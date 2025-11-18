@@ -12,7 +12,7 @@
 <body class="bg-gray-100">
 
     @include('layouts.partials.header')
-
+ 
     <main>
         @yield('content')
     </main>

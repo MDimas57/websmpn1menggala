@@ -29,4 +29,4 @@ class Guru extends Model
     protected $casts = [
         'tanggal_lahir' => 'datetime',
     ];
-}
+} 
