@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +34,4 @@ Route::get('/bidang/humas', [App\Http\Controllers\PageController::class, 'bidang
 Route::get('/bidang/sarana-prasarana', [App\Http\Controllers\PageController::class, 'bidangSarana'])->name('bidang.sarana');
 Route::get('/informasi', [PageController::class, 'informasiIndex'])->name('informasi.index');
 Route::get('/informasi/{id}', [PageController::class, 'informasiShow'])->name('informasi.show');
+Route::get('/guru/{id}', [PageController::class, 'show'])->name('guru.show');

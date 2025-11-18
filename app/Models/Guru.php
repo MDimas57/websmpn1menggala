@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- Tambahan
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Guru extends Model
 {
-    use HasFactory; // <-- Tambahan
+    use HasFactory;
 
     protected $fillable = [
         'nama_lengkap',
@@ -17,5 +17,16 @@ class Guru extends Model
         'tanggal_lahir',
         'jenis_gtk',
         'foto',
+    ];
+
+    /**
+     * =======================================================
+     * TAMBAHAN DI SINI
+     * =======================================================
+     * Memberi tahu Laravel bahwa 'tanggal_lahir' adalah objek Tanggal (Carbon).
+     * Ini memungkinkan kita memformatnya dengan mudah di view nanti.
+     */
+    protected $casts = [
+        'tanggal_lahir' => 'datetime',
     ];
 }

@@ -14,6 +14,7 @@
     $tenagaPendidik = Guru::latest()->get();
 @endphp
 
+{{-- Bagian Banner (Tidak ada perubahan) --}}
 <section id="banner-slider" class="relative splide" aria-label="Banner dan Pengumuman Sekolah"
          data-splide='{"type":"loop","arrows":false,"autoplay":true,"interval":3000,"pauseOnHover":false,"pauseOnFocus":false,"pagination":true}'>
     <div class="splide__track">
@@ -45,6 +46,7 @@
     </div>
 </section>
 
+{{-- Bagian Berita Terbaru (Tidak ada perubahan) --}}
 <div class="p-8 bg-gray-100 md:p-12">
     <div class="container mx-auto max-w-7xl">
         <h2 class="mb-10 text-3xl font-bold text-center text-gray-800">Berita Terbaru</h2>
@@ -90,6 +92,11 @@
     </div>
 </div>
 
+{{-- 
+  ============================================
+  PERUBAHAN ADA DI BAGIAN "TENAGA PENDIDIK" INI
+  ============================================
+--}}
 <section class="py-16 bg-white">
     <div class="container px-4 mx-auto max-w-7xl">
         <h2 class="mb-8 text-3xl font-bold text-center text-gray-900">
@@ -98,23 +105,30 @@
 
         @if($tenagaPendidik && $tenagaPendidik->count() > 0)
             <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                
                 @foreach($tenagaPendidik as $guru)
-                    <div class="overflow-hidden transition-transform duration-300 bg-white shadow-lg rounded-xl hover:scale-105">
-                        <div class="p-4 bg-blue-700">
-                            <img src="{{ asset('storage/' . $guru->foto) }}"
-                                 alt="{{ $guru->nama_lengkap }}"
-                                 class="object-cover object-top w-full h-56 border-4 border-white rounded-lg shadow-md">
+                    
+                    <a href="{{ route('guru.show', $guru->id) }}" 
+                       class="block overflow-hidden transition-transform duration-300 bg-white shadow-lg rounded-xl hover:scale-105">
+                        
+                        <div>
+                            <div class="p-4 bg-blue-700">
+                                <img src="{{ asset('storage/' . $guru->foto) }}"
+                                     alt="{{ $guru->nama_lengkap }}"
+                                     class="object-cover object-top w-full h-56 border-4 border-white rounded-lg shadow-md">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h3 class="font-bold text-gray-900 text-md">
+                                    {{ $guru->nama_lengkap }}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {{ $guru->jenis_gtk }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="p-4 text-center">
-                            <h3 class="font-bold text-gray-900 text-md">
-                                {{ $guru->nama_lengkap }}
-                            </h3>
-                            <p class="text-sm text-gray-600">
-                                {{ $guru->jenis_gtk }}
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                 @endforeach
+                
             </div>
         @else
             <p class="text-center text-gray-500">
@@ -124,6 +138,7 @@
     </div>
 </section>
 
+{{-- Bagian Script (Tidak ada perubahan) --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof Splide !== 'undefined') {

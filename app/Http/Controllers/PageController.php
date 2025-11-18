@@ -15,6 +15,7 @@ use App\Models\BidangKesiswaan;
 use App\Models\BidangHumas;
 use App\Models\SaranaPrasarana;
 use App\Models\Informasi;
+use App\Models\Guru;
 
 class PageController extends Controller
 {
@@ -159,4 +160,16 @@ public function informasiShow($id)
         'infoDetail' => $infoDetail
     ]);
 }
+
+public function show($id)
+    {
+        // 1. Cari guru di database berdasarkan ID yang diklik.
+        //    'findOrFail' akan otomatis menampilkan halaman 404 (Not Found)
+        //    jika guru dengan ID tersebut tidak ada.
+        $guru = Guru::findOrFail($id);
+
+        // 2. Kirim data '$guru' yang ditemukan ke sebuah view baru.
+        //    Kita akan membuat view ini di Langkah 4.
+        return view('guru.detail', compact('guru'));
+    }
 }
