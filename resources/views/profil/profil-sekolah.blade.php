@@ -7,7 +7,6 @@
         @if($profil)
             <div class="flex flex-col md:flex-row md:items-start md:gap-8">
 
-                <!-- KOLOM KIRI (PROFIL & STATISTIK) - Tidak Berubah -->
                 <div class="w-full md:w-1/3">
                     <div class="overflow-hidden bg-white shadow-lg rounded-xl">
 
@@ -51,22 +50,16 @@
                     </div>
                 </div>
 
-                <!-- KOLOM KANAN (DESKRIPSI) -->
                 <div class="w-full md:w-2/3">
 
                     <div class="mt-8 md:mt-0">
 
-                        <!-- Judul (Sudah benar 'text-center') -->
-                        <h2 class="mb-6 text-3xl font-bold text-center text-transparent  bg-clip-text bg-gradient-to-r from-blue-700 to-green-500">
-                            Tentang Sekolah
-                        </h2>
-
-                        <!--
-                          PERUBAHAN DI SINI UNTUK MEMPERBAIKI OVERLAP:
-                          - 'mt-4' ditambahkan untuk memberi jarak dari judul.
-                          - Kelas 'prose' disederhanakan menjadi 'prose prose-gray'
-                            agar styling default (termasuk margin paragraf) diterapkan.
-                        -->
+                        <div class="mb-6 overflow-hidden bg-white shadow-lg rounded-xl"> <div class="p-8 bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
+                                <h2 class="text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                                    Tentang Sekolah
+                                </h2>
+                            </div>
+                        </div>
                         <div class="mt-4 prose prose-gray max-w-none">
                             {!! $profil->deskripsi !!}
                         </div>

@@ -7,12 +7,16 @@
         @if($sambutan)
             <div class="flex flex-col md:flex-row md:items-start md:gap-12">
 
+                <!-- KOLOM KIRI (FOTO) -->
                 <div class="flex-shrink-0 md:w-1/3">
+                    <!--
+                      Mempertahankan style unik:
+                      rounded-t-xl rounded-bl-xl [border-bottom-right-radius:2.5rem]
+                    -->
                     <div class="overflow-hidden text-center bg-white shadow-xl
                                 rounded-t-xl rounded-bl-xl
                                 [border-bottom-right-radius:2.5rem]
                                 flex flex-col items-center justify-center p-8 md:p-12">
-                        {{-- Hapus header biru dan efek -mt-24 karena tidak relevan dengan desain baru ini --}}
 
                         <img src="{{ $sambutan->foto ? asset('storage/' . $sambutan->foto) : 'https://placehold.co/200x200/eeeeee/cccccc?text=Foto' }}"
                              alt="{{ $sambutan->nama_kepsek }}"
@@ -23,10 +27,22 @@
 
                     </div>
                 </div>
+
+                <!-- KOLOM KANAN (TEKS SAMBUTAN) -->
                 <div class="w-full mt-8 md:w-2/3 md:mt-0">
-                    <h1 class="mb-6 text-3xl font-bold text-gray-900">
-                        Kata Sambutan
-                    </h1>
+
+                    <!--
+                      MODIFIKASI JUDUL:
+                      Menggunakan Card Header dengan Gradasi Kuning/Amber
+                    -->
+                    <div class="mb-6 overflow-hidden bg-white shadow-lg rounded-xl">
+                        <div class="p-6 bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
+                            <h1 class="text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                                Kata Sambutan
+                            </h1>
+                        </div>
+                    </div>
+                    <!-- AKHIR MODIFIKASI -->
 
                     <div class="space-y-4 prose text-justify max-w-none prose-p:text-gray-700 prose-headings:text-gray-800">
                         {!! $sambutan->kata_sambutan !!}
