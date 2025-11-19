@@ -77,7 +77,7 @@
 
             {{-- KOLOM KANAN: INFO KONTAK (1/3 lebar) --}}
             <div class="md:col-span-1">
-                <div class="h-full p-8 text-white bg-blue-700 shadow-xl rounded-2xl">
+                <div class="h-full p-8 text-white bg-red-800 shadow-xl rounded-2xl">
                     <h2 class="mb-6 text-2xl font-extrabold border-b border-yellow-400 pb-3 tracking-tight">Detail Kontak</h2>
                     <div class="space-y-6">
                         @php
@@ -91,7 +91,7 @@
                         @endphp
 
                         @foreach($contacts as $contact)
-                            <div class="flex items-start gap-3 pt-4 border-t border-blue-600">
+                            <div class="flex items-start gap-3 pt-4">
                                 {!! $contact['icon'] !!}
                                 <div>
                                     <h3 class="text-sm font-extrabold uppercase text-yellow-400 tracking-wider">{{ $contact['title'] }}</h3>
@@ -112,9 +112,9 @@
             <h2 class="mb-6 text-3xl font-extrabold text-gray-800 text-center tracking-tight">
                 Lokasi Kami
             </h2>
-
+            <div class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto rounded-full shadow-md"></div>
             {{-- Iframe Map --}}
-            <div class="p-4 overflow-hidden bg-white shadow-xl rounded-2xl border border-gray-100">
+            <div class="p-10 overflow-hidden bg-white shadow-xl rounded-2xl border border-gray-100">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.7077199639393!2d105.25620707473738!3d-4.465332695508955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3f3a36ee34f707%3A0x133ba7fbdd782e3a!2sState%20Junior%20High%20School%201%20Menggala!5e0!3m2!1sen!2sid!4v1763131663224!5m2!1sen!2sid"
                     class="w-full rounded-lg h-96 border-4 border-blue-700"

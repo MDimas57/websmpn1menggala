@@ -28,7 +28,7 @@
 
                         <div class="w-12 h-1 bg-yellow-400 rounded-full my-3 mx-auto"></div>
 
-                        <p class="text-sm font-bold text-blue-700 uppercase tracking-widest">
+                        <p class="text-1xl font-extra text-gray-900 tracking-tight">
                             {{ $sambutan->jabatan }}
                         </p>
 
