@@ -1,133 +1,202 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-16 bg-gray-50">
+<div class="py-20 bg-slate-50 relative overflow-hidden">
+    
+    {{-- Dekorasi Background (Blob Halus) --}}
+    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-yellow-100/50 to-transparent -z-10"></div>
+    <div class="absolute -top-24 -right-24 w-72 h-72 bg-blue-100 rounded-full blur-3xl -z-10 opacity-60"></div>
+    <div class="absolute top-1/2 -left-24 w-96 h-96 bg-yellow-100 rounded-full blur-3xl -z-10 opacity-60"></div>
+
     <div class="container px-4 mx-auto max-w-7xl">
 
-        <div class="mb-12 overflow-hidden bg-white border border-gray-100 shadow-lg rounded-xl">
-            <div class="relative p-8 overflow-hidden bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
-                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                <h1 class="relative z-10 text-3xl font-extrabold tracking-tight text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                    HUBUNGI KAMI
-                </h1>
-            </div>
+        {{-- Header Section --}}
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+            <span class="text-yellow-600 font-bold tracking-widest uppercase text-sm bg-yellow-50 px-4 py-1.5 rounded-full border border-yellow-200 shadow-sm">
+                Hubungi Kami
+            </span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-6 mb-4">
+                Kami Siap <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Mendengar Anda</span>
+            </h1>
+            <p class="text-lg text-gray-600">
+                Punya pertanyaan seputar PPDB, akademik, atau kegiatan sekolah? Jangan ragu untuk mengirimkan pesan kepada kami.
+            </p>
         </div>
 
-        {{-- Kita gunakan grid untuk membagi 2 kolom --}}
-        <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
 
-            {{-- KOLOM KIRI: FORMULIR (2/3 lebar) --}}
-            <div class="p-10 bg-white border border-gray-100 shadow-xl md:col-span-2 rounded-2xl">
-                <h2 class="pb-4 mb-8 text-3xl font-extrabold tracking-tight text-gray-900 border-b border-yellow-500">
-                    Kirim Pesan
-                </h2>
+            {{-- ========================== --}}
+            {{-- KOLOM KIRI: FORMULIR (2/3) --}}
+            {{-- ========================== --}}
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 md:p-10 relative">
+                    
+                    {{-- Hiasan Garis Atas --}}
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-yellow-400 to-amber-500"></div>
 
-                {{-- ▼▼▼ MENAMPILKAN PESAN SUKSES ▼▼▼ --}}
-                @if(session('success'))
-                    <div class="p-4 mb-6 font-semibold text-white bg-green-500 border border-green-300 rounded-lg shadow-md">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        Formulir Pesan
+                    </h2>
 
-                <form action="{{ route('kontak.store') }}" method="POST" class="space-y-6">
-                    @csrf {{-- Penting untuk keamanan Laravel --}}
-
-                    {{-- Baris 1: Nama, Email, No. Ponsel --}}
-                    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        <div>
-                            <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" required class="block w-full mt-1 transition duration-150 border-gray-300 rounded-md shadow-sm focus:border-blue-700 focus:ring-blue-700">
-                            @error('nama')
-                                <span class="text-sm text-red-600">{{ $message }}</span>
-                            @enderror
+                    @if(session('success'))
+                        <div class="mb-8 p-4 flex items-center gap-3 bg-green-50 text-green-700 border border-green-200 rounded-xl">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="font-medium">{{ session('success') }}</span>
                         </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Alamat Email</label>
-                            <input type="email" name="email" id="email" value="{{ old('email') }}" required class="block w-full mt-1 transition duration-150 border-gray-300 rounded-md shadow-sm focus:border-blue-700 focus:ring-blue-700">
-                             @error('email')
-                                 <span class="text-sm text-red-600">{{ $message }}</span>
-                             @enderror
-                        </div>
-                        <div>
-                            <label for="no_telepon" class="block text-sm font-medium text-gray-700">Nomor Ponsel</label>
-                            <input type="tel" name="no_telepon" id="no_telepon" value="{{ old('no_telepon') }}" class="block w-full mt-1 transition duration-150 border-gray-300 rounded-md shadow-sm focus:border-blue-700 focus:ring-blue-700">
-                             @error('no_telepon')
-                                 <span class="text-sm text-red-600">{{ $message }}</span>
-                             @enderror
-                        </div>
-                    </div>
+                    @endif
 
-                    {{-- Baris 2: Pesan --}}
-                    <div>
-                        <label for="pesan" class="block text-sm font-medium text-gray-700">Pesan atau Saran</label>
-                        <textarea name="pesan" id="pesan" rows="5" required class="block w-full mt-1 transition duration-150 border-gray-300 rounded-md shadow-sm focus:border-blue-700 focus:ring-blue-700">{{ old('pesan') }}</textarea>
-                         @error('pesan')
-                             <span class="text-sm text-red-600">{{ $message }}</span>
-                         @enderror
-                    </div>
+                    <form action="{{ route('kontak.store') }}" method="POST" class="space-y-6">
+                        @csrf
 
-                    {{-- Baris 3: Tombol Submit (Kuning Emas) --}}
-                    <div>
-                        <button type="submit" class="inline-flex justify-center px-8 py-3 text-base font-extrabold text-yellow-900 bg-yellow-400 border border-transparent rounded-lg shadow-lg hover:bg-yellow-500 transition-colors transform hover:scale-[1.02] focus:ring-4 focus:ring-yellow-500/50">
-                            KIRIM PESAN SEKARANG
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            {{-- KOLOM KANAN: INFO KONTAK (1/3 lebar) --}}
-            <div class="md:col-span-1">
-                <div class="h-full p-8 text-white bg-red-800 shadow-xl rounded-2xl">
-                    <h2 class="pb-3 mb-6 text-2xl font-extrabold tracking-tight border-b border-yellow-400">Detail Kontak</h2>
-                    <div class="space-y-6">
-                        @php
-                            // Menggunakan array untuk informasi kontak
-                            $contacts = [
-                                ['title' => 'Nomor Telepon', 'detail' => '0726-75157187', 'icon' => '<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.717 21 3 14.283 3 6V5z"></path></svg>'],
-                                ['title' => 'Alamat Email', 'detail' => 'smpnegeri1menggala.com', 'icon' => '<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>'],
-                                ['title' => 'Website URL', 'detail' => 'smpn1menggala.mysch.id', 'icon' => '<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>'],
-                                ['title' => 'Alamat Kami', 'detail' => 'Jl. Suay Umpu No. 308 Menggala Kota, Kabupaten Tulang Bawang, Lampung, 34596', 'icon' => '<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>'],
-                            ];
-                        @endphp
-
-                        @foreach($contacts as $contact)
-                            <div class="flex items-start gap-3 pt-4">
-                                {!! $contact['icon'] !!}
-                                <div>
-                                    <h3 class="text-sm font-extrabold tracking-wider text-yellow-400 uppercase">{{ $contact['title'] }}</h3>
-                                    <p class="text-gray-100 mt-0.5 text-sm">{{ $contact['detail'] }}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- Input Nama --}}
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                    </div>
+                                    <input type="text" name="nama" value="{{ old('nama') }}" required 
+                                        class="pl-10 w-full rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:border-yellow-500 focus:ring-yellow-500 transition-all py-3" 
+                                        placeholder="Masukkan nama Anda">
                                 </div>
+                                @error('nama') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
-                        @endforeach
-                    </div>
+
+                            {{-- Input Telepon --}}
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Ponsel / WA</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.717 21 3 14.283 3 6V5z"/></svg>
+                                    </div>
+                                    <input type="tel" name="no_telepon" value="{{ old('no_telepon') }}" 
+                                        class="pl-10 w-full rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:border-yellow-500 focus:ring-yellow-500 transition-all py-3" 
+                                        placeholder="Contoh: 08123456789">
+                                </div>
+                                @error('no_telepon') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            {{-- Input Email --}}
+                            <div class="col-span-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat Email</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                    </div>
+                                    <input type="email" name="email" value="{{ old('email') }}" required 
+                                        class="pl-10 w-full rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:border-yellow-500 focus:ring-yellow-500 transition-all py-3" 
+                                        placeholder="nama@email.com">
+                                </div>
+                                @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            {{-- Input Pesan --}}
+                            <div class="col-span-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pesan atau Pertanyaan</label>
+                                <div class="relative">
+                                    <textarea name="pesan" rows="5" required 
+                                        class="w-full rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:border-yellow-500 focus:ring-yellow-500 transition-all p-4" 
+                                        placeholder="Tuliskan pesan Anda di sini...">{{ old('pesan') }}</textarea>
+                                </div>
+                                @error('pesan') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="submit" class="w-full inline-flex justify-center items-center gap-2 px-8 py-4 text-base font-bold text-yellow-900 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-xl shadow-lg hover:shadow-yellow-500/30 hover:scale-[1.01] active:scale-95 transition-all duration-200">
+                                <span>KIRIM PESAN SEKARANG</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-        </div> {{-- <-- Penutup 'grid' --}}
+            {{-- ========================== --}}
+            {{-- KOLOM KANAN: INFO (1/3) --}}
+            {{-- ========================== --}}
+            <div class="lg:col-span-1">
+                
+                {{-- KARTU KONTAK (Tampilan Baru: Biru Navy Elegan) --}}
+                <div class="bg-gradient-to-br from-slate-800 to-blue-900 text-white rounded-3xl shadow-xl p-8 h-full relative overflow-hidden">
+                    
+                    {{-- Pattern Hiasan --}}
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-white opacity-5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-yellow-500 opacity-10 rounded-full -ml-10 -mb-10 blur-3xl"></div>
 
-        {{-- =============================================== --}}
-        {{-- ▼▼▼ BAGIAN GOOGLE MAPS ▼▼▼ --}}
-        {{-- =============================================== --}}
-        <div class="mt-12">
-            <h2 class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-800 ">
-                Lokasi Kami
-            </h2>
-            <div class="w-32 h-2 mx-auto mb-4 rounded-full shadow-md bg-gradient-to-r from-yellow-400 to-amber-500"></div>
-            {{-- Iframe Map --}}
-            <div class="p-10 overflow-hidden bg-white border border-gray-100 shadow-xl rounded-2xl">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.7077199639393!2d105.25620707473738!3d-4.465332695508955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3f3a36ee34f707%3A0x133ba7fbdd782e3a!2sState%20Junior%20High%20School%201%20Menggala!5e0!3m2!1sen!2sid!4v1763131663224!5m2!1sen!2sid"
-                    class="w-full border-4 border-blue-700 rounded-lg h-96"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                    <h3 class="text-2xl font-extrabold mb-8 border-b border-white/20 pb-4">Kontak Sekolah</h3>
+
+                    <div class="space-y-8 relative z-10">
+                        {{-- Item 1: Telepon --}}
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-yellow-900 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.717 21 3 14.283 3 6V5z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-300 uppercase tracking-wider font-semibold">Telepon</p>
+                                <p class="text-lg font-bold mt-1">0726-75157187</p>
+                            </div>
+                        </div>
+
+                        {{-- Item 2: Email --}}
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-yellow-900 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-300 uppercase tracking-wider font-semibold">Email</p>
+                                <p class="text-lg font-bold mt-1 break-all">info@smpnegeri1menggala.com</p>
+                            </div>
+                        </div>
+
+                        {{-- Item 3: Website --}}
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-yellow-900 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-300 uppercase tracking-wider font-semibold">Website</p>
+                                <p class="text-lg font-bold mt-1">smpn1menggala.mysch.id</p>
+                            </div>
+                        </div>
+
+                        {{-- Item 4: Alamat --}}
+                        <div class="flex items-start gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-yellow-900 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-300 uppercase tracking-wider font-semibold">Alamat</p>
+                                <p class="text-base font-medium mt-1 leading-snug text-gray-200">Jl. Suay Umpu No. 308 Menggala Kota, Kab. Tulang Bawang, Lampung, 34596</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
         {{-- =============================================== --}}
-        {{-- ▲▲▲ AKHIR BAGIAN GOOGLE MAPS ▲▲▲ --}}
+        {{-- BAGIAN GOOGLE MAPS (Full Width & Modern)        --}}
         {{-- =============================================== --}}
+        <div class="mt-16">
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-4">
+                 <h2 class="mb-4 text-2xl font-bold text-gray-800 text-center">Lokasi Sekolah Kami</h2>
+                 <div  class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto rounded-full shadow-md mb-8"></div>
+                <div class="rounded-2xl overflow-hidden h-96 relative">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.7077199639393!2d105.25620707473738!3d-4.465332695508955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3f3a36ee34f707%3A0x133ba7fbdd782e3a!2sState%20Junior%20High%20School%201%20Menggala!5e0!3m2!1sen!2sid!4v1763131663224!5m2!1sen!2sid"
+                        class="w-full h-full"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

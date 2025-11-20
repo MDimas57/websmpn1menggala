@@ -4,7 +4,7 @@
 
 {{-- 
     =========================================================
-    BAGIAN LOGIKA PHP (DATA FETCHING)
+    BAGIAN LOGIKA PHP (TIDAK BERUBAH)
     =========================================================
 --}}
 @php
@@ -14,23 +14,18 @@
     use App\Models\Galeri;
     use Illuminate\Support\Str;
 
-    // 1. Ambil Banner
     $banners = Banner::latest()->get();
-
-    // 2. Ambil Berita
-    $beritaTerbaru = Berita::latest()->take(6)->get(); 
-
-    // 3. Ambil Guru
+    $beritaTerbaru = Berita::where('status', 'publish')->latest()->take(6)->get();
     $tenagaPendidik = Guru::latest()->get();
-
-    // 4. AMBIL GALERI FOTO (Filter tipe = 'foto')
     $photos = Galeri::where('tipe', 'foto')->latest()->take(4)->get();
-
-    // 5. AMBIL GALERI VIDEO (Filter tipe = 'video')
     $videos = Galeri::where('tipe', 'video')->latest()->take(2)->get();
 @endphp
 
-{{-- 1. BAGIAN BANNER SLIDER --}}
+{{-- 
+    =========================================================
+    1. BAGIAN BANNER SLIDER
+    =========================================================
+--}}
 <section id="banner-slider" class="relative splide"
          aria-label="Banner dan Pengumuman Sekolah"
          data-splide='{"type":"loop","arrows":false,"autoplay":true,"interval":3000,"pauseOnHover":false,"pauseOnFocus":false,"pagination":true}'>
@@ -67,44 +62,93 @@
     </div>
 </section>
 
-{{-- 2. BAGIAN BERITA TERBARU --}}
-<div class="py-24 bg-gray-50">
+{{-- 
+    =========================================================
+    2. BAGIAN BERITA TERBARU (CLEAN & CARD STYLE)
+    =========================================================
+--}}
+<div class="py-24 bg-white relative">
+    {{-- Hiasan Background Abstrak --}}
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-gray-50/50 -z-10 clip-path-slant"></div>
+
     <div class="container mx-auto max-w-7xl px-4">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-gray-200 pb-6">
-            <div class="border-l-8 border-yellow-500 pl-6">
-                <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Berita Terbaru</h2>
-                <p class="mt-3 text-lg text-gray-500">Update Kegiatan dan Prestasi Terkini Sekolah.</p>
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">Berita & Artikel</h2>
+                <div class="h-1.5 w-24 bg-yellow-500 mt-4 rounded-full"></div>
+                <p class="mt-4 text-lg text-slate-500">Ikuti perkembangan terbaru, prestasi siswa, dan kegiatan seru di sekolah kami.</p>
             </div>
+            <a href="/informasi" class="hidden md:inline-flex items-center gap-2 font-semibold text-yellow-600 hover:text-yellow-700 transition-colors mt-4 md:mt-0">
+                Lihat Semua Berita <span aria-hidden="true">&rarr;</span>
+            </a>
         </div>
-        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($beritaTerbaru as $berita)
-                <article class="group flex gap-5 bg-white p-5 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-yellow-200">
-                    <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="flex-shrink-0 block w-1/3 overflow-hidden rounded-xl relative h-32"> 
-                       <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}" alt="{{ $berita->judul }}" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
+                <article class="group flex flex-col h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-300 transform hover:-translate-y-2">
+                    {{-- Image Wrapper --}}
+                    <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="relative h-56 overflow-hidden">
+                        <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}" 
+                             alt="{{ $berita->judul }}" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        {{-- Date Badge Floating --}}
+                        <div class="absolute top-4 right-4 bg-white/95 backdrop-blur shadow-sm px-3 py-1.5 rounded-lg flex flex-col items-center text-center border border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">{{ $berita->created_at->format('M') }}</span>
+                            <span class="text-lg font-extrabold text-slate-800 leading-none">{{ $berita->created_at->format('d') }}</span>
+                        </div>
+                        
+                        {{-- Overlay Gradient --}}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
-                    <div class="flex flex-col justify-between flex-1">
-                        <h3 class="text-lg font-bold leading-snug text-gray-800 group-hover:text-blue-700 transition-colors">
-                            <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">{{ Str::limit($berita->judul, 60) }}</a>
+
+                    {{-- Content --}}
+                    <div class="flex flex-col flex-1 p-6">
+                        <div class="mb-3 flex items-center gap-2 text-xs font-medium text-yellow-600">
+                            <span class="bg-yellow-50 px-2 py-1 rounded-md">Berita Sekolah</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 leading-snug mb-3 group-hover:text-yellow-600 transition-colors">
+                            <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">
+                                {{ Str::limit($berita->judul, 55) }}
+                            </a>
                         </h3>
-                        <div class="flex items-center gap-4 text-xs font-medium text-gray-400 mt-2">
-                            <div class="flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"> <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /> </svg>
-                                <time>{{ $berita->created_at ? $berita->created_at->format('d M Y') : '-' }}</time>
-                            </div>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-1">
+                            {{ Str::limit(strip_tags($berita->isi ?? 'Klik untuk membaca selengkapnya berita ini.'), 100) }}
+                        </p>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <span class="text-xs text-gray-400 flex items-center gap-1"></span>
+                            <span class="text-yellow-600 text-sm font-semibold group-hover:translate-x-1 transition-transform">Baca &rarr;</span>
                         </div>
                     </div>
                 </article>
             @empty
-                <div class="col-span-3 text-center py-12"><p class="text-lg text-gray-500 font-medium">Belum ada berita untuk ditampilkan.</p></div>
+                <div class="col-span-3 text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                    <div class="text-gray-400 mb-3">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    </div>
+                    <p class="text-lg text-gray-500 font-medium">Belum ada berita terbaru.</p>
+                </div>
             @endforelse
+        </div>
+        
+        {{-- Mobile Button --}}
+        <div class="mt-10 text-center md:hidden">
+            <a href="/informasi" class="inline-block px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-bold">Lihat Semua Berita</a>
         </div>
     </div>
 </div>
 
-{{-- 3. BAGIAN TENAGA PENDIDIK --}}
-<section class="py-24 bg-white relative overflow-hidden">
-    <div class="absolute -top-24 -right-24 w-96 h-96 bg-yellow-50 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute top-1/2 -left-24 w-72 h-72 bg-blue-50 rounded-full blur-3xl -z-10"></div>
+{{-- 
+    =========================================================
+    3. BAGIAN TENAGA PENDIDIK (BACKGROUND: SLATE/KEBIRUAN)
+    =========================================================
+--}}
+<section class="py-24 bg-slate-300 relative overflow-hidden"> {{-- bg-slate-50 memberikan kesan elegan & formal --}}
+    
+    {{-- Dekorasi Blob diubah warnanya agar kontras dengan Slate --}}
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-white rounded-full blur-3xl -z-10 opacity-60"></div>
+    <div class="absolute top-1/2 -left-24 w-72 h-72 bg-blue-100 rounded-full blur-3xl -z-10 opacity-60"></div>
+
     <div class="container px-4 mx-auto max-w-7xl">
         <div class="text-center mb-20">
             <span class="text-yellow-600 font-bold tracking-widest uppercase text-sm bg-yellow-100 px-3 py-1 rounded-full">SDM Unggul</span>
@@ -118,7 +162,7 @@
                     <ul class="splide__list">
                         @foreach($tenagaPendidik as $guru)
                             <li class="splide__slide">
-                                <a href="{{ route('guru.show', $guru->id) }}" class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                                <a href="{{ route('guru.show', $guru->id) }}" class="group block bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                                     <div class="relative h-72 overflow-hidden bg-gray-100">
                                         <img src="{{ asset('storage/' . $guru->foto) }}" alt="{{ $guru->nama_lengkap }}" class="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-105">
                                     </div>
@@ -136,20 +180,20 @@
                 </div>
             </div>
         @else
-            <div class="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-300"><p class="text-lg text-gray-500">Data tenaga pendidik belum tersedia.</p></div>
+            <div class="text-center py-12 bg-white rounded-xl border border-dashed border-gray-300"><p class="text-lg text-gray-500">Data tenaga pendidik belum tersedia.</p></div>
         @endif
     </div>
 </section>
 
 {{-- 
     =========================================================
-    4. BAGIAN GALERI FOTO & VIDEO
+    4. BAGIAN GALERI FOTO & VIDEO (BACKGROUND: AMBER/ORANGE MUDA)
     =========================================================
 --}}
-<section class="py-24 bg-gray-50 border-t border-gray-200">
+<section class="py-24 bg-amber-50 border-t border-orange-100"> {{-- bg-amber-50 agar senada dengan warna sekolah --}}
     <div class="container px-4 mx-auto max-w-7xl">
 
-        <div class="text-center mb-16"> {{-- Ubah Flex jadi Text-Center --}}
+        <div class="text-center mb-16"> 
             <span class="text-yellow-600 font-bold tracking-widest uppercase text-sm bg-yellow-100 px-3 py-1 rounded-full">Dokumentasi</span>
             <h2 class="text-4xl font-extrabold text-gray-900 mt-4 mb-6">Galeri Foto & Video</h2>
             <div class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto rounded-full shadow-md"></div>
@@ -164,12 +208,11 @@
                     <div class="relative group overflow-hidden rounded-2xl shadow-md h-48 md:h-64 border border-gray-200">
                         <a href="{{ asset('storage/' . $photo->file) }}" class="gallery-lightbox block w-full h-full" data-description="{{ $photo->nama_kegiatan }}">
                             
-                            {{-- GAMBAR --}}
                             <img src="{{ asset('storage/' . $photo->file) }}" 
                                  alt="{{ $photo->nama_kegiatan }}" 
                                  class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110">
                             
-                            {{-- TEKS FOTO: Bottom Center --}}
+                            {{-- TEKS FOTO --}}
                             <div class="absolute inset-0 flex flex-col items-center justify-end p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
                                 <p class="text-white font-bold text-sm md:text-base text-center drop-shadow-md">{{ $photo->nama_kegiatan }}</p>
                                 <div class="w-8 h-1 bg-yellow-400 mt-2 rounded"></div> 
@@ -178,7 +221,7 @@
                         </a>
                     </div>
                 @empty
-                    <div class="col-span-2 bg-gray-200 rounded-2xl h-64 flex items-center justify-center text-gray-500">
+                    <div class="col-span-2 bg-white rounded-2xl h-64 flex items-center justify-center text-gray-500 shadow-sm">
                         Galeri Foto Belum Tersedia
                     </div>
                 @endforelse
@@ -195,10 +238,10 @@
                     </div>
                 @endforeach
 
-                {{-- Placeholder Jika Video Kurang dari 2 --}}
+                {{-- Placeholder Jika Video Kurang --}}
                 @php $sisaSlot = 2 - $videos->count(); @endphp
                 @for($i = 0; $i < $sisaSlot; $i++)
-                    <div class="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-black h-64 md:h-[265px] flex items-center justify-center">
+                    <div class="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-900 h-64 md:h-[265px] flex items-center justify-center">
                          <p class="text-gray-400 text-sm">Slot Video Kosong</p>
                     </div>
                 @endfor
@@ -206,7 +249,7 @@
 
         </div>
         
-        {{-- Tombol Selengkapnya (Sekarang Muncul di Semua Layar & Di Tengah) --}}
+        {{-- TOMBOL LIHAT SEMUA --}}
         <div class="mt-12 text-center">
             <a href="{{ url('gallery-foto') }}" class="inline-flex items-center gap-2 px-8 py-3 text-base font-bold text-yellow-900 bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 transition-transform transform hover:-translate-y-1">
                 Lihat Galeri Lengkap
