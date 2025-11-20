@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 {{-- Ganti bg-gray-100 menjadi bg-slate-50 agar lebih cerah dan dingin --}}
-<body class="bg-white-50 text-gray-800 antialiased flex flex-col min-h-screen">
+<body class="bg-amber-50 text-gray-800 antialiased flex flex-col min-h-screen">
     @include('layouts.partials.header')
 
     {{-- Flex-grow agar footer selalu di bawah meski konten sedikit --}}

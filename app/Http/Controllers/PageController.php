@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session; // <--- PENTING: Tambahan baru
 use App\Models\Galeri;
 use App\Models\KataSambutan;
 use App\Models\ProfilSekolah;
@@ -19,7 +20,7 @@ use App\Models\Guru;
 
 class PageController extends Controller
 {
-    // ... (fungsi galleryFoto() dan galleryVideo() Anda) ...
+    // ... (fungsi galleryFoto() dan galleryVideo()) ...
     public function galleryFoto()
     {
         $photos = Galeri::where('tipe', 'foto')->latest()->get();
@@ -32,29 +33,24 @@ class PageController extends Controller
         return view('gallery-video', [ 'videos' => $videos ]);
     }
 
-    // ... (fungsi kontak() Anda) ...
+    // ... (fungsi kontak()) ...
     public function kontak()
     {
-        return view('kontak'); // Ini halaman blade Anda, mungkin 'pages.kontak'
+        return view('kontak'); 
     }
 
-    // --- (Fungsi profil Anda) ---
+    // --- (Fungsi profil) ---
     public function kataSambutan()
     {
         $sambutan = KataSambutan::latest()->first();
         return view('profil.kata-sambutan', ['sambutan' => $sambutan]);
     }
 
-    // ▼▼▼ PERBAIKAN DI FUNGSI INI ▼▼▼
     public function profilSekolah()
     {
-        // Mengganti latest()->first() menjadi first()
-        // Ini lebih aman untuk data setting yang hanya ada 1 baris
         $profil = ProfilSekolah::first();
-
         return view('profil.profil-sekolah', ['profil' => $profil]);
     }
-    // ▲▲▲ AKHIR PERBAIKAN ▲▲▲
 
     public function strukturOrganisasi()
     {
@@ -62,14 +58,14 @@ class PageController extends Controller
         return view('profil.struktur-organisasi', ['struktur' => $struktur]);
     }
 
-    // ... (fungsi ppdb() Anda) ...
+    // ... (fungsi ppdb()) ...
     public function ppdb()
     {
         $informasiItems = Ppdb::latest()->get();
         return view('pages.ppdb', compact('informasiItems'));
     }
 
-    // ... (fungsi storeKontak() Anda) ...
+    // ... (fungsi storeKontak()) ...
     public function storeKontak(Request $request)
     {
         $validated = $request->validate([
@@ -83,25 +79,37 @@ class PageController extends Controller
                          ->with('success', 'Pesan Anda telah berhasil terkirim! Terima kasih.');
     }
 
-    // ... (fungsi detailBerita() Anda) ...
+    // ▼▼▼ FUNGSI INI SUDAH DI-UPDATE DENGAN LOGIKA VIEWS ▼▼▼
     public function detailBerita($slug)
     {
-        // Cari berita berdasarkan slug.
-        // firstOrFail() akan otomatis 404 jika tidak ketemu.
+        // 1. Cari berita berdasarkan slug
         $berita = Berita::where('slug', $slug)->firstOrFail();
 
-        // Ambil daftar berita lain (untuk sidebar). Kita ambil terbaru dan biarkan view
-        // yang mengecualikan berita saat ini jika diperlukan.
+        // 2. LOGIKA BARU: Session Check & Increment Views
+        // Buat kunci unik session: "viewed_berita_123"
+        $key = 'viewed_berita_' . $berita->id;
+
+        // Cek apakah user ini sudah melihat berita ini sebelumnya?
+        if (!Session::has($key)) {
+            // Jika belum, tambah views
+            $berita->increment('views');
+            
+            // Simpan session bahwa user ini sudah melihat
+            Session::put($key, 1);
+        }
+
+        // 3. Ambil daftar berita lain (untuk sidebar)
         $unreadBeritas = Berita::latest()->get();
 
-        // Kirim data berita ke view 'berita.detailberita'
+        // 4. Kirim data berita ke view
         return view('berita.detailberita', [
             'berita' => $berita,
             'unreadBeritas' => $unreadBeritas,
         ]);
     }
+    // ▲▲▲ AKHIR UPDATE ▲▲▲
 
-    // ... (semua fungsi bidang Anda) ...
+    // ... (semua fungsi bidang) ...
     public function bidangKurikulum()
     {
         $data = BidangKurikulum::latest()->first();
@@ -130,46 +138,32 @@ class PageController extends Controller
         return view('bidang.show', compact('data', 'judul'));
     }
 
-  public function informasiIndex()
-{
-    // Ambil SEMUA informasi untuk sidebar
-    $semuaInformasi = Informasi::latest()->get(); 
-    
-    // Ambil item PERTAMA untuk ditampilkan sebagai default
-    $infoDetail = Informasi::latest()->first();
-    
-    return view('informasi.index', [
-        'semuaInformasi' => $semuaInformasi,
-        'infoDetail' => $infoDetail
-    ]);
-}
-
-/**
- * Menampilkan item Informasi yang spesifik (saat diklik)
- */
-public function informasiShow($id)
-{
-    // Ambil SEMUA informasi untuk sidebar
-    $semuaInformasi = Informasi::latest()->get(); 
-    
-    // Ambil item SPESIFIK berdasarkan ID yang diklik
-    $infoDetail = Informasi::findOrFail($id);
-    
-    return view('informasi.index', [
-        'semuaInformasi' => $semuaInformasi,
-        'infoDetail' => $infoDetail
-    ]);
-}
-
-public function show($id)
+    public function informasiIndex()
     {
-        // 1. Cari guru di database berdasarkan ID yang diklik.
-        //    'findOrFail' akan otomatis menampilkan halaman 404 (Not Found)
-        //    jika guru dengan ID tersebut tidak ada.
-        $guru = Guru::findOrFail($id);
+        $semuaInformasi = Informasi::latest()->get(); 
+        $infoDetail = Informasi::latest()->first();
+        
+        return view('informasi.index', [
+            'semuaInformasi' => $semuaInformasi,
+            'infoDetail' => $infoDetail
+        ]);
+    }
 
-        // 2. Kirim data '$guru' yang ditemukan ke sebuah view baru.
-        //    Kita akan membuat view ini di Langkah 4.
+    public function informasiShow($id)
+    {
+        $semuaInformasi = Informasi::latest()->get(); 
+        $infoDetail = Informasi::findOrFail($id);
+        
+        return view('informasi.index', [
+            'semuaInformasi' => $semuaInformasi,
+            'infoDetail' => $infoDetail
+        ]);
+    }
+
+    // Ini untuk Detail Guru (JANGAN DIHAPUS/DIGANTI karena beda fungsi dengan berita)
+    public function show($id)
+    {
+        $guru = Guru::findOrFail($id);
         return view('guru.detail', compact('guru'));
     }
 }
