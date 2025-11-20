@@ -21,7 +21,7 @@
                 {{-- Loop Foto --}}
                 @foreach($photos as $photo)
                     {{-- Container Kartu --}}
-                    <div class="relative overflow-hidden shadow-xl rounded-xl group border-2 border-transparent hover:border-blue-500 transition-all duration-300">
+                    <div class="relative overflow-hidden shadow-xl rounded-xl group border-2 border-transparent hover:border-yellow-500 transition-all duration-300">
 
                         {{-- 1. Link & Gambar --}}
                         {{-- Link inilah yang membuka Pop-up Lightbox --}}
@@ -44,7 +44,7 @@
                                     {{ $photo->nama_kegiatan }}
                                 </h3>
                                 
-                                <div class="w-8 h-1 bg-yellow-400 mx-auto mt-2 rounded shadow-sm"></div>
+                                <div class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto mt-2 rounded shadow-sm"></div>
                             </div>
                         </div>
 

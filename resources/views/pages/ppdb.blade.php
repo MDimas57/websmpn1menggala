@@ -58,6 +58,7 @@
                                 <h3 class="text-xl font-extrabold text-gray-900 tracking-tight leading-snug">
                                     {{ $item->judul }}
                                 </h3>
+                                 <div class="w-32 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 mx-auto mt-2 rounded shadow-sm"></div>
                             </div>
                         </div>
 

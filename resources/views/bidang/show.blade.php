@@ -38,7 +38,7 @@
                         </span>
                     </p>
 
-                    <div class="w-12 h-1 bg-blue-500 rounded-full mx-auto mt-4"></div>
+                    <div class="w-18 h-2 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full mx-auto mt-4"></div>
 
                 </div>
 

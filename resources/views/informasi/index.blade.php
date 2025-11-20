@@ -30,7 +30,7 @@
                                 <a href="{{ route('informasi.show', $infoLink->id) }}"
                                    class="block px-4 py-3 rounded-lg font-semibold transition-all duration-200
                                    @if(isset($infoDetail) && $infoDetail->id == $infoLink->id)
-                                        bg-blue-800 text-white shadow-lg hover:bg-blue-900
+                                        bg-gradient-to-b from-blue-900 to-slate-900 text-white shadow-lg hover:bg-blue-900
                                    @else
                                         text-gray-700 hover:bg-yellow-50 hover:text-blue-800
                                    @endif
