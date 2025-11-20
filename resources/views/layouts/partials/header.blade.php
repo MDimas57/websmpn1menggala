@@ -26,18 +26,19 @@
     <nav class="container flex items-center justify-between px-4 py-4 mx-auto max-w-7xl relative">
 
         <a href="/" class="flex items-center gap-2 group">
-            {{-- Jika ada logo gambar, bisa ditaruh disini --}}
-            {{-- <img src="path/to/logo.png" class="h-10 w-auto bg-white rounded-full p-1"> --}}
             <span class="text-xl font-extrabold text-white tracking-wider group-hover:text-amber-100 transition-colors" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
                 SMPN 1 MENGGALA
             </span>
         </a>
 
         <div class="items-center hidden space-x-1 lg:space-x-6 md:flex">
-            <a href="/" class="px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">BERANDA</a>
+            
+            {{-- Beranda --}}
+            <a href="/" class="px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->is('/') ? 'bg-white/20' : 'hover:bg-white/20' }}">BERANDA</a>
 
+            {{-- Profil --}}
             <div class="relative group">
-                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">
+                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->routeIs('profil.*') ? 'bg-white/20' : 'hover:bg-white/20' }}">
                     <span>PROFIL</span>
                     <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
@@ -50,8 +51,9 @@
                 </div>
             </div>
 
+            {{-- Bidang --}}
             <div class="relative group">
-                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">
+                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->routeIs('bidang.*') ? 'bg-white/20' : 'hover:bg-white/20' }}">
                     <span>BIDANG</span>
                     <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
@@ -65,8 +67,9 @@
                 </div>
             </div>
 
+            {{-- Gallery --}}
             <div class="relative group">
-                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">
+                <button class="inline-flex items-center px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->routeIs('gallery.*') ? 'bg-white/20' : 'hover:bg-white/20' }}">
                     <span>GALLERY</span>
                     <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
@@ -78,8 +81,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('ppdb.index') }}" class="px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">PPDB</a>
-            <a href="/informasi" class="px-3 py-2 font-bold text-white rounded-lg hover:bg-white/20 hover:text-white transition-all">INFORMASI</a>
+            <a href="{{ route('ppdb.index') }}" class="px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->routeIs('ppdb.index') ? 'bg-white/20' : 'hover:bg-white/20' }}">PPDB</a>
+            <a href="/informasi" class="px-3 py-2 font-bold text-white rounded-lg transition-all {{ request()->is('informasi*') ? 'bg-white/20' : 'hover:bg-white/20' }}">INFORMASI</a>
             <a href="/kontak" class="px-3 py-2 font-bold text-yellow-700 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all">KONTAK KAMI</a>
         </div>
 
@@ -97,70 +100,92 @@
 
         <div class="py-2 space-y-1">
             
-            <a href="/" class="block px-6 py-3 text-base font-bold text-gray-800 transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500">
+            {{-- Cek: Jika di halaman '/', pakai class aktif (bg-amber-100, border-amber-500). Jika tidak, class biasa. --}}
+            <a href="/" 
+               class="block px-6 py-3 text-base font-bold transition-all border-l-4 
+               {{ request()->is('/') ? 'bg-amber-100 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                 BERANDA
             </a>
 
-            <details class="group">
-                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold text-gray-800 cursor-pointer transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500 marker:content-none">
+            {{-- Cek: Jika rute 'profil.*', tambahkan 'open' agar dropdown terbuka & warnai headernya --}}
+            <details class="group" {{ request()->routeIs('profil.*') ? 'open' : '' }}>
+                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold cursor-pointer transition-all border-l-4 marker:content-none
+                    {{ request()->routeIs('profil.*') ? 'bg-amber-50 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                     <span>PROFIL</span>
                     <svg class="w-5 h-5 text-amber-500 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="px-4 py-2 bg-gray-50 border-t border-b border-gray-100 space-y-1">
-                    <a href="{{ route('profil.sambutan') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> KATA SAMBUTAN
+                    <a href="{{ route('profil.sambutan') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('profil.sambutan') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('profil.sambutan') ? 'bg-amber-600' : 'bg-amber-400' }} mr-3"></span> KATA SAMBUTAN
                     </a>
-                    <a href="{{ route('profil.sekolah') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> PROFIL SEKOLAH
+                    <a href="{{ route('profil.sekolah') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('profil.sekolah') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('profil.sekolah') ? 'bg-amber-600' : 'bg-amber-400' }} mr-3"></span> PROFIL SEKOLAH
                     </a>
-                    <a href="{{ route('profil.struktur') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> STRUKTUR ORGANISASI
+                    <a href="{{ route('profil.struktur') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('profil.struktur') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('profil.struktur') ? 'bg-amber-600' : 'bg-amber-400' }} mr-3"></span> STRUKTUR ORGANISASI
                     </a>
                 </div>
             </details>
 
-            <details class="group">
-                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold text-gray-800 cursor-pointer transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500 marker:content-none">
+            <details class="group" {{ request()->routeIs('bidang.*') ? 'open' : '' }}>
+                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold cursor-pointer transition-all border-l-4 marker:content-none
+                    {{ request()->routeIs('bidang.*') ? 'bg-amber-50 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                     <span>BIDANG</span>
                     <svg class="w-5 h-5 text-amber-500 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="px-4 py-2 bg-gray-50 border-t border-b border-gray-100 space-y-1">
-                    <a href="{{ route('bidang.kurikulum') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('bidang.kurikulum') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('bidang.kurikulum') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> KURIKULUM
                     </a>
-                    <a href="{{ route('bidang.kesiswaan') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('bidang.kesiswaan') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('bidang.kesiswaan') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> KESISWAAN
                     </a>
-                    <a href="{{ route('bidang.humas') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('bidang.humas') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('bidang.humas') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> HUMAS
                     </a>
-                    <a href="{{ route('bidang.sarana') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('bidang.sarana') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('bidang.sarana') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> SARANA PRASARANA
                     </a>
                 </div>
             </details>
 
-            <details class="group">
-                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold text-gray-800 cursor-pointer transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500 marker:content-none">
+            <details class="group" {{ request()->routeIs('gallery.*') ? 'open' : '' }}>
+                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold cursor-pointer transition-all border-l-4 marker:content-none
+                    {{ request()->routeIs('gallery.*') ? 'bg-amber-50 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                     <span>GALLERY</span>
                     <svg class="w-5 h-5 text-amber-500 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="px-4 py-2 bg-gray-50 border-t border-b border-gray-100 space-y-1">
-                    <a href="{{ route('gallery.foto') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('gallery.foto') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('gallery.foto') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> GALLERY FOTO
                     </a>
-                    <a href="{{ route('gallery.video') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-amber-600 hover:shadow-sm transition-all">
+                    <a href="{{ route('gallery.video') }}" class="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all
+                       {{ request()->routeIs('gallery.video') ? 'bg-white text-amber-700 shadow-sm ring-1 ring-amber-200' : 'text-gray-600 hover:bg-white hover:text-amber-600' }}">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> GALLERY VIDEO
                     </a>
                 </div>
             </details>
 
-            <a href="{{ route('ppdb.index') }}" class="block px-6 py-3 text-base font-bold text-gray-800 transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500">
+            <a href="{{ route('ppdb.index') }}" 
+               class="block px-6 py-3 text-base font-bold transition-all border-l-4
+               {{ request()->routeIs('ppdb.index') ? 'bg-amber-100 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                 PPDB
             </a>
-            <a href="/informasi" class="block px-6 py-3 text-base font-bold text-gray-800 transition-all border-l-4 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500">
+
+            <a href="/informasi" 
+               class="block px-6 py-3 text-base font-bold transition-all border-l-4
+               {{ request()->is('informasi*') ? 'bg-amber-100 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                 INFORMASI
             </a>
+
             <a href="/kontak" class="block px-6 py-3 text-base font-bold text-white bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600">
                 KONTAK KAMI
             </a>
