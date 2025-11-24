@@ -73,9 +73,6 @@
                 <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Berita & Artikel</h2>
                 <p class="mt-3 text-lg text-gray-500">Update Kegiatan dan Prestasi Terkini Sekolah.</p>
             </div>
-            <a href="/informasi" class="hidden md:inline-flex items-center gap-2 font-semibold text-yellow-600 hover:text-yellow-700 transition-colors mt-4 md:mt-0">
-                Lihat Semua Berita <span aria-hidden="true">&rarr;</span>
-            </a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
