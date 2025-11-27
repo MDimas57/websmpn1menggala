@@ -1,11 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-16 bg-gray-50"> <div class="container px-4 mx-auto max-w-7xl">
 
-        <div class="mb-12 overflow-hidden bg-white shadow-lg rounded-xl">
-            <div class="p-8 bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
-                <h1 class="text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+{{--
+    BACKGROUND UTAMA:
+    - Sama persis dengan halaman Profil & Kata Sambutan.
+    - Menggunakan gradasi 'from-orange-200 to-yellow-200'.
+    - 'min-h-screen' dan '-mb-20' agar footer menyatu.
+--}}
+<div class="relative w-full min-h-screen -mb-20 overflow-hidden bg-gradient-to-br from-orange-200 to-yellow-200">
+
+    {{-- Elemen Dekorasi Background --}}
+    <div class="absolute top-0 left-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="absolute bg-blue-500 rounded-full -top-24 -right-24 w-96 h-96 blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 bg-purple-500 rounded-full -left-24 w-72 h-72 blur-3xl opacity-20"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+    </div>
+
+    {{-- CONTAINER UTAMA --}}
+    <div class="container relative z-10 px-4 py-16 pb-40 mx-auto max-w-7xl">
+
+        {{-- HEADER JUDUL --}}
+        <div class="mb-12 overflow-hidden bg-white shadow-2xl rounded-xl">
+            <div class="relative p-8 overflow-hidden bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
+                {{-- Pattern Overlay Header --}}
+                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+                <h1 class="relative z-10 flex items-center justify-center gap-3 text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                    <svg class="w-8 h-8 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     Struktur Sekolah
                 </h1>
             </div>
@@ -15,22 +37,27 @@
             <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
 
                 @foreach($struktur as $item)
-                    <div class="overflow-hidden bg-white shadow-xl rounded-2xl border border-gray-100 transition-transform hover:-translate-y-1 duration-300 group">
+                    {{-- KARTU STRUKTUR --}}
+                    <div class="overflow-hidden transition-all duration-300 border shadow-2xl bg-white/95 backdrop-blur-sm rounded-2xl border-white/20 hover:-translate-y-2 hover:shadow-orange-200 group">
 
+                        {{-- Garis Aksen Atas --}}
                         <div class="h-2 bg-gradient-to-r from-yellow-400 to-amber-500"></div>
 
                         <div class="p-8">
-                            <h2 class="mb-6 text-2xl font-extrabold text-center text-gray-900 group-hover:text-blue-700 transition-colors">
+                            <h2 class="mb-4 text-2xl font-extrabold text-center text-gray-900 transition-colors group-hover:text-amber-600">
                                 {{ $item->judul }}
                             </h2>
 
-                            <div class="w-16 h-1 bg-yellow-400 rounded-full mx-auto mb-8"></div>
+                            <div class="w-20 h-1.5 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full mx-auto mb-8 shadow-sm"></div>
 
-                            <div class="overflow-hidden shadow-lg rounded-xl border-4 border-white bg-gray-100 relative">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 pointer-events-none"></div>
+                            {{-- Container Foto --}}
+                            <div class="relative max-w-md mx-auto overflow-hidden bg-gray-100 border-4 border-white shadow-lg rounded-xl">
+                                {{-- Efek Overlay saat Hover --}}
+                                <div class="absolute inset-0 z-10 transition-colors pointer-events-none bg-black/0 group-hover:bg-black/5"></div>
+
                                 <img src="{{ asset('storage/'. $item->foto) }}"
                                      alt="{{ $item->judul }}"
-                                     class="w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
+                                     class="object-cover w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105">
                             </div>
                         </div>
                     </div>
@@ -38,12 +65,13 @@
 
             </div>
         @else
-            <div class="p-16 text-center bg-white shadow-lg rounded-2xl border border-gray-100">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            {{-- STATE KOSONG --}}
+            <div class="max-w-2xl p-16 mx-auto text-center border shadow-2xl bg-white/90 backdrop-blur rounded-2xl border-white/20">
+                <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full shadow-inner bg-blue-50">
+                    <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900">Data Belum Tersedia</h3>
-                <p class="mt-2 text-gray-500">Struktur organisasi sekolah belum ditambahkan.</p>
+                <h3 class="text-2xl font-bold text-gray-900">Data Belum Tersedia</h3>
+                <p class="mt-3 text-lg text-gray-600">Struktur organisasi sekolah belum ditambahkan.</p>
             </div>
         @endif
 

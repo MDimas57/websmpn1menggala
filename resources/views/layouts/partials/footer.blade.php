@@ -1,8 +1,8 @@
 @php
-    // Anda bisa letakkan kode ini pada file layout (app.blade.php)
+    // File ini biasanya di-include di layouts/app.blade.php
 @endphp
 
-<footer class="p-8 mt-12 text-white md:p-12 bg-amber-800">
+<footer class="px-8 pt-20 pb-8 mt-12 text-white md:px-12 md:pb-12 md:pt-24 bg-amber-800">
     <div class="container mx-auto max-w-7xl">
 
         <!-- GRID UTAMA -->
