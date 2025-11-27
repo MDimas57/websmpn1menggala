@@ -5,7 +5,10 @@
 <div class="py-16 bg-gray-50">
     <div class="container max-w-6xl px-4 mx-auto">
 
-        <div class="items-start md:grid md:grid-cols-3 md:gap-10"> <div class="p-8 bg-white border border-gray-100 shadow-sm md:col-span-2 rounded-2xl">
+        <div class="items-start md:grid md:grid-cols-3 md:gap-10">
+
+            {{-- BAGIAN KONTEN BERITA UTAMA (TIDAK BERUBAH) --}}
+            <div class="p-8 bg-white border border-gray-100 shadow-sm md:col-span-2 rounded-2xl">
 
                 <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-blue-600 uppercase rounded-full bg-blue-50">
                     Berita Sekolah
@@ -18,8 +21,8 @@
                 @if($berita->gambar)
                     <div class="w-full mb-8 overflow-hidden shadow-lg rounded-xl">
                         <img src="{{ asset('storage/' . $berita->gambar) }}"
-                            alt="{{ $berita->judul }}"
-                            class="object-cover object-center w-full transition-transform duration-700 h-96 hover:scale-105">
+                             alt="{{ $berita->judul }}"
+                             class="object-cover object-center w-full transition-transform duration-700 h-96 hover:scale-105">
                      </div>
                 @endif
 
@@ -36,6 +39,14 @@
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         <span>{{ $berita->created_at->format('d F Y') }}</span>
                     </div>
+                    {{-- Tambahan Views jika ada di database --}}
+                    @if(isset($berita->views))
+                    <span class="text-gray-300">•</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        <span>{{ $berita->views }}x Dibaca</span>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="space-y-4 leading-relaxed prose prose-lg text-justify text-gray-600 prose-blue max-w-none">
@@ -102,46 +113,84 @@
             </div>
 
 
+            {{--
+                =========================================================
+                BAGIAN SIDEBAR / ASIDE (TELAH DIPERBARUI)
+                =========================================================
+            --}}
             <aside class="mt-10 space-y-8 md:mt-0 md:col-span-1">
 
-                <div class="overflow-hidden bg-white border border-gray-100 shadow-sm rounded-2xl">
+                <div class="relative flex flex-col h-auto p-6 overflow-hidden text-white shadow-xl bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl">
 
-                    <div class="p-6 bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
-                        <h2 class="flex items-center gap-2 text-xl font-bold text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                            Berita Lainnya
-                        </h2>
-                    </div>
+                    {{-- Judul Tetap --}}
+                    <h3 class="flex-shrink-0 pb-3 mb-4 text-xl font-extrabold text-white border-b-2 border-yellow-400">
+                        Berita Lainnya
+                    </h3>
 
-                    <div class="p-6">
+                    {{-- AREA SCROLLABLE --}}
+                    <div class="space-y-6 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
+
                         @if(isset($unreadBeritas) && $unreadBeritas->count())
                             @php
-                                $others = $unreadBeritas->where('id', '!=', $berita->id)->values()->take(6); // Ambil 6 saja agar pas
+                                $others = $unreadBeritas->where('id', '!=', $berita->id)->values()->take(8);
                             @endphp
 
-                            @if($others->count())
-                                <ul class="space-y-6">
-                                    @foreach($others as $u)
-                                        <li>
-                                            <a href="{{ route('berita.show', $u->slug) }}" class="block group">
-                                                <h4 class="mb-1 text-sm font-bold leading-snug text-gray-800 transition-colors group-hover:text-blue-600">
-                                                    {{ \Illuminate\Support\Str::limit($u->judul, 60) }}
-                                                </h4>
-                                                <div class="flex items-center gap-2 text-xs text-gray-400">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                    <span>{{ $u->created_at->diffForHumans() }}</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        @if(!$loop->last) <hr class="border-gray-100"> @endif
-                                    @endforeach
-                                </ul>
-                            @else
-                                <p class="py-4 text-sm text-center text-gray-500">Tidak ada berita lain.</p>
-                            @endif
+                            @forelse($others as $u)
+                                <div class="flex items-start gap-4 group">
+                                    {{-- Gambar Thumbnail --}}
+                                    <a href="{{ route('berita.show', $u->slug) }}" class="relative flex-shrink-0 w-20 h-20 overflow-hidden transition-colors border rounded-lg shadow-sm border-slate-600 group-hover:border-yellow-400">
+                                        @if($u->gambar)
+                                            <img src="{{ asset('storage/' . $u->gambar) }}"
+                                                 alt="{{ $u->judul }}"
+                                                 class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110">
+                                        @else
+                                            {{-- Fallback image jika tidak ada --}}
+                                            <div class="flex items-center justify-center w-full h-full bg-slate-700">
+                                                <svg class="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                        @endif
+                                    </a>
+
+                                    {{-- Konten Text --}}
+                                    <div>
+                                        <h4 class="mb-1 text-sm font-bold leading-snug text-gray-200 transition-colors group-hover:text-yellow-400 line-clamp-2">
+                                            <a href="{{ route('berita.show', $u->slug) }}">{{ $u->judul }}</a>
+                                        </h4>
+
+                                        <div class="flex items-center gap-3 text-xs text-gray-400">
+                                            {{-- Tanggal --}}
+                                            <span class="flex items-center gap-1">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                {{ $u->created_at->diffForHumans() }}
+                                            </span>
+
+                                            {{-- Views (Optional jika ada) --}}
+                                            @if(isset($u->views))
+                                            <span class="flex items-center gap-1 pl-3 border-l border-gray-600">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                                {{ $u->views }}
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Garis putus-putus pemisah --}}
+                                @if(!$loop->last)
+                                    <div class="border-b border-gray-700 border-dashed"></div>
+                                @endif
+
+                            @empty
+                                <div class="py-12 text-center text-gray-400">
+                                    <p>Tidak ada berita lain.</p>
+                                </div>
+                            @endforelse
                         @else
-                            <p class="py-4 text-sm text-center text-gray-500">Tidak ada berita lain.</p>
+                            <div class="py-12 text-center text-gray-400">
+                                <p>Tidak ada berita lain.</p>
+                            </div>
                         @endif
+
                     </div>
                 </div>
 
@@ -150,4 +199,23 @@
         </div>
     </div>
 </div>
+
+{{-- Style Tambahan untuk Scrollbar agar lebih estetik --}}
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #fbbf24;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #f59e0b;
+    }
+</style>
+
 @endsection
