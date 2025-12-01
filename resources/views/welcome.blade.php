@@ -4,7 +4,7 @@
 
 {{--
     =========================================================
-    BAGIAN LOGIKA PHP
+    LOGIKA PHP (TIDAK BERUBAH)
     =========================================================
 --}}
 @php
@@ -19,283 +19,351 @@
     $photos = Galeri::where('tipe', 'foto')->latest()->take(4)->get();
     $videos = Galeri::where('tipe', 'video')->latest()->take(2)->get();
 
-    // LOGIKA BERITA BARU (SPLIT DATA)
+    // LOGIKA BERITA
     $allBerita = Berita::where('status', 'publish')->latest()->get();
-    $beritaUtama = $allBerita->take(4);
-    $beritaLama = $allBerita->skip(4);
+    $beritaUtama = $allBerita->take(4); // Grid kiri
+    $beritaLama = $allBerita->skip(4);   // List kanan
 @endphp
 
-{{-- 1. BAGIAN BANNER SLIDER --}}
-<section id="banner-slider" class="relative splide"
-         aria-label="Banner dan Pengumuman Sekolah"
-         data-splide='{"type":"loop","arrows":false,"autoplay":true,"interval":3000,"pauseOnHover":false,"pauseOnFocus":false,"pagination":true}'>
-    <div class="splide__track">
+{{--
+    1. BAGIAN BANNER SLIDER (MODERN: Glass Effect Overlay)
+--}}
+<section id="banner-slider" class="relative splide group"
+         aria-label="Banner Sekolah"
+         data-splide='{"type":"loop","arrows":true,"autoplay":true,"interval":4000,"speed":1000,"pauseOnHover":false}'>
+    <div class="splide__track h-[600px] md:h-[700px]">
         <ul class="splide__list">
             @foreach ($banners as $banner)
                 <li class="splide__slide">
-                    <div class="relative w-full h-[600px] overflow-hidden">
-                        <img src="{{ asset('storage/' . $banner->foto) }}" alt="Banner" class="absolute inset-0 z-0 object-cover w-full h-full" />
+                    <div class="relative w-full h-full overflow-hidden">
+                        {{-- Image dengan Zoom Effect saat slide aktif (bisa ditambah CSS custom) --}}
+                        <img src="{{ asset('storage/' . $banner->foto) }}" alt="Banner" class="absolute inset-0 object-cover w-full h-full" />
+                        {{-- Overlay Gradient yang lebih halus --}}
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
                     </div>
                 </li>
             @endforeach
         </ul>
     </div>
-    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-    <div class="absolute bottom-0 left-0 z-20 max-w-3xl p-8 text-white md:p-16">
-        <div class="inline-flex items-center gap-3 mb-6">
-            <span class="block w-20 h-1.5 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50"></span>
-        </div>
-        <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl lg:text-7xl drop-shadow-lg">
-            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-amber-600">SELAMAT DATANG</span>
-            <span class="block mt-2 text-2xl font-bold text-white md:text-4xl">DI SMP NEGERI 1 MENGGALA</span>
-        </h1>
-        <div class="flex items-center gap-4 mt-8">
-            <a href="{{ url('kata-sambutan') }}" class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold text-yellow-900 transition-transform transform bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 hover:-translate-y-1">
-                Pelajari Selengkapnya <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
+
+    {{-- Content Overlay (Glassmorphism) --}}
+    <div class="container absolute inset-0 z-20 flex items-center px-6 mx-auto pointer-events-none md:px-16 max-w-7xl">
+        <div class="max-w-3xl pointer-events-auto">
+            <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full shadow-lg bg-white/10 backdrop-blur-md border-white/20 animate-fade-in-up">
+                <span class="block w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></span>
+                <span class="text-sm font-semibold tracking-widest text-white uppercase">Official Website</span>
+            </div>
+
+            <h1 class="mb-6 text-5xl font-black leading-tight text-white md:text-7xl drop-shadow-2xl">
+                Mewujudkan Generasi <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">
+                    Cerdas & Berkarakter
+                </span>
+            </h1>
+
+            <p class="max-w-2xl mb-8 text-lg leading-relaxed text-gray-200 md:text-xl">
+                Selamat datang di SMP Negeri 1 Menggala. Platform informasi digital untuk mendukung transparansi dan kemajuan pendidikan.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="{{ url('kata-sambutan') }}" class="relative px-8 py-4 overflow-hidden font-bold text-yellow-900 transition-all bg-yellow-500 rounded-full shadow-lg group shadow-yellow-500/30 hover:scale-105 hover:shadow-yellow-500/50">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Jelajahi Profil
+                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </span>
+                    <div class="absolute inset-0 transition-transform duration-300 translate-y-full bg-white/20 group-hover:translate-y-0"></div>
+                </a>
+                <a href="#berita" class="px-8 py-4 font-bold text-white transition-all border rounded-full bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20">
+                    Lihat Berita
+                </a>
+            </div>
         </div>
     </div>
 </section>
 
 {{--
     =========================================================
-    2. BAGIAN BERITA TERBARU (LAYOUT HIBRIDA: GRID & SCROLLABLE LIST)
+    2. BAGIAN BERITA (LAYOUT: 3 HEADLINE + PURE SCROLL SIDEBAR)
     =========================================================
 --}}
-<div class="relative py-24 bg-white">
-    <div class="absolute top-0 right-0 w-1/3 h-full bg-gray-50/50 -z-10 clip-path-slant"></div>
+@php
+    // AMBIL DATA BERITA
+    // Mengambil 20 berita terbaru
+    $allBerita = Berita::where('status', 'publish')->latest()->take(20)->get();
 
+    // 3 Berita teratas -> Grid Utama (Kiri)
+    $beritaUtama = $allBerita->take(3);
+
+    // Sisanya -> Sidebar (Kanan)
+    $beritaSidebar = $allBerita->skip(3);
+@endphp
+
+<section id="berita" class="relative py-24 bg-slate-50">
     <div class="container px-4 mx-auto max-w-7xl">
 
-        {{-- Header --}}
-        <div class="flex flex-col justify-between pb-6 mb-12 border-b border-gray-100 md:flex-row md:items-end">
-            <div class="pl-6 border-l-8 border-yellow-500">
-                <h2 class="text-4xl font-extrabold tracking-tight text-gray-900">Berita & Artikel</h2>
-                <p class="mt-3 text-lg text-gray-500">Update Kegiatan dan Prestasi Terkini Sekolah.</p>
+        {{-- Header Section --}}
+        <div class="flex flex-col justify-between gap-6 mb-12 md:flex-row md:items-end">
+            <div>
+                <span class="text-sm font-bold tracking-wider text-yellow-600 uppercase">Informasi Terkini</span>
+                <h2 class="mt-2 text-4xl font-black md:text-5xl text-slate-900">Kabar Sekolah</h2>
             </div>
+            {{-- Link Mobile Only (Tetap ada buat HP karena tidak ada sidebar di HP biasanya) --}}
+            <a href="/informasi" class="inline-flex items-center gap-2 text-sm font-semibold md:hidden text-slate-600">
+                Lihat Semua &rarr;
+            </a>
         </div>
 
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
 
-            {{-- KOLOM KIRI (2/3): BERITA UTAMA (GRID BESAR) --}}
-            <div class="grid grid-cols-1 gap-8 lg:col-span-2 md:grid-cols-2">
-                @forelse ($beritaUtama as $berita)
-                    <article class="flex flex-col overflow-hidden transition-all duration-300 bg-white border border-gray-100 shadow-lg group rounded-2xl hover:shadow-2xl hover:-translate-y-1">
-                        <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="relative overflow-hidden h-52">
+            {{--
+                KOLOM KIRI (Headline / Berita Utama)
+            --}}
+            <div class="grid grid-cols-1 gap-8 lg:col-span-8 md:grid-cols-2 h-fit">
+                @foreach ($beritaUtama as $index => $berita)
+                    <article class="group relative bg-white rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 hover:-translate-y-2 transition-all duration-500 {{ $index === 0 ? 'md:col-span-2 md:flex md:h-[400px]' : 'flex flex-col h-full' }}">
+
+                        {{-- Image Wrapper --}}
+                        <div class="relative overflow-hidden {{ $index === 0 ? 'md:w-1/2 h-64 md:h-full' : 'h-56' }}">
                             <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}"
                                  alt="{{ $berita->judul }}"
                                  class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute px-3 py-1 text-center border border-gray-100 rounded-lg shadow-sm top-4 right-4 bg-white/95">
-                                <span class="block text-xs font-bold text-gray-400 uppercase">{{ $berita->created_at->format('M') }}</span>
-                                <span class="block text-lg font-extrabold leading-none text-slate-800">{{ $berita->created_at->format('d') }}</span>
-                            </div>
-                        </a>
-                        <div class="flex flex-col flex-1 p-6">
-                            <h3 class="mb-3 text-lg font-bold leading-snug transition-colors text-slate-800 group-hover:text-blue-700 line-clamp-2">
-                                <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">{{ $berita->judul }}</a>
-                            </h3>
-                            <p class="mb-4 text-sm text-gray-500 line-clamp-2">{{ Str::limit(strip_tags($berita->isi), 80) }}</p>
-                            <div class="flex items-center justify-between pt-4 mt-auto border-t border-gray-100">
-                                <span class="flex items-center gap-1 text-xs text-gray-400">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    {{ $berita->views ?? 0 }}
-                                </span>
-                                <span class="text-xs font-bold tracking-wide text-yellow-600 uppercase group-hover:underline">Baca Selengkapnya</span>
+
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg shadow-sm border border-white/50 text-center">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">{{ $berita->created_at->format('M') }}</span>
+                                <span class="block text-lg font-black leading-none text-slate-800">{{ $berita->created_at->format('d') }}</span>
                             </div>
                         </div>
+
+                        {{-- Content Wrapper --}}
+                        <div class="p-6 md:p-8 flex flex-col justify-center flex-1 {{ $index === 0 ? 'md:w-1/2' : '' }}">
+                            @if($index === 0)
+                            <div class="flex items-center gap-2 mb-3 text-xs font-bold tracking-wide text-yellow-600 uppercase">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                                Highlights
+                            </div>
+                            @endif
+
+                            <h3 class="{{ $index === 0 ? 'text-2xl md:text-3xl' : 'text-xl' }} font-bold text-slate-800 mb-3 leading-tight group-hover:text-yellow-600 transition-colors">
+                                <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">
+                                    {{ $berita->judul }}
+                                </a>
+                            </h3>
+
+                            <p class="mb-6 text-sm leading-relaxed text-slate-500 line-clamp-3">
+                                {{ Str::limit(strip_tags($berita->isi), $index === 0 ? 150 : 100) }}
+                            </p>
+
+                            <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-slate-900 border-b-2 border-yellow-400 pb-0.5 hover:text-yellow-600 transition-colors w-max">
+                                Baca Selengkapnya
+                            </a>
+                        </div>
                     </article>
-                @empty
-                    <div class="col-span-2 py-12 text-center text-gray-500">Belum ada berita terbaru.</div>
-                @endforelse
+                @endforeach
             </div>
 
             {{--
-                KOLOM KANAN (1/3): BERITA LAINNYA (SCROLLABLE LIST)
+                KOLOM KANAN (Sidebar Scrollable - TANPA TOMBOL LIHAT SEMUA)
             --}}
-            <div class="lg:col-span-1">
-                <div class="relative flex flex-col h-full p-6 overflow-hidden text-white shadow-xl bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl">
+            <div class="lg:col-span-4">
+                <div class="sticky top-24">
+                    <div class="bg-slate-900 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden flex flex-col max-h-[700px]"> {{-- max-h diatur di container utama --}}
 
-                    {{-- Judul Tetap (Sticky Header) --}}
-                    <h3 class="flex-shrink-0 pb-3 mb-4 text-xl font-extrabold text-white border-b-2 border-yellow-400">
-                        Berita Lainnya
-                    </h3>
+                        {{-- Judul Sidebar --}}
+                        <div class="relative z-10 flex items-center justify-between pb-4 mb-2 border-b border-slate-700 shrink-0">
+                            <h3 class="flex items-center gap-3 text-xl font-bold text-white">
+                                <span class="w-1.5 h-6 bg-yellow-500 rounded-full"></span>
+                                Arsip Berita
+                            </h3>
+                            <span class="font-mono text-xs text-slate-400">{{ $beritaSidebar->count() }} Artikel</span>
+                        </div>
 
-                    {{-- AREA SCROLLABLE --}}
-                    <div class="space-y-6 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
-                        @forelse ($beritaLama as $berita)
-                            <div class="flex items-start gap-4 group">
-                                <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="relative flex-shrink-0 w-20 h-20 overflow-hidden transition-colors border rounded-lg shadow-sm border-slate-600 group-hover:border-yellow-400">
-                                    <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}"
-                                         alt="{{ $berita->judul }}"
-                                         class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110">
-                                </a>
-
-                                <div>
-                                    <h4 class="mb-1 text-sm font-bold leading-snug text-gray-200 transition-colors group-hover:text-yellow-400 line-clamp-2">
-                                        <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}">{{ $berita->judul }}</a>
-                                    </h4>
-
-                                    <div class="flex items-center gap-3 text-xs text-gray-400">
-                                        {{-- Tanggal --}}
-                                        <span class="flex items-center gap-1">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                            {{ $berita->created_at->format('d M Y') }}
-                                        </span>
-
-                                        {{-- Views (Penambahan Baru Disini) --}}
-                                        <span class="flex items-center gap-1 pl-3 border-l border-gray-600">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                            {{ $berita->views ?? 0 }}
-                                        </span>
+                        {{-- AREA SCROLLABLE --}}
+                        <div class="relative z-10 flex-1 pr-2 space-y-4 overflow-y-auto custom-scrollbar">
+                            @forelse ($beritaSidebar as $berita)
+                                <a href="{{ url('berita/' . ($berita->slug ?? $berita->id)) }}" class="flex gap-4 p-3 transition-colors border border-transparent group rounded-xl hover:bg-white/5 hover:border-white/10">
+                                    {{-- Thumbnail --}}
+                                    <div class="relative w-20 h-20 overflow-hidden rounded-lg shrink-0">
+                                        <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/default-news.jpg') }}"
+                                             alt="Thumb" class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110">
                                     </div>
 
+                                    {{-- Teks --}}
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 text-[10px] text-slate-400 mb-1">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            {{ $berita->created_at->format('d M Y') }}
+                                        </div>
+                                        <h4 class="text-sm font-bold leading-snug transition-colors text-slate-200 group-hover:text-yellow-400 line-clamp-2">
+                                            {{ $berita->judul }}
+                                        </h4>
+                                    </div>
+                                </a>
+                            @empty
+                                <div class="py-8 text-center text-slate-500">
+                                    <p class="text-sm">Tidak ada berita lainnya.</p>
                                 </div>
-                            </div>
+                            @endforelse
+                        </div>
 
-                            @if(!$loop->last)
-                                <div class="border-b border-gray-700 border-dashed"></div>
-                            @endif
-                        @empty
-                            <p class="py-4 text-sm text-center text-gray-400">Tidak ada berita lain.</p>
-                        @endforelse
-                    </div>
-
-                    {{-- Tombol Lihat Semua (Sticky Footer) --}}
-                    <div class="flex-shrink-0 pt-4 mt-4 text-center border-t border-gray-700 lg:hidden">
-                        <a href="/informasi" class="text-sm font-bold text-yellow-400 transition-colors hover:text-yellow-300">Lihat Arsip Berita &rarr;</a>
+                        {{-- Dekorasi Background Sidebar --}}
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-600 rounded-full blur-[60px] opacity-20 pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-600 rounded-full blur-[60px] opacity-20 pointer-events-none"></div>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-</div>
+</section>
 
-{{--
-    STYLE TAMBAHAN UNTUK SCROLLBAR (Opsional)
---}}
+{{-- Style CSS untuk Scrollbar yang cantik (Wajib ada) --}}
 <style>
+    /* Mengatur lebar scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
+        width: 5px;
     }
+    /* Mengatur track (jalur) scrollbar */
     .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
         border-radius: 10px;
+        margin-block: 10px; /* Jarak atas bawah */
     }
+    /* Mengatur handle (pegangan) scrollbar */
     .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #fbbf24;
+        background: #475569; /* Slate 600 */
         border-radius: 10px;
     }
+    /* Warna handle saat di-hover */
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #f59e0b;
+        background: #fbbf24; /* Yellow 400 */
     }
 </style>
 
-{{-- 3. BAGIAN TENAGA PENDIDIK (ALIGNED / SELARAS) --}}
-<section class="relative py-24 overflow-hidden bg-gradient-to-b from-blue-900 to-slate-900">
-    <div class="absolute bg-white rounded-full -top-24 -right-24 w-96 h-96 blur-3xl -z-10 opacity-60"></div>
-    <div class="absolute bg-blue-100 rounded-full top-1/2 -left-24 w-72 h-72 blur-3xl -z-10 opacity-60"></div>
-    <div class="container px-4 mx-auto max-w-7xl">
-        <div class="mb-20 text-center">
-            <span class="px-3 py-1 text-sm font-bold tracking-widest text-yellow-600 uppercase bg-yellow-100 rounded-full">SDM Unggul</span>
-            <h2 class="mt-4 mb-6 text-4xl font-extrabold text-white md:text-5xl">Tenaga Pendidik</h2>
-            <div class="w-32 h-2 mx-auto rounded-full shadow-md bg-gradient-to-r from-yellow-400 to-amber-500"></div>
-            <p class="max-w-2xl mx-auto mt-6 text-lg leading-relaxed text-white">Guru-guru Berdedikasi Tinggi Yang Siap Membimbing Siswa Menuju Masa Depan Yang Gemilang.</p>
+{{--
+    3. BAGIAN TENAGA PENDIDIK (MODERN: Portrait Cards with Floating Info)
+--}}
+<section class="relative py-24 overflow-hidden bg-white">
+    {{-- Background Pattern --}}
+    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
+
+    <div class="container relative z-10 px-4 mx-auto max-w-7xl">
+        <div class="mb-16 text-center">
+            <span class="px-4 py-2 text-sm font-bold tracking-wider text-yellow-600 uppercase border border-yellow-100 rounded-full bg-yellow-50">SDM Unggul</span>
+            <h2 class="mt-4 mb-4 text-4xl font-black md:text-5xl text-slate-900">Guru & Staf</h2>
+            <p class="max-w-2xl mx-auto text-lg text-slate-600">
+                Berkenalan dengan para pahlawan tanpa tanda jasa yang berdedikasi membimbing masa depan.
+            </p>
         </div>
+
         @if($tenagaPendidik && $tenagaPendidik->count() > 0)
-            <div class="relative overflow-visible splide splide-tenaga" aria-label="Slider Tenaga Pendidik" data-splide='{"type":"loop","perPage":4,"perMove":1,"gap":"2rem","autoplay":true,"interval":3000,"arrows":true,"pagination":false,"breakpoints":{"1024":{"perPage":3},"768":{"perPage":2},"480":{"perPage":1}}}'>
-                <div class="p-4 splide__track">
+            <div class="splide splide-tenaga" data-splide='{"type":"loop","perPage":4,"gap":"1.5rem","autoplay":true,"pagination":false,"arrows":true, "breakpoints":{"1024":{"perPage":3},"768":{"perPage":2},"640":{"perPage":1}}}'>
+                <div class="py-8 splide__track"> {{-- Padding Y added for hover effect space --}}
                     <ul class="splide__list">
                         @foreach($tenagaPendidik as $guru)
                             <li class="splide__slide">
-                                <a href="{{ route('guru.show', $guru->id) }}" class="flex flex-col h-full overflow-hidden transition-all duration-300 transform bg-white border border-gray-200 group rounded-2xl hover:shadow-2xl hover:-translate-y-2">
+                                <div class="group relative h-[420px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-100">
+                                    {{-- Full Image --}}
+                                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="{{ $guru->nama_lengkap }}" class="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-105">
 
-                                    {{-- FOTO: Tinggi Tetap --}}
-                                    <div class="relative flex-shrink-0 overflow-hidden bg-gray-100 h-72">
-                                        <img src="{{ asset('storage/' . $guru->foto) }}" alt="{{ $guru->nama_lengkap }}" class="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-105">
-                                    </div>
+                                    {{-- Overlay Gradient --}}
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-80"></div>
 
-                                    <div class="relative z-20 flex flex-col justify-start flex-grow p-6 -mt-12 text-center">
-                                        {{-- IKON --}}
-                                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-3 transition-colors bg-yellow-400 border-4 border-white rounded-full shadow-lg group-hover:bg-yellow-300 shrink-0">
-                                            <svg class="w-8 h-8 text-yellow-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                        </div>
-
-                                        {{--
-                                            AREA NAMA (WRAPPER):
-                                            min-h-[4rem] (sekitar 64px) disiapkan agar muat 2-3 baris nama.
-                                            flex items-start justify-center: Nama dimulai dari atas, rata tengah horizontal.
-                                        --}}
-                                        <div class="w-full min-h-[4rem] flex items-start justify-center mb-1">
-                                            <h3 class="text-xl font-bold leading-tight text-gray-900 transition-colors group-hover:text-blue-700">
-                                                {{ $guru->nama_lengkap }}
-                                            </h3>
-                                        </div>
-
-                                        {{-- JABATAN --}}
-                                        <p class="text-sm font-medium leading-snug tracking-wide text-gray-500 uppercase">
+                                    {{-- Content at Bottom --}}
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
+                                        <div class="w-12 h-1 mb-4 bg-yellow-400 rounded-full"></div>
+                                        <h3 class="mb-1 text-xl font-bold leading-tight text-white">
+                                            {{ $guru->nama_lengkap }}
+                                        </h3>
+                                        <p class="text-sm font-medium tracking-wide text-gray-300 uppercase">
                                             {{ $guru->jenis_gtk }}
                                         </p>
+
+                                        {{-- Hidden Button appears on hover --}}
+                                        <div class="h-0 overflow-hidden transition-all duration-500 opacity-0 group-hover:h-auto group-hover:mt-4 group-hover:opacity-100">
+                                            <a href="{{ route('guru.show', $guru->id) }}" class="inline-block text-sm font-bold text-yellow-400 hover:text-yellow-300">
+                                                Lihat Profil &rarr;
+                                            </a>
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
         @else
-            <div class="py-12 text-center bg-white border border-gray-300 border-dashed rounded-xl"><p class="text-lg text-gray-500">Data tenaga pendidik belum tersedia.</p></div>
+            <div class="py-12 text-center border border-dashed bg-slate-50 rounded-3xl border-slate-300">
+                <p class="text-slate-500">Data tenaga pendidik belum tersedia.</p>
+            </div>
         @endif
     </div>
 </section>
 
-{{-- 4. BAGIAN GALERI FOTO & VIDEO (TIDAK BERUBAH) --}}
-<section class="py-24 border-t border-orange-100 bg-amber-50">
-    <div class="container px-4 mx-auto max-w-7xl">
-        <div class="mb-16 text-center">
-            <span class="px-3 py-1 text-sm font-bold tracking-widest text-yellow-600 uppercase bg-yellow-100 rounded-full">Dokumentasi Sekolah</span>
-            <h2 class="mt-4 mb-6 text-4xl font-extrabold text-gray-900">Galeri Foto & Video</h2>
-            <div class="w-32 h-2 mx-auto rounded-full shadow-md bg-gradient-to-r from-yellow-400 to-amber-500"></div>
-        </div>
-        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <div class="grid h-full grid-cols-2 gap-4">
-                @forelse($photos as $photo)
-                    <div class="relative h-48 overflow-hidden border border-gray-200 shadow-md group rounded-2xl md:h-64">
-                        <a href="{{ asset('storage/' . $photo->file) }}" class="block w-full h-full gallery-lightbox" data-description="{{ $photo->nama_kegiatan }}">
-                            <img src="{{ asset('storage/' . $photo->file) }}" alt="{{ $photo->nama_kegiatan }}" class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 flex flex-col items-center justify-end p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                                <p class="text-sm font-bold text-center text-white md:text-base drop-shadow-md">{{ $photo->nama_kegiatan }}</p>
-                                <div class="w-8 h-1 mt-2 bg-yellow-400 rounded"></div>
-                            </div>
-                        </a>
-                    </div>
-                @empty
-                    <div class="flex items-center justify-center h-64 col-span-2 text-gray-500 bg-white shadow-sm rounded-2xl">Galeri Foto Belum Tersedia</div>
-                @endforelse
+{{--
+    4. GALERI (MODERN: Bento Grid Style)
+--}}
+<section class="relative py-24 overflow-hidden text-white bg-slate-900">
+    {{-- Decorative Blobs --}}
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600 rounded-full blur-[120px] opacity-20"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600 rounded-full blur-[120px] opacity-20"></div>
+
+    <div class="container relative z-10 px-4 mx-auto max-w-7xl">
+        <div class="flex flex-col items-end justify-between gap-4 mb-12 md:flex-row">
+            <div>
+                <span class="text-sm font-bold tracking-wider text-yellow-400 uppercase">Dokumentasi</span>
+                <h2 class="mt-2 text-4xl font-black md:text-5xl">Galeri Kegiatan</h2>
             </div>
-            <div class="flex flex-col h-full gap-6">
-                @foreach($videos as $video)
-                    <div class="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white h-64 md:h-[265px]">
-                        <video class="object-cover w-full h-full" controls controlslist="nodownload">
-                            <source src="{{ asset('storage/' . $video->file) }}" type="video/mp4">
-                            Browser Anda tidak mendukung tag video.
-                        </video>
-                    </div>
-                @endforeach
-                @php $sisaSlot = 2 - $videos->count(); @endphp
-                @for($i = 0; $i < $sisaSlot; $i++)
-                    <div class="relative w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-900 h-64 md:h-[265px] flex items-center justify-center">
-                         <p class="text-sm text-gray-400">Slot Video Kosong</p>
-                    </div>
-                @endfor
-            </div>
-        </div>
-        <div class="mt-12 text-center">
-            <a href="{{ url('gallery-foto') }}" class="inline-flex items-center gap-2 px-8 py-3 text-base font-bold text-yellow-900 transition-transform transform bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 hover:-translate-y-1">
-                Lihat Galeri Lengkap <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <a href="{{ url('gallery-foto') }}" class="px-6 py-3 text-sm font-semibold transition-all border rounded-full border-slate-600 hover:bg-white hover:text-slate-900">
+                Lihat Semua Galeri
             </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+            {{-- Video Utama (Besar) --}}
+            @if($videos->first())
+                <div class="md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-2xl relative group bg-black">
+                    <video class="object-cover w-full h-full transition-opacity opacity-80 group-hover:opacity-100" controls controlslist="nodownload">
+                        <source src="{{ asset('storage/' . $videos->first()->file) }}" type="video/mp4">
+                    </video>
+                    <div class="absolute px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-red-600 rounded-full top-6 left-6">
+                        Video Terbaru
+                    </div>
+                </div>
+            @endif
+
+            {{-- Foto Grid --}}
+            @foreach($photos as $index => $photo)
+                <div class="relative rounded-[2rem] overflow-hidden group shadow-lg cursor-pointer bg-slate-800 {{ $index === 0 && !$videos->first() ? 'md:col-span-2 md:row-span-2' : '' }}">
+                    <a href="{{ asset('storage/' . $photo->file) }}" class="block w-full h-full gallery-lightbox" data-description="{{ $photo->nama_kegiatan }}">
+                        <img src="{{ asset('storage/' . $photo->file) }}" alt="{{ $photo->nama_kegiatan }}" class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1">
+
+                        <div class="absolute inset-0 transition-colors bg-black/40 group-hover:bg-black/20"></div>
+
+                        <div class="absolute bottom-0 left-0 right-0 p-6 transition-all duration-300 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                            <p class="font-bold text-white drop-shadow-md">{{ $photo->nama_kegiatan }}</p>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+
+            {{-- Video Kedua (Jika ada) --}}
+            @if($videos->count() > 1)
+                <div class="rounded-[2rem] overflow-hidden shadow-lg relative bg-black">
+                     <video class="object-cover w-full h-full" controls controlslist="nodownload">
+                        <source src="{{ asset('storage/' . $videos[1]->file) }}" type="video/mp4">
+                    </video>
+                </div>
+            @endif
         </div>
     </div>
 </section>
+
+{{-- Style Tambahan untuk Scrollbar --}}
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #64748b; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
 
 @endsection
