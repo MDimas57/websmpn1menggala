@@ -373,4 +373,91 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 </style>
 
+{{--
+    5. ORGANISASI SEKOLAH (LOGO BERJALAN)
+--}}
+@php
+    // Data organisasi sekolah (bisa diganti dengan data dari database jika ada model Organisasi)
+    $organisasi = [
+        ['nama' => 'OSIS', 'logo' => 'images/osis.png', 'warna' => 'from-blue-500 to-cyan-500'],
+        ['nama' => 'PMR', 'logo' => 'images/pmr.png', 'warna' => 'from-red-500 to-pink-500'],
+        ['nama' => 'Pramuka', 'logo' => 'images/pramuka.png', 'warna' => 'from-green-500 to-emerald-500'],
+        ['nama' => 'Rohis', 'logo' => 'images/rohis-logo.png', 'warna' => 'from-purple-500 to-violet-500'],
+        ['nama' => 'Futsal', 'logo' => 'images/futsal.png', 'warna' => 'from-yellow-500 to-amber-500'],
+        ['nama' => 'Basket', 'logo' => 'images/basket.png', 'warna' => 'from-orange-500 to-red-500'],
+        ['nama' => 'Voli', 'logo' => 'images/voli.png', 'warna' => 'from-indigo-500 to-blue-500'],
+        ['nama' => 'Paduan Suara', 'logo' => 'images/padus.png', 'warna' => 'from-pink-500 to-rose-500'],
+    ];
+@endphp
+
+<section class="relative py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    {{-- Animated Background Elements --}}
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-purple-600 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute right-0 w-64 h-64 bg-blue-600 rounded-full top-1/3 mix-blend-soft-light filter blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-0 w-64 h-64 bg-indigo-600 rounded-full left-1/2 mix-blend-soft-light filter blur-3xl opacity-20 animate-pulse"></div>
+    </div>
+
+    <div class="container relative z-10 px-4 mx-auto max-w-7xl">
+        <div class="mb-16 text-center">
+            <span class="inline-block px-6 py-3 mb-6 text-sm font-bold tracking-wider text-yellow-300 uppercase border rounded-full bg-yellow-900/30 backdrop-blur-sm border-yellow-500/30">Ekstrakurikuler & Organisasi</span>
+            <h2 class="mt-2 text-4xl font-black text-white md:text-6xl">Organisasi Sekolah</h2>
+            <p class="max-w-2xl mx-auto mt-6 text-lg text-slate-300">
+                Berbagai organisasi dan ekstrakurikuler yang menunjang pengembangan bakat dan minat siswa.
+            </p>
+        </div>
+
+        {{-- Carousel Logo Organisasi --}}
+        <div class="relative py-12">
+            <div class="splide splide-organisasi" data-splide='{"type":"loop","perPage":4,"gap":"2rem","autoplay":true,"pagination":false,"arrows":false,"pauseOnHover":false,"speed":1500,"interval":3500,"breakpoints":{"1024":{"perPage":3,"gap":"1.5rem"},"768":{"perPage":2,"gap":"1rem"},"640":{"perPage":1,"gap":"1rem"}}}'>
+                <div class="py-8 splide__track">
+                    <ul class="splide__list">
+                        @foreach($organisasi as $org)
+                            <li class="py-4 splide__slide">
+                                <div class="relative flex flex-col items-center justify-center h-full p-6 overflow-hidden transition-all duration-700 border shadow-xl group bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg rounded-2xl hover:shadow-2xl hover:-translate-y-3 border-slate-700/50">
+                                    {{-- Animated Background Accent --}}
+                                    <div class="absolute inset-0 opacity-0 bg-gradient-to-br {{ $org['warna'] }} transition-opacity duration-700 group-hover:opacity-20"></div>
+
+                                    {{-- Glow Effect --}}
+                                    <div class="absolute inset-0 transition-opacity duration-700 opacity-0 rounded-2xl group-hover:opacity-100">
+                                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br {{ $org['warna'] }} blur-md opacity-30"></div>
+                                    </div>
+
+                                    {{-- Logo Container --}}
+                                    <div class="relative flex items-center justify-center w-24 h-24 mb-5 transition-all duration-700 border shadow-lg bg-slate-800/70 backdrop-blur-sm rounded-xl group-hover:shadow-xl group-hover:scale-110 border-slate-700/50">
+                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br {{ $org['warna'] }} opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
+                                        <img src="{{ asset($org['logo']) }}" alt="{{ $org['nama'] }}" class="relative z-10 object-contain w-16 h-16 filter drop-shadow-lg">
+                                    </div>
+
+                                    {{-- Organization Name --}}
+                                    <h3 class="relative z-10 text-lg font-bold text-center text-white transition-colors duration-300 group-hover:text-yellow-300">
+                                        {{ $org['nama'] }}
+                                    </h3>
+
+                                    {{-- Animated Underline --}}
+                                    <div class="relative z-10 w-0 h-0.5 mt-3 transition-all duration-700 bg-gradient-to-r {{ $org['warna'] }} group-hover:w-16"></div>
+
+                                    {{-- Decorative Particles --}}
+                                    <div class="absolute w-2 h-2 transition-all duration-700 bg-white rounded-full opacity-0 top-4 right-4 group-hover:opacity-60"></div>
+                                    <div class="absolute w-2 h-2 transition-all duration-700 bg-white rounded-full opacity-0 bottom-4 left-4 group-hover:opacity-60"></div>
+                                    <div class="absolute w-1 h-1 transition-all duration-700 bg-white rounded-full opacity-0 top-1/2 left-4 group-hover:opacity-40"></div>
+                                    <div class="absolute w-1 h-1 transition-all duration-700 bg-white rounded-full opacity-0 top-1/2 right-4 group-hover:opacity-40"></div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Style Tambahan untuk Scrollbar --}}
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(77, 43, 43, 0.05); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #64748b; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
+
 @endsection
