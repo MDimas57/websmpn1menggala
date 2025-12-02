@@ -10,11 +10,11 @@
 
             <!-- KOLOM 1: PROFIL SEKOLAH -->
             <div class="flex flex-col items-center space-y-4 text-center sm:items-start sm:text-left">
-                <img src="{{ asset('images/teknokrat.png') }}" alt="Logo SMP Negeri 1 Menggala"
+                <img src="{{ asset('images/logo smp.png') }}" alt="Logo SMP Negeri 1 Menggala"
                     class="w-24 h-24 rounded-md">
 
                 <div>
-                    <h2 class="mb-2 text-2xl font-bold">SMP Negeri 1 Menggala</h2>
+                    <h2 class="mb-2 text-1.5xl.5 font-bold">SMP Negeri 1 Menggala</h2>
                     <p class="mb-2 text-sm font-semibold text-yellow-300">
                         Sekolah Unggulan Berkarakter
                     </p>

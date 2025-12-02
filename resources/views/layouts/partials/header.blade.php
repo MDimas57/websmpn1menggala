@@ -27,7 +27,7 @@
 
        <a href="/" class="flex items-center gap-2 group">
     <img src="{{ asset('images/logo smp.png') }}" alt="Logo SMPN 1 Menggala"
-         class="w-22 h-22 rounded-full border-2 border-white shadow-md object-contain">
+         class="w-20 h-20 rounded-md">
     <span class="text-2xl font-extrabold tracking-wider text-white transition-colors group-hover:text-amber-100"
           style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
         SMP N 1 MENGGALA
