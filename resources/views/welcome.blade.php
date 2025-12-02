@@ -54,7 +54,7 @@
                 <span class="text-sm font-semibold tracking-widest text-white uppercase">Official Website</span>
             </div>
 
-            <h1 class="mb-6 text-5xl font-black leading-tight text-white md:text-7xl drop-shadow-2xl">
+            <h1 class="mb-6 text-5xl font-black leading-tight text-white md:text-5xl drop-shadow-2xl">
                 Mewujudkan Generasi <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">
                     Cerdas & Berkarakter
@@ -242,15 +242,18 @@
 {{--
     3. BAGIAN TENAGA PENDIDIK (MODERN: Portrait Cards with Floating Info)
 --}}
-<section class="relative py-24 overflow-hidden bg-white">
-    {{-- Background Pattern --}}
-    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
+<section class="relative py-24 overflow-hidden">
+    {{-- Background Image dengan Overlay --}}
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('images/guru.jpeg') }}" alt="Background Guru & Staf" class="object-cover w-full h-full">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/90"></div>
+    </div>
 
     <div class="container relative z-10 px-4 mx-auto max-w-7xl">
         <div class="mb-16 text-center">
-            <span class="px-4 py-2 text-sm font-bold tracking-wider text-yellow-600 uppercase border border-yellow-100 rounded-full bg-yellow-50">SDM Unggul</span>
-            <h2 class="mt-4 mb-4 text-4xl font-black md:text-5xl text-slate-900">Guru & Staf</h2>
-            <p class="max-w-2xl mx-auto text-lg text-slate-600">
+            <span class="px-4 py-2 text-sm font-bold tracking-wider text-yellow-400 uppercase border rounded-full border-yellow-400/30 bg-yellow-400/10 backdrop-blur-sm">SDM Unggul</span>
+            <h2 class="mt-4 mb-4 text-4xl font-black text-white md:text-5xl">Guru & Staf</h2>
+            <p class="max-w-2xl mx-auto text-lg text-gray-200">
                 Berkenalan dengan para pahlawan tanpa tanda jasa yang berdedikasi membimbing masa depan.
             </p>
         </div>
@@ -292,8 +295,8 @@
                 </div>
             </div>
         @else
-            <div class="py-12 text-center border border-dashed bg-slate-50 rounded-3xl border-slate-300">
-                <p class="text-slate-500">Data tenaga pendidik belum tersedia.</p>
+            <div class="py-12 text-center border border-dashed bg-white/10 backdrop-blur-sm rounded-3xl border-white/20">
+                <p class="text-white/80">Data tenaga pendidik belum tersedia.</p>
             </div>
         @endif
     </div>
@@ -308,24 +311,28 @@
     <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600 rounded-full blur-[120px] opacity-20"></div>
 
     <div class="container relative z-10 px-4 mx-auto max-w-7xl">
-        <div class="flex flex-col items-end justify-between gap-4 mb-12 md:flex-row">
-            <div>
+        {{-- Header Section - PERBAIKAN UNTUK MOBILE --}}
+        <div class="mb-12">
+            <div class="text-center md:text-left">
                 <span class="text-sm font-bold tracking-wider text-yellow-400 uppercase">Dokumentasi</span>
                 <h2 class="mt-2 text-4xl font-black md:text-5xl">Galeri Kegiatan</h2>
             </div>
-            <a href="{{ url('gallery-foto') }}" class="px-6 py-3 text-sm font-semibold transition-all border rounded-full border-slate-600 hover:bg-white hover:text-slate-900">
-                Lihat Semua Galeri
-            </a>
+            <div class="mt-6 text-center md:text-right md:mt-0">
+                <a href="{{ url('gallery-foto') }}" class="inline-block px-6 py-3 text-sm font-semibold transition-all border rounded-full border-slate-600 hover:bg-white hover:text-slate-900">
+                    Lihat Semua Galeri
+                </a>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+        {{-- Grid Galeri - PERBAIKAN UNTUK MOBILE --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px] md:auto-rows-[250px]">
             {{-- Video Utama (Besar) --}}
             @if($videos->first())
                 <div class="md:col-span-2 md:row-span-2 rounded-[2rem] overflow-hidden shadow-2xl relative group bg-black">
                     <video class="object-cover w-full h-full transition-opacity opacity-80 group-hover:opacity-100" controls controlslist="nodownload">
                         <source src="{{ asset('storage/' . $videos->first()->file) }}" type="video/mp4">
                     </video>
-                    <div class="absolute px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-red-600 rounded-full top-6 left-6">
+                    <div class="absolute px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-red-600 rounded-full top-4 left-4 md:top-6 md:left-6">
                         Video Terbaru
                     </div>
                 </div>
@@ -339,8 +346,8 @@
 
                         <div class="absolute inset-0 transition-colors bg-black/40 group-hover:bg-black/20"></div>
 
-                        <div class="absolute bottom-0 left-0 right-0 p-6 transition-all duration-300 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                            <p class="font-bold text-white drop-shadow-md">{{ $photo->nama_kegiatan }}</p>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 transition-all duration-300 translate-y-4 opacity-0 md:p-6 group-hover:translate-y-0 group-hover:opacity-100">
+                            <p class="text-sm font-bold text-white md:text-base drop-shadow-md">{{ $photo->nama_kegiatan }}</p>
                         </div>
                     </a>
                 </div>
@@ -361,7 +368,7 @@
 {{-- Style Tambahan untuk Scrollbar --}}
 <style>
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(77, 43, 43, 0.05); }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #64748b; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 </style>
