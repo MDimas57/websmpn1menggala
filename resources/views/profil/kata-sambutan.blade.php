@@ -2,11 +2,6 @@
 
 @section('content')
 
-{{--
-    =========================================================
-    HALAMAN SAMBUTAN KEPALA SEKOLAH (MODERN MAGAZINE STYLE)
-    =========================================================
---}}
 
 {{-- Wrapper Utama --}}
 <div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">

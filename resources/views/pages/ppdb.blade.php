@@ -3,103 +3,118 @@
 @section('content')
 
 {{--
-    BACKGROUND UTAMA:
-    - Menggunakan gradasi 'from-orange-200 to-yellow-200' (Konsisten).
-    - 'min-h-screen' dan '-mb-20' untuk perbaikan layout footer.
+    =========================================================
+    HALAMAN INFORMASI PPDB (MODERN FEED STYLE)
+    =========================================================
 --}}
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden bg-gradient-to-br from-orange-200 to-yellow-200">
 
-    {{-- Elemen Dekorasi Background --}}
-    <div class="absolute top-0 left-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-        <div class="absolute bg-blue-500 rounded-full -top-24 -right-24 w-96 h-96 blur-3xl opacity-20"></div>
-        <div class="absolute bottom-0 bg-purple-500 rounded-full -left-24 w-72 h-72 blur-3xl opacity-20"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+
+    {{-- 1. DEKORASI BACKGROUND --}}
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-50"></div>
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100 rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- CONTAINER UTAMA --}}
-    <div class="container relative z-10 px-4 py-16 pb-40 mx-auto max-w-7xl">
+    {{-- 2. CONTAINER UTAMA --}}
+    <div class="container relative z-10 max-w-5xl px-4 py-16 pb-40 mx-auto">
 
-        {{-- HEADER JUDUL --}}
-        <div class="mb-12 overflow-hidden bg-white shadow-2xl rounded-xl">
-            <div class="relative p-8 overflow-hidden bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
-                {{-- Pattern Overlay --}}
-                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-
-                <h1 class="relative z-10 flex items-center justify-center gap-3 text-3xl font-bold text-center text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                    <svg class="w-8 h-8 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
-                    Informasi PPDB
-                </h1>
-            </div>
+        {{-- Header Halaman --}}
+        <div class="flex flex-col items-center mb-16 text-center">
+            <span class="px-4 py-1.5 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold tracking-widest uppercase mb-4 border border-yellow-200">
+                Tahun Ajaran {{ date('Y') }}/{{ date('Y')+1 }}
+            </span>
+            <h1 class="text-4xl font-black tracking-tight md:text-5xl text-slate-900">
+                Informasi PPDB
+            </h1>
+            <div class="w-24 h-1.5 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full mt-4"></div>
+            <p class="max-w-2xl mt-4 text-lg text-slate-600">
+                Pusat informasi resmi Penerimaan Peserta Didik Baru.
+            </p>
         </div>
 
-        {{-- WADAH POSTINGAN --}}
-        <div class="space-y-10">
+        {{-- LIST POSTINGAN --}}
+        <div class="space-y-12">
 
             @forelse ($informasiItems as $item)
 
-                {{-- KARTU ARTIKEL --}}
-                <article class="overflow-hidden transition-all duration-300 border-t-4 shadow-xl bg-white/95 backdrop-blur-sm rounded-2xl border-amber-500 hover:shadow-2xl hover:shadow-orange-500/10">
+                {{-- KARTU PENGUMUMAN --}}
+                <article class="relative bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100 overflow-hidden group hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-300">
 
-                    <div class="p-8">
-                        <div class="grid items-start grid-cols-1 gap-8 md:grid-cols-3">
+                    {{-- Dekorasi Garis Kiri --}}
+                    <div class="absolute left-0 top-10 bottom-10 w-1.5 bg-slate-100 rounded-r-full group-hover:bg-yellow-400 transition-colors duration-300"></div>
 
-                            {{-- KOLOM KIRI (VISUAL) --}}
-                            <div class="md:col-span-1">
-                                {{-- Background Foto dengan Gradasi --}}
-                                <div class="p-3 transition-transform duration-300 shadow-lg rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 rotate-1 hover:rotate-0">
-                                    <div class="overflow-hidden bg-white border-2 rounded-xl border-white/50">
-                                        @if ($item->foto)
-                                            <img src="{{ asset('storage/' . $item->foto) }}"
-                                                 alt="{{ $item->judul }}"
-                                                 class="object-cover w-full h-48">
-                                        @else
-                                            <div class="flex items-center justify-center w-full h-48 bg-gray-50">
-                                                <div class="text-center text-gray-400">
-                                                    <svg class="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-1-5.5V18a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v2.5"></path></svg>
-                                                    <span class="text-sm font-medium">Tidak ada gambar</span>
-                                                </div>
-                                            </div>
-                                        @endif
+                    <div class="flex flex-col items-start gap-8 md:flex-row">
+
+                        {{-- KOLOM KIRI: GAMBAR/ICON --}}
+                        <div class="w-full md:w-1/3 shrink-0">
+                            <div class="relative overflow-hidden rounded-2xl bg-slate-100 aspect-[4/3] group-hover:scale-[1.02] transition-transform duration-500">
+                                @if ($item->foto)
+                                    <img src="{{ asset('storage/' . $item->foto) }}"
+                                         alt="{{ $item->judul }}"
+                                         class="object-cover w-full h-full">
+                                @else
+                                    {{-- Placeholder Icon Modern --}}
+                                    <div class="flex flex-col items-center justify-center w-full h-full p-6 border text-slate-300 bg-slate-50 border-slate-100">
+                                        <svg class="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                                        <span class="text-xs font-bold tracking-widest uppercase text-slate-400">Pengumuman</span>
                                     </div>
-                                </div>
+                                @endif
 
-                                <div class="mt-6 text-center md:text-left">
-                                    <h3 class="text-xl font-extrabold leading-snug tracking-tight text-gray-900">
-                                        {{ $item->judul }}
-                                    </h3>
-                                    <div class="w-24 h-1.5 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full mt-3 md:mx-0 mx-auto"></div>
-                                </div>
-                            </div>
-
-                            {{-- KOLOM KANAN (KONTEN) --}}
-                            <div class="md:col-span-2">
-                                <div class="flex items-center inline-block gap-2 px-4 py-2 mb-4 text-sm font-bold border rounded-lg text-amber-700 bg-amber-50 border-amber-100">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    <span>Diposting: {{ $item->created_at->format('d F Y') }}</span>
-                                </div>
-
-                                <div class="leading-relaxed prose prose-lg text-justify text-gray-700 max-w-none">
-                                    {!! $item->deskripsi !!}
+                                {{-- Badge Tanggal (Floating) --}}
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur shadow-sm border border-white/50 px-3 py-1.5 rounded-lg text-center min-w-[60px]">
+                                    <span class="block text-xs font-bold uppercase text-slate-400">{{ $item->created_at->format('M') }}</span>
+                                    <span class="block text-xl font-black leading-none text-slate-900">{{ $item->created_at->format('d') }}</span>
                                 </div>
                             </div>
-
                         </div>
+
+                        {{-- KOLOM KANAN: KONTEN --}}
+                        <div class="flex-1 w-full">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                                <span class="text-xs font-bold tracking-wider text-yellow-600 uppercase">Info Terbaru</span>
+                            </div>
+
+                            <h2 class="mb-4 text-2xl font-bold leading-tight transition-colors text-slate-900 group-hover:text-blue-900">
+                                {{ $item->judul }}
+                            </h2>
+
+                            <div class="space-y-4 leading-relaxed prose prose-lg text-justify prose-slate max-w-none text-slate-600">
+                                {!! $item->deskripsi !!}
+                            </div>
+                        </div>
+
                     </div>
                 </article>
 
             @empty
                 {{-- STATE KOSONG --}}
-                <div class="max-w-2xl p-16 mx-auto text-center border shadow-2xl bg-white/90 backdrop-blur rounded-2xl border-white/20">
-                    <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full shadow-inner bg-blue-50">
-                        <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                <div class="max-w-xl px-6 py-20 mx-auto text-center bg-white border border-dashed shadow-xl rounded-3xl border-slate-300">
+                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-6 rounded-full bg-yellow-50">
+                        <svg class="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Informasi PPDB Belum Tersedia</h3>
-                    <p class="mt-3 text-lg text-gray-600">Belum ada informasi penerimaan peserta didik baru yang diunggah saat ini.</p>
+                    <h3 class="mb-2 text-xl font-bold text-slate-900">Informasi Belum Tersedia</h3>
+                    <p class="mb-6 text-slate-500">Panitia belum mengunggah informasi mengenai PPDB saat ini.</p>
+                    <a href="/" class="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition">
+                        Kembali ke Beranda
+                    </a>
                 </div>
             @endforelse
 
         </div>
 
+        {{-- Footer Note (Opsional) --}}
+        @if($informasiItems->count() > 0)
+            <div class="mt-16 text-center">
+                <p class="text-sm text-slate-400">
+                    Untuk informasi lebih lanjut, silakan hubungi panitia PPDB melalui kontak sekolah.
+                </p>
+            </div>
+        @endif
+
     </div>
 </div>
+
 @endsection
