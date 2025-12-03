@@ -1,37 +1,9 @@
-<div class="relative z-50 p-2 text-white bg-amber-800">
-    <div class="container flex items-center px-4 mx-auto max-w-7xl">
-        <span class="mr-4 text-sm font-semibold bg-amber-900 px-2 py-0.5 rounded">INFO TERKINI</span>
-        <div class="flex-1 overflow-hidden">
-            <div class="text-sm whitespace-nowrap animate-ticker" aria-live="polite">
-                SELAMAT DATANG DI WEBSITE RESMI SMPN 1 MENGGALA &nbsp;&nbsp;|&nbsp;&nbsp;
-                Telepon: 0726-75157187 &nbsp;&nbsp;|&nbsp;&nbsp;
-                Email: info@smpnegeri1menggala.com &nbsp;&nbsp;|&nbsp;&nbsp;
-                Alamat: Jl. Suay Umpu No. 308 Menggala Kota, Kab. Tulang Bawang, Lampung, 34596
-            </div>
-        </div>
-    </div>
-    <style>
-    @keyframes ticker {
-        0%   { transform: translateX(0%); }
-        100% { transform: translateX(-50%); }
-    }
-    .animate-ticker {
-        display: inline-block;
-        animation: ticker 40s linear infinite;
-    }
-    </style>
-</div>
-
-<header class="sticky top-0 z-40 shadow-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-yellow-500">
-    <nav class="container relative flex items-center justify-between px-4 py-4 mx-auto max-w-7xl">
+<header class="fixed top-0 left-0 z-50 w-full h-24 shadow-lg bg-gradient-to-r from-amber-500 to-orange-500">
+    <nav class="container flex items-center justify-between h-full px-6 mx-auto">
 
        <a href="/" class="flex items-center gap-2 group">
-    <img src="{{ asset('images/logo smp.png') }}" alt="Logo SMPN 1 Menggala"
-         class="w-20 h-20 rounded-md">
-    <span class="text-2xl font-extrabold tracking-wider text-white transition-colors group-hover:text-amber-100"
-          style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-        SMP N 1 MENGGALA
-    </span>
+    <img src="{{ asset('images/logosmp.png') }}" alt="Logo SMPN 1 Menggala"
+         class="object-contain h-48 max-h-48">
 </a>
 
 

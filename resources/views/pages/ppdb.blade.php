@@ -17,8 +17,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER UTAMA --}}
-    <div class="container relative z-10 max-w-5xl px-4 py-16 pb-40 mx-auto">
+    {{--
+        2. CONTAINER UTAMA (PERBAIKAN)
+        Dulu: py-16 -> Tertutup header fixed
+        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+    --}}
+    <div class="container relative z-10 max-w-5xl px-4 pb-40 mx-auto pt-36">
 
         {{-- Header Halaman --}}
         <div class="flex flex-col items-center mb-16 text-center">

@@ -17,8 +17,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER UTAMA --}}
-    <div class="container relative z-10 px-4 py-16 pb-40 mx-auto max-w-7xl">
+    {{--
+        2. CONTAINER UTAMA (PERBAIKAN)
+        Dulu: py-16 -> Tertutup header fixed
+        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+    --}}
+    <div class="container relative z-10 px-4 pb-40 mx-auto pt-36 max-w-7xl">
 
         {{-- Header Halaman --}}
         <div class="flex flex-col items-center mb-16 text-center">
@@ -100,6 +104,7 @@
                 <h3 class="mb-2 text-xl font-bold text-slate-900">Struktur Belum Tersedia</h3>
                 <p class="mb-6 text-slate-500">Data struktur organisasi belum diunggah oleh administrator.</p>
                 <a href="/" class="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Kembali ke Beranda
                 </a>
             </div>

@@ -28,7 +28,7 @@
 {{--
     1. BAGIAN BANNER SLIDER (MODERN: Glass Effect Overlay)
 --}}
-<section id="banner-slider" class="relative splide group"
+<section id="banner-slider" class="relative mt-24 splide group"
          aria-label="Banner Sekolah"
          data-splide='{"type":"loop","arrows":true,"autoplay":true,"interval":4000,"speed":1000,"pauseOnHover":false}'>
     <div class="splide__track h-[600px] md:h-[700px]">

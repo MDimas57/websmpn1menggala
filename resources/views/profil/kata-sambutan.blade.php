@@ -16,8 +16,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER KONTEN --}}
-    <div class="container relative z-10 px-4 py-16 pb-32 mx-auto max-w-7xl">
+    {{--
+        2. CONTAINER KONTEN (PERBAIKAN)
+        Dulu: py-16 -> Tertutup header fixed
+        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+    --}}
+    <div class="container relative z-10 px-4 pb-32 mx-auto pt-36 max-w-7xl">
 
         {{-- Breadcrumb / Header Kecil --}}
         <div class="flex flex-col items-center mb-12 text-center">
@@ -33,8 +37,11 @@
         @if($sambutan)
             <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-12">
 
-                {{-- A. KOLOM KIRI: PROFIL KEPSEK (Dark Card) --}}
-                <div class="lg:col-span-4 lg:sticky lg:top-24">
+                {{--
+                    A. KOLOM KIRI: PROFIL KEPSEK (Dark Card)
+                    PERBAIKAN: top-24 diubah ke top-32 agar tidak nempel header
+                --}}
+                <div class="lg:col-span-4 lg:sticky lg:top-32">
                     <div class="relative overflow-hidden bg-slate-900 rounded-[2.5rem] shadow-2xl p-8 text-center group">
 
                         {{-- Dekorasi Card --}}

@@ -17,8 +17,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER UTAMA --}}
-    <div class="container relative z-10 px-4 py-16 pb-40 mx-auto max-w-7xl">
+    {{--
+        2. CONTAINER UTAMA (PERBAIKAN)
+        Dulu: py-16 -> Tertutup header fixed
+        Sekarang: pt-36 (144px) -> Memberi ruang agar judul terlihat jelas
+    --}}
+    <div class="container relative z-10 px-4 pb-40 mx-auto pt-36 max-w-7xl">
 
         {{-- Header Halaman --}}
         <div class="flex flex-col items-center mb-12 text-center">
@@ -36,8 +40,9 @@
             {{--
                 A. KOLOM KIRI: SIDEBAR NAVIGASI (Dark Theme)
                 Sticky agar menu tetap ada saat konten panjang discroll
+                PERBAIKAN: top-24 diubah ke top-32 agar tidak nempel header
             --}}
-            <div class="lg:col-span-1 lg:sticky lg:top-24">
+            <div class="lg:col-span-1 lg:sticky lg:top-32">
                 <div class="bg-slate-900 rounded-[2rem] p-6 shadow-2xl overflow-hidden relative">
 
                     {{-- Judul Menu --}}
@@ -56,8 +61,8 @@
                             <a href="{{ route('informasi.show', $infoLink->id) }}"
                                class="group flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300
                                {{ $isActive
-                                   ? 'bg-yellow-500 text-slate-900 shadow-lg shadow-yellow-500/20 translate-x-2'
-                                   : 'text-slate-400 hover:bg-slate-800 hover:text-white hover:translate-x-1'
+                                    ? 'bg-yellow-500 text-slate-900 shadow-lg shadow-yellow-500/20 translate-x-2'
+                                    : 'text-slate-400 hover:bg-slate-800 hover:text-white hover:translate-x-1'
                                }}">
 
                                 <span>{{ $infoLink->judul }}</span>

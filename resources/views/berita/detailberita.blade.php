@@ -17,8 +17,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER UTAMA --}}
-    <div class="container relative z-10 px-4 py-16 pb-40 mx-auto max-w-7xl">
+    {{--
+        2. CONTAINER UTAMA (PERBAIKAN DISINI)
+        - Dulu: py-16 (64px) -> Tertutup header fixed h-24 (96px).
+        - Sekarang: pt-36 (144px) -> Memberi ruang cukup untuk header + jarak nafas.
+    --}}
+    <div class="container relative z-10 px-4 pb-40 mx-auto pt-36 max-w-7xl">
 
         {{-- Breadcrumb Kecil --}}
         <div class="flex flex-col items-center mb-12 text-center">
@@ -114,9 +118,9 @@
 
             {{--
                 B. KOLOM KANAN: SIDEBAR ARSIP (Dark Theme)
-                Lebar 4/12 kolom, Sticky
+                PERBAIKAN: top-24 diubah ke top-32 agar tidak nempel dengan Header
             --}}
-            <aside class="lg:col-span-4 lg:sticky lg:top-24">
+            <aside class="lg:col-span-4 lg:sticky lg:top-32">
                 <div class="bg-slate-900 rounded-[2.5rem] p-6 shadow-2xl overflow-hidden relative">
 
                     {{-- Judul Sidebar --}}

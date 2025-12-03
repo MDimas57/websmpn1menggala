@@ -17,8 +17,12 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{-- 2. CONTAINER UTAMA --}}
-    <div class="container relative z-10 max-w-6xl px-4 py-16 pb-40 mx-auto">
+    {{--
+        2. CONTAINER UTAMA (PERBAIKAN)
+        Dulu: py-16 -> Tertutup header
+        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+    --}}
+    <div class="container relative z-10 max-w-6xl px-4 pb-40 mx-auto pt-36">
 
         {{-- Navigasi Kembali --}}
         <div class="mb-8">
@@ -42,9 +46,9 @@
 
             {{--
                 A. KOLOM KIRI: FOTO & STATUS (Dark Profile Card)
-                Lebar 4/12 kolom
+                PERBAIKAN: Ditambahkan sticky top-32 agar profil ikut turun saat scroll
             --}}
-            <div class="lg:col-span-4">
+            <div class="lg:col-span-4 lg:sticky lg:top-32">
                 <div class="bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden relative group">
 
                     {{-- Decorative Gradient --}}
@@ -97,7 +101,6 @@
 
             {{--
                 B. KOLOM KANAN: BIODATA DETAIL (White Paper)
-                Lebar 8/12 kolom
             --}}
             <div class="lg:col-span-8">
                 <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 md:p-10 relative overflow-hidden h-full">
