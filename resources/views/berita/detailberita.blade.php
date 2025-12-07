@@ -8,7 +8,8 @@
     =========================================================
 --}}
 
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+{{-- PERBAIKAN: Hapus class -mb-20 agar footer tidak ketarik ke atas --}}
+<div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND --}}
     <div class="absolute inset-0 pointer-events-none">
@@ -18,11 +19,10 @@
     </div>
 
     {{--
-        2. CONTAINER UTAMA (PERBAIKAN DISINI)
-        - Dulu: py-16 (64px) -> Tertutup header fixed h-24 (96px).
-        - Sekarang: pt-36 (144px) -> Memberi ruang cukup untuk header + jarak nafas.
+        2. CONTAINER UTAMA
+        PERBAIKAN: Ubah pb-40 menjadi pb-24 agar jarak ke footer pas (tidak terlalu jauh, tidak ketimpah)
     --}}
-    <div class="container relative z-10 px-4 pb-40 mx-auto pt-36 max-w-7xl">
+    <div class="container relative z-10 px-4 pb-24 mx-auto pt-36 max-w-7xl">
 
         {{-- Breadcrumb Kecil --}}
         <div class="flex flex-col items-center mb-12 text-center">
@@ -118,7 +118,7 @@
 
             {{--
                 B. KOLOM KANAN: SIDEBAR ARSIP (Dark Theme)
-                PERBAIKAN: top-24 diubah ke top-32 agar tidak nempel dengan Header
+                PERBAIKAN: Sticky top disesuaikan agar tidak nabrak header
             --}}
             <aside class="lg:col-span-4 lg:sticky lg:top-32">
                 <div class="bg-slate-900 rounded-[2.5rem] p-6 shadow-2xl overflow-hidden relative">

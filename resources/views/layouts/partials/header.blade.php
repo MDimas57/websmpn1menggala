@@ -1,10 +1,10 @@
 <header class="fixed top-0 left-0 z-50 w-full h-24 shadow-lg bg-gradient-to-r from-amber-500 to-orange-500">
     <nav class="container flex items-center justify-between h-full px-6 mx-auto">
 
-       <a href="/" class="flex items-center gap-2 group">
-    <img src="{{ asset('images/logosmp.png') }}" alt="Logo SMPN 1 Menggala"
-         class="object-contain h-48 max-h-48">
-</a>
+        <a href="/" class="flex items-center gap-2 group">
+            <img src="{{ asset('images/logosmp.png') }}" alt="Logo SMPN 1 Menggala"
+                class="object-contain h-48 max-h-48">
+        </a>
 
 
         <div class="items-center hidden space-x-1 lg:space-x-2 md:flex">
@@ -59,7 +59,34 @@
 
             <a href="{{ route('ppdb.index') }}" class="px-3 py-1 font-bold text-white rounded-lg transition-all {{ request()->routeIs('ppdb.index') ? 'bg-white/20' : 'hover:bg-white/20' }}">PPDB</a>
             <a href="/informasi" class="px-3 py-1 font-bold text-white rounded-lg transition-all {{ request()->is('informasi*') ? 'bg-white/20' : 'hover:bg-white/20' }}">INFORMASI</a>
+
+            {{-- Kontak Kami --}}
             <a href="/kontak" class="px-3 py-1 font-bold text-yellow-700 transition-all bg-white rounded-full shadow-md hover:bg-gray-100">KONTAK KAMI</a>
+
+            {{-- ========================================== --}}
+            {{-- BARU: PORTAL SEKOLAH (DESKTOP) --}}
+            {{-- ========================================== --}}
+            <div class="relative group">
+                <button class="inline-flex items-center px-3 py-1 font-bold text-white border border-white/30 rounded-lg transition-all hover:bg-white/20 ml-2">
+                    <span>PORTAL SEKOLAH</span>
+                    <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                {{-- right-0 agar dropdown tidak melebar ke luar layar --}}
+                <div class="absolute right-0 z-50 hidden w-48 pt-2 group-hover:block">
+                    <div class="py-2 bg-white border-t-4 rounded-lg shadow-xl border-amber-500">
+                        {{-- LINK SPADA --}}
+                        <a href="https://spada.kemdikbud.go.id/" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
+                            SPADA
+                        </a>
+                        {{-- LINK DIGITAL PARENT --}}
+                        <a href="#" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
+                            DIGITAL PARENT
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{-- ========================================== --}}
+
         </div>
 
         <div class="md:hidden">
@@ -76,14 +103,12 @@
 
         <div class="py-2 space-y-1">
 
-            {{-- Cek: Jika di halaman '/', pakai class aktif (bg-amber-100, border-amber-500). Jika tidak, class biasa. --}}
             <a href="/"
                class="block px-6 py-3 text-base font-bold transition-all border-l-4
                {{ request()->is('/') ? 'bg-amber-100 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
                 BERANDA
             </a>
 
-            {{-- Cek: Jika rute 'profil.*', tambahkan 'open' agar dropdown terbuka & warnai headernya --}}
             <details class="group" {{ request()->routeIs('profil.*') ? 'open' : '' }}>
                 <summary class="flex items-center justify-between px-6 py-3 text-base font-bold cursor-pointer transition-all border-l-4 marker:content-none
                     {{ request()->routeIs('profil.*') ? 'bg-amber-50 text-amber-800 border-amber-500' : 'text-gray-800 border-transparent hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500' }}">
@@ -165,6 +190,28 @@
             <a href="/kontak" class="block px-3 py-1 text-base font-bold text-white bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600">
                 KONTAK KAMI
             </a>
+
+            {{-- ========================================== --}}
+            {{-- BARU: PORTAL SEKOLAH (MOBILE) --}}
+            {{-- ========================================== --}}
+            <details class="group">
+                <summary class="flex items-center justify-between px-6 py-3 text-base font-bold text-gray-800 border-transparent cursor-pointer transition-all border-l-4 marker:content-none hover:bg-amber-50 hover:text-amber-700 hover:border-amber-500">
+                    <span>PORTAL SEKOLAH</span>
+                    <svg class="w-5 h-5 transition-transform duration-300 text-amber-500 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </summary>
+                <div class="px-4 py-2 space-y-1 border-t border-b border-gray-100 bg-gray-50">
+                    {{-- LINK SPADA --}}
+                    <a href="https://spada.kemdikbud.go.id/" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> SPADA
+                    </a>
+                    {{-- LINK DIGITAL PARENT --}}
+                    <a href="#" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> DIGITAL PARENT
+                    </a>
+                </div>
+            </details>
+            {{-- ========================================== --}}
+
         </div>
     </div>
 </header>

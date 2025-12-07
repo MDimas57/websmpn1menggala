@@ -8,7 +8,8 @@
     =========================================================
 --}}
 
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+{{-- Wrapper Utama: Hapus -mb-20 agar footer tidak ketimpah --}}
+<div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND --}}
     <div class="absolute inset-0 pointer-events-none">
@@ -19,10 +20,10 @@
 
     {{--
         2. CONTAINER UTAMA (PERBAIKAN)
-        Dulu: py-16 -> Tertutup header fixed
-        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+        - Hapus pb-40, ganti jadi pb-24 agar jarak ke footer proporsional.
+        - pt-36 (144px) tetap dipertahankan agar aman dari header fixed.
     --}}
-    <div class="container relative z-10 max-w-5xl px-4 pb-40 mx-auto pt-36">
+    <div class="container relative z-10 max-w-5xl px-4 pb-24 mx-auto pt-36">
 
         {{-- Header Halaman --}}
         <div class="flex flex-col items-center mb-16 text-center">

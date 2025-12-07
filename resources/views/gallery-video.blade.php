@@ -8,7 +8,8 @@
     =========================================================
 --}}
 
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+{{-- Wrapper Utama: Hapus -mb-20 agar footer tidak ketimpah --}}
+<div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND --}}
     <div class="absolute inset-0 pointer-events-none">
@@ -19,10 +20,10 @@
 
     {{--
         2. CONTAINER UTAMA (PERBAIKAN)
-        Dulu: py-16 -> Tertutup header fixed
-        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+        - Hapus pb-40, ganti jadi pb-24 agar jarak ke footer proporsional.
+        - pt-36 (144px) tetap dipertahankan agar aman dari header fixed.
     --}}
-    <div class="container relative z-10 px-4 pb-40 mx-auto pt-36 max-w-7xl">
+    <div class="container relative z-10 px-4 pb-24 mx-auto pt-36 max-w-7xl">
 
         {{-- Header Halaman --}}
         <div class="flex flex-col items-center mb-16 text-center">
@@ -80,9 +81,6 @@
                             <h3 class="mb-2 text-xl font-bold leading-snug transition-colors text-slate-800 group-hover:text-yellow-600 line-clamp-2">
                                 {{ $video->nama_kegiatan }}
                             </h3>
-
-                            {{-- Deskripsi Singkat (Jika ada field deskripsi, bisa ditambahkan disini) --}}
-                            {{-- <p class="text-sm text-slate-500 line-clamp-2">Deskripsi video...</p> --}}
 
                             {{-- Footer Kartu --}}
                             <div class="flex items-center justify-between pt-4 mt-auto border-t border-slate-50">

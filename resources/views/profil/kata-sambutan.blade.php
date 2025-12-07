@@ -3,8 +3,8 @@
 @section('content')
 
 
-{{-- Wrapper Utama --}}
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+{{-- Wrapper Utama: Hapus -mb-20 agar footer tidak ketimpah --}}
+<div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND (Abstrak & Modern) --}}
     <div class="absolute inset-0 pointer-events-none">
@@ -18,10 +18,10 @@
 
     {{--
         2. CONTAINER KONTEN (PERBAIKAN)
-        Dulu: py-16 -> Tertutup header fixed
-        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+        - Hapus pb-32, ganti jadi pb-24 agar jarak ke footer proporsional.
+        - pt-36 (144px) tetap dipertahankan agar aman dari header fixed.
     --}}
-    <div class="container relative z-10 px-4 pb-32 mx-auto pt-36 max-w-7xl">
+    <div class="container relative z-10 px-4 pb-24 mx-auto pt-36 max-w-7xl">
 
         {{-- Breadcrumb / Header Kecil --}}
         <div class="flex flex-col items-center mb-12 text-center">
@@ -39,7 +39,7 @@
 
                 {{--
                     A. KOLOM KIRI: PROFIL KEPSEK (Dark Card)
-                    PERBAIKAN: top-24 diubah ke top-32 agar tidak nempel header
+                    Sticky top-32 agar profil ikut turun saat scroll tapi tidak nabrak header
                 --}}
                 <div class="lg:col-span-4 lg:sticky lg:top-32">
                     <div class="relative overflow-hidden bg-slate-900 rounded-[2.5rem] shadow-2xl p-8 text-center group">
@@ -95,7 +95,7 @@
                             <div class="flex items-center justify-end gap-4 pt-8 mt-12 border-t border-slate-100">
                                 <div class="text-right">
                                     <p class="text-xs font-bold tracking-wider uppercase text-slate-400">Hormat Kami,</p>
-                                    {{-- Tanda Tangan Digital (Jika ada gambar tanda tangan, ganti teks ini) --}}
+                                    {{-- Tanda Tangan Digital --}}
                                     <p class="mt-1 text-2xl font-bold font-handwriting text-slate-800">{{ $sambutan->nama_kepsek }}</p>
                                 </div>
                             </div>

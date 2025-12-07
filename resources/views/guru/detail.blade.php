@@ -8,7 +8,8 @@
     =========================================================
 --}}
 
-<div class="relative w-full min-h-screen -mb-20 overflow-hidden font-sans bg-slate-50">
+{{-- PERBAIKAN: Hapus -mb-20 agar footer tidak menumpuk ke atas --}}
+<div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND --}}
     <div class="absolute inset-0 pointer-events-none">
@@ -19,10 +20,10 @@
 
     {{--
         2. CONTAINER UTAMA (PERBAIKAN)
-        Dulu: py-16 -> Tertutup header
-        Sekarang: pt-36 (144px) -> Aman dari header fixed h-24
+        - Hapus pb-40, ganti jadi pb-24 agar jarak ke footer proporsional.
+        - pt-36 sudah pas untuk menghindari header fixed.
     --}}
-    <div class="container relative z-10 max-w-6xl px-4 pb-40 mx-auto pt-36">
+    <div class="container relative z-10 max-w-6xl px-4 pb-24 mx-auto pt-36">
 
         {{-- Navigasi Kembali --}}
         <div class="mb-8">
@@ -46,7 +47,7 @@
 
             {{--
                 A. KOLOM KIRI: FOTO & STATUS (Dark Profile Card)
-                PERBAIKAN: Ditambahkan sticky top-32 agar profil ikut turun saat scroll
+                Sticky top-32 menjaga kartu tetap terlihat saat scroll
             --}}
             <div class="lg:col-span-4 lg:sticky lg:top-32">
                 <div class="bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden relative group">
