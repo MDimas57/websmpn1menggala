@@ -182,10 +182,6 @@
 
             </div>
         </div>
-
-        {{-- =============================================== --}}
-        {{-- BAGIAN GOOGLE MAPS (Full Width & Modern)        --}}
-        {{-- =============================================== --}}
         <div class="mt-16">
             <div class="p-4 bg-white border border-gray-100 shadow-xl rounded-3xl">
                  <h2 class="mb-4 text-2xl font-bold text-center text-gray-800">Lokasi Sekolah Kami</h2>
