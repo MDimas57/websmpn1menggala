@@ -373,23 +373,6 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 </style>
 
-{{--
-    5. ORGANISASI SEKOLAH (LOGO BERJALAN)
---}}
-@php
-    // Data organisasi sekolah (bisa diganti dengan data dari database jika ada model Organisasi)
-    $organisasi = [
-        ['nama' => 'OSIS', 'logo' => 'images/osis.png', 'warna' => 'from-blue-500 to-cyan-500'],
-        ['nama' => 'PMR', 'logo' => 'images/pmr.png', 'warna' => 'from-red-500 to-pink-500'],
-        ['nama' => 'Pramuka', 'logo' => 'images/pramuka.png', 'warna' => 'from-green-500 to-emerald-500'],
-        ['nama' => 'Rohis', 'logo' => 'images/rohis-logo.png', 'warna' => 'from-purple-500 to-violet-500'],
-        ['nama' => 'Futsal', 'logo' => 'images/futsal.png', 'warna' => 'from-yellow-500 to-amber-500'],
-        ['nama' => 'Basket', 'logo' => 'images/basket.png', 'warna' => 'from-orange-500 to-red-500'],
-        ['nama' => 'Voli', 'logo' => 'images/voli.png', 'warna' => 'from-indigo-500 to-blue-500'],
-        ['nama' => 'Paduan Suara', 'logo' => 'images/padus.png', 'warna' => 'from-pink-500 to-rose-500'],
-    ];
-@endphp
-
 <section class="relative py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
     {{-- Animated Background Elements --}}
     <div class="absolute inset-0 overflow-hidden">
@@ -412,30 +395,55 @@
             <div class="splide splide-organisasi" data-splide='{"type":"loop","perPage":4,"gap":"2rem","autoplay":true,"pagination":false,"arrows":false,"pauseOnHover":false,"speed":1500,"interval":3500,"breakpoints":{"1024":{"perPage":3,"gap":"1.5rem"},"768":{"perPage":2,"gap":"1rem"},"640":{"perPage":1,"gap":"1rem"}}}'>
                 <div class="py-8 splide__track">
                     <ul class="splide__list">
-                        @foreach($organisasi as $org)
+                        
+                        {{-- Definisikan Warna untuk Rotasi Tampilan --}}
+                        @php
+                            $colors = [
+                                'from-blue-500 to-cyan-500',
+                                'from-red-500 to-pink-500',
+                                'from-green-500 to-emerald-500',
+                                'from-purple-500 to-violet-500',
+                                'from-yellow-500 to-amber-500',
+                                'from-orange-500 to-red-500',
+                                'from-indigo-500 to-blue-500',
+                                'from-pink-500 to-rose-500',
+                            ];
+                        @endphp
+
+                        {{-- Loop Data Organisasi dari Database --}}
+                        @foreach($organisasi as $index => $org)
+                            @php
+                                // Pilih warna berdasarkan urutan index agar warna-warni
+                                $warna = $colors[$index % count($colors)];
+                            @endphp
+
                             <li class="py-4 splide__slide">
                                 <div class="relative flex flex-col items-center justify-center h-full p-6 overflow-hidden transition-all duration-700 border shadow-xl group bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg rounded-2xl hover:shadow-2xl hover:-translate-y-3 border-slate-700/50">
-                                    {{-- Animated Background Accent --}}
-                                    <div class="absolute inset-0 opacity-0 bg-gradient-to-br {{ $org['warna'] }} transition-opacity duration-700 group-hover:opacity-20"></div>
+                                    
+                                    {{-- Background Accent (Dinamis) --}}
+                                    <div class="absolute inset-0 opacity-0 bg-gradient-to-br {{ $warna }} transition-opacity duration-700 group-hover:opacity-20"></div>
 
                                     {{-- Glow Effect --}}
                                     <div class="absolute inset-0 transition-opacity duration-700 opacity-0 rounded-2xl group-hover:opacity-100">
-                                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br {{ $org['warna'] }} blur-md opacity-30"></div>
+                                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br {{ $warna }} blur-md opacity-30"></div>
                                     </div>
 
                                     {{-- Logo Container --}}
                                     <div class="relative flex items-center justify-center w-24 h-24 mb-5 transition-all duration-700 border shadow-lg bg-slate-800/70 backdrop-blur-sm rounded-xl group-hover:shadow-xl group-hover:scale-110 border-slate-700/50">
-                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br {{ $org['warna'] }} opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-                                        <img src="{{ asset($org['logo']) }}" alt="{{ $org['nama'] }}" class="relative z-10 object-contain w-16 h-16 filter drop-shadow-lg">
+                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br {{ $warna }} opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
+                                        
+                                        {{-- PENTING: Pemanggilan Gambar dari Storage --}}
+                                        {{-- Pastikan folder 'public' dihubungkan dengan 'storage' --}}
+                                        <img src="{{ asset('storage/' . $org->foto) }}" alt="{{ $org->nama }}" class="relative z-10 object-contain w-16 h-16 filter drop-shadow-lg">
                                     </div>
 
                                     {{-- Organization Name --}}
                                     <h3 class="relative z-10 text-lg font-bold text-center text-white transition-colors duration-300 group-hover:text-yellow-300">
-                                        {{ $org['nama'] }}
+                                        {{ $org->nama }}
                                     </h3>
 
                                     {{-- Animated Underline --}}
-                                    <div class="relative z-10 w-0 h-0.5 mt-3 transition-all duration-700 bg-gradient-to-r {{ $org['warna'] }} group-hover:w-16"></div>
+                                    <div class="relative z-10 w-0 h-0.5 mt-3 transition-all duration-700 bg-gradient-to-r {{ $warna }} group-hover:w-16"></div>
 
                                     {{-- Decorative Particles --}}
                                     <div class="absolute w-2 h-2 transition-all duration-700 bg-white rounded-full opacity-0 top-4 right-4 group-hover:opacity-60"></div>

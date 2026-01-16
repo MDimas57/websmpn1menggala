@@ -1,9 +1,19 @@
 <?php
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Organisasi extends Model
 {
-    protected $fillable = ['nama', 'foto'];
+    use HasFactory;
+
+    protected $table = 'organisasis';
+
+    // Kolom yang bisa diisi sesuai inputan admin
+    protected $fillable = [
+        'nama',
+        'foto',
+    ];
 }
