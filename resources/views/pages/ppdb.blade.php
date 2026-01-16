@@ -4,11 +4,11 @@
 
 {{--
     =========================================================
-    HALAMAN INFORMASI PPDB (MODERN FEED STYLE)
+    HALAMAN INFORMASI PPDB (FIXED IMAGE SIZE)
     =========================================================
 --}}
 
-{{-- Wrapper Utama: Hapus -mb-20 agar footer tidak ketimpah --}}
+{{-- Wrapper Utama --}}
 <div class="relative w-full min-h-screen overflow-hidden font-sans bg-slate-50">
 
     {{-- 1. DEKORASI BACKGROUND --}}
@@ -18,11 +18,7 @@
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-3xl opacity-60 translate-y-1/3 -translate-x-1/4"></div>
     </div>
 
-    {{--
-        2. CONTAINER UTAMA (PERBAIKAN)
-        - Hapus pb-40, ganti jadi pb-24 agar jarak ke footer proporsional.
-        - pt-36 (144px) tetap dipertahankan agar aman dari header fixed.
-    --}}
+    {{-- 2. CONTAINER UTAMA --}}
     <div class="container relative z-10 max-w-5xl px-4 pb-24 mx-auto pt-36">
 
         {{-- Header Halaman --}}
@@ -54,14 +50,25 @@
 
                         {{-- KOLOM KIRI: GAMBAR/ICON --}}
                         <div class="w-full md:w-1/3 shrink-0">
-                            <div class="relative overflow-hidden rounded-2xl bg-slate-100 aspect-[4/3] group-hover:scale-[1.02] transition-transform duration-500">
+                            {{-- 
+                                PERUBAHAN PENTING DI SINI:
+                                1. Dihapus 'aspect-[4/3]' agar kotak tidak memaksa rasio tertentu.
+                                2. Ditambah 'h-auto' agar tinggi mengikuti isi gambar.
+                            --}}
+                            <div class="relative overflow-hidden rounded-2xl bg-slate-100 group-hover:scale-[1.02] transition-transform duration-500 h-auto">
+                                
                                 @if ($item->foto)
+                                    {{-- 
+                                        PERUBAHAN PENTING PADA GAMBAR:
+                                        1. 'object-cover' diganti 'object-contain' (agar tidak terpotong).
+                                        2. 'h-full' diganti 'h-auto' (agar tinggi otomatis memanjang).
+                                    --}}
                                     <img src="{{ asset('storage/' . $item->foto) }}"
                                          alt="{{ $item->judul }}"
-                                         class="object-cover w-full h-full">
+                                         class="w-full h-auto object-contain shadow-sm rounded-2xl">
                                 @else
-                                    {{-- Placeholder Icon Modern --}}
-                                    <div class="flex flex-col items-center justify-center w-full h-full p-6 border text-slate-300 bg-slate-50 border-slate-100">
+                                    {{-- Placeholder Icon (Jika tidak ada foto) --}}
+                                    <div class="flex flex-col items-center justify-center w-full p-12 border aspect-square text-slate-300 bg-slate-50 border-slate-100">
                                         <svg class="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
                                         <span class="text-xs font-bold tracking-widest uppercase text-slate-400">Pengumuman</span>
                                     </div>
