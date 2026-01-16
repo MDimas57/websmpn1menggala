@@ -105,7 +105,7 @@
         <div class="flex flex-col justify-between gap-6 mb-12 md:flex-row md:items-end">
             <div>
                 <span class="text-sm font-bold tracking-wider text-yellow-600 uppercase">Informasi Terkini</span>
-                <h2 class="mt-2 text-4xl font-black md:text-5xl text-slate-900">Kabar Sekolah</h2>
+                <h2 class="mt-2 text-4xl font-black md:text-5xl text-slate-900">Berita Sekolah</h2>
             </div>
             {{-- Link Mobile Only (Tetap ada buat HP karena tidak ada sidebar di HP biasanya) --}}
             <a href="/informasi" class="inline-flex items-center gap-2 text-sm font-semibold md:hidden text-slate-600">
