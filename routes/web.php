@@ -8,6 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 // Rute Galeri
 Route::get('/gallery-foto', [PageController::class, 'galleryFoto'])->name('gallery.foto');
 Route::get('/gallery-video', [PageController::class, 'galleryVideo'])->name('gallery.video');

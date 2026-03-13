@@ -29,7 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Amber,
-            ])
+            ]) // <--- Tutup dulu kurung siku colors di sini
+            ->brandLogo(fn () => view('filament.admin.logo')) // <--- Baru taruh di sini
+            ->brandLogoHeight('5rem')
+    
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
