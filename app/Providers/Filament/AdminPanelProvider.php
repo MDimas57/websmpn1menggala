@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\MenuItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -32,6 +33,12 @@ class AdminPanelProvider extends PanelProvider
             ]) // <--- Tutup dulu kurung siku colors di sini
             ->brandLogo(fn () => view('filament.admin.logo')) // <--- Baru taruh di sini
             ->brandLogoHeight('5rem')
+            ->userMenuItems([
+            'profile' => MenuItem::make()
+                ->label('Edit Profile')
+                ->url('/admin/profile')
+                ->icon('heroicon-o-user'),
+        ])
     
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
