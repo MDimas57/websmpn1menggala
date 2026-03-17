@@ -48,7 +48,7 @@
         </div>
 
         {{-- Content Overlay --}}
-        <div class="container absolute inset-0 z-20 flex items-center px-5 mx-auto pointer-events-none md:px-16 max-w-7xl">
+        <div class="container absolute inset-0 z-20 flex items-center justify-start px-5 mx-auto pointer-events-none md:px-16 max-w-7xl">
             <div class="w-full max-w-3xl pointer-events-auto">
                 {{-- Badge "Official Website" --}}
                 <div
