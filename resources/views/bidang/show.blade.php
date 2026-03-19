@@ -78,17 +78,6 @@
                             </span>
 
                             <div class="w-full h-px my-6 bg-slate-800"></div>
-
-                            <div class="grid w-full grid-cols-2 gap-4">
-                                <div class="p-2 text-center rounded-xl bg-slate-800/50">
-                                    <span class="block text-slate-400 text-[10px] uppercase">Status</span>
-                                    <span class="block text-sm font-bold text-white">Aktif</span>
-                                </div>
-                                <div class="p-2 text-center rounded-xl bg-slate-800/50">
-                                    <span class="block text-slate-400 text-[10px] uppercase">Periode</span>
-                                    <span class="block text-sm font-bold text-white">{{ date('Y') }}</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
