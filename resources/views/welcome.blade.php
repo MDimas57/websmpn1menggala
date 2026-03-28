@@ -265,7 +265,7 @@
 <section class="relative py-24 overflow-hidden">
     {{-- Background Image dengan Overlay --}}
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('images/guru bg.jpeg') }}" alt="Background Guru & Staf" class="object-cover w-full h-full">
+        <img src="{{ asset('images/guru_bg.jpeg') }}" alt="Background Guru & Staf" class="object-cover w-full h-full">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/90"></div>
     </div>
 
