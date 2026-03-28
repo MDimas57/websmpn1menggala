@@ -75,11 +75,11 @@
                 <div class="absolute right-0 z-50 hidden w-48 pt-2 group-hover:block">
                     <div class="py-2 bg-white border-t-4 rounded-lg shadow-xl border-amber-500">
                         {{-- LINK SPADA --}}
-                        <a href="https://spada.kemdikbud.go.id/" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
+                        <a href="https://spada.smpn1menggala.sch.id/" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
                             SPADA
                         </a>
                         {{-- LINK DIGITAL PARENT --}}
-                        <a href="#" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
+                        <a href="https://e-parent.smpn1menggala.sch.id/" target="_blank" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700">
                             DIGITAL PARENT
                         </a>
                     </div>
@@ -201,11 +201,11 @@
                 </summary>
                 <div class="px-4 py-2 space-y-1 border-t border-b border-gray-100 bg-gray-50">
                     {{-- LINK SPADA --}}
-                    <a href="https://spada.kemdikbud.go.id/" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
+                    <a href="https://spada.smpn1menggala.sch.id/" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> SPADA
                     </a>
                     {{-- LINK DIGITAL PARENT --}}
-                    <a href="#" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
+                    <a href="https://e-parent.smpn1menggala.sch.id/" target="_blank" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-lg transition-all hover:bg-white hover:text-amber-600">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-3"></span> DIGITAL PARENT
                     </a>
                 </div>

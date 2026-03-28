@@ -29,8 +29,20 @@
     1. BAGIAN BANNER SLIDER (MODERN: Glass Effect Overlay)
 --}}
 <section id="banner-slider" class="relative mt-24 splide group"
-         aria-label="Banner Sekolah"
-         data-splide='{"type":"loop","arrows":true,"autoplay":true,"interval":4000,"speed":1000,"pauseOnHover":false}'>
+    aria-label="Banner Sekolah"
+    data-splide='{
+        "type":"loop",
+        "arrows": true,
+        "autoplay": true,
+        "interval": 4000,
+        "speed": 1000,
+        "pauseOnHover": false,
+        "breakpoints": {
+            "768": {
+                "arrows": false
+            }
+        }
+    }'>
     <div class="splide__track h-[600px] md:h-[700px]">
         <ul class="splide__list">
             @foreach ($banners as $banner)
@@ -46,39 +58,47 @@
         </ul>
     </div>
 
-    {{-- Content Overlay (Glassmorphism) --}}
-    <div class="container absolute inset-0 z-20 flex items-center px-6 mx-auto pointer-events-none md:px-16 max-w-7xl">
-        <div class="max-w-3xl pointer-events-auto">
-            <div class="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full shadow-lg bg-white/10 backdrop-blur-md border-white/20 animate-fade-in-up">
-                <span class="block w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></span>
-                <span class="text-sm font-semibold tracking-widest text-white uppercase">Official Website</span>
-            </div>
-
-            <h1 class="mb-6 text-5xl font-black leading-tight text-white md:text-5xl drop-shadow-2xl">
-                Mewujudkan Generasi <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">
-                    Cerdas & Berkarakter
-                </span>
-            </h1>
-
-            <p class="max-w-2xl mb-8 text-lg leading-relaxed text-gray-200 md:text-xl">
-                Selamat datang di SMP Negeri 1 Menggala. Platform informasi digital untuk mendukung transparansi dan kemajuan pendidikan.
-            </p>
-
-            <div class="flex flex-wrap items-center gap-4">
-                <a href="{{ url('kata-sambutan') }}" class="relative px-8 py-4 overflow-hidden font-bold text-yellow-900 transition-all bg-yellow-500 rounded-full shadow-lg group shadow-yellow-500/30 hover:scale-105 hover:shadow-yellow-500/50">
-                    <span class="relative z-10 flex items-center gap-2">
-                        Jelajahi Profil
-                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                    </span>
-                    <div class="absolute inset-0 transition-transform duration-300 translate-y-full bg-white/20 group-hover:translate-y-0"></div>
-                </a>
-                <a href="#berita" class="px-8 py-4 font-bold text-white transition-all border rounded-full bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20">
-                    Lihat Berita
-                </a>
-            </div>
+{{-- Content Overlay (Glassmorphism) --}}
+<div class="container absolute inset-0 z-10 flex items-center px-4 mx-auto pointer-events-none md:px-16 max-w-7xl">
+    <div class="max-w-3xl pointer-events-auto">
+        
+        <div class="inline-flex items-center gap-3 px-3 py-2 mb-4 border rounded-full shadow-lg bg-white/10 backdrop-blur-md border-white/20 animate-fade-in-up">
+            <span class="block w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse"></span>
+            <span class="text-xs font-semibold tracking-widest text-white uppercase sm:text-sm">
+                Official Website
+            </span>
         </div>
+
+        <h1 class="mb-4 text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl drop-shadow-2xl">
+            Mewujudkan Generasi <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">
+                Cerdas & Berkarakter
+            </span>
+        </h1>
+
+        <p class="max-w-2xl mb-6 text-sm leading-relaxed text-gray-200 sm:text-base md:text-lg">
+            Selamat datang di SMP Negeri 1 Menggala. Platform informasi digital untuk mendukung transparansi dan kemajuan pendidikan.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <a href="{{ url('kata-sambutan') }}" 
+               class="relative px-5 py-3 text-sm font-bold text-yellow-900 transition-all bg-yellow-500 rounded-full shadow-lg sm:px-6 sm:py-3 sm:text-base group shadow-yellow-500/30 hover:scale-105 hover:shadow-yellow-500/50">
+                <span class="relative z-10 flex items-center gap-2">
+                    Jelajahi Profil
+                    <svg class="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </span>
+            </a>
+
+            <a href="#berita" 
+               class="px-5 py-3 text-sm font-bold text-white transition-all border rounded-full sm:px-6 sm:py-3 sm:text-base bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20">
+                Lihat Berita
+            </a>
+        </div>
+
     </div>
+</div>
 </section>
 
 {{--
@@ -395,7 +415,7 @@
             <div class="splide splide-organisasi" data-splide='{"type":"loop","perPage":4,"gap":"2rem","autoplay":true,"pagination":false,"arrows":false,"pauseOnHover":false,"speed":1500,"interval":3500,"breakpoints":{"1024":{"perPage":3,"gap":"1.5rem"},"768":{"perPage":2,"gap":"1rem"},"640":{"perPage":1,"gap":"1rem"}}}'>
                 <div class="py-8 splide__track">
                     <ul class="splide__list">
-                        
+
                         {{-- Definisikan Warna untuk Rotasi Tampilan --}}
                         @php
                             $colors = [
@@ -419,7 +439,7 @@
 
                             <li class="py-4 splide__slide">
                                 <div class="relative flex flex-col items-center justify-center h-full p-6 overflow-hidden transition-all duration-700 border shadow-xl group bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg rounded-2xl hover:shadow-2xl hover:-translate-y-3 border-slate-700/50">
-                                    
+
                                     {{-- Background Accent (Dinamis) --}}
                                     <div class="absolute inset-0 opacity-0 bg-gradient-to-br {{ $warna }} transition-opacity duration-700 group-hover:opacity-20"></div>
 
@@ -431,7 +451,7 @@
                                     {{-- Logo Container --}}
                                     <div class="relative flex items-center justify-center w-24 h-24 mb-5 transition-all duration-700 border shadow-lg bg-slate-800/70 backdrop-blur-sm rounded-xl group-hover:shadow-xl group-hover:scale-110 border-slate-700/50">
                                         <div class="absolute inset-0 rounded-xl bg-gradient-to-br {{ $warna }} opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-                                        
+
                                         {{-- PENTING: Pemanggilan Gambar dari Storage --}}
                                         {{-- Pastikan folder 'public' dihubungkan dengan 'storage' --}}
                                         <img src="{{ asset('storage/' . $org->foto) }}" alt="{{ $org->nama }}" class="relative z-10 object-contain w-16 h-16 filter drop-shadow-lg">
