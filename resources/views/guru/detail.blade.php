@@ -119,7 +119,7 @@
 
                         {{-- NIK --}}
                         <div class="p-4 transition-colors border rounded-2xl bg-slate-50 border-slate-100 group hover:border-blue-200 hover:bg-blue-50">
-                            <p class="mb-1 text-xs font-bold tracking-widest uppercase text-slate-400 group-hover:text-blue-500">Nomor Induk (NIK)</p>
+                            <p class="mb-1 text-xs font-bold tracking-widest uppercase text-slate-400 group-hover:text-blue-500">Nomor Induk Pegawai (NIP)</p>
                             <p class="text-lg font-bold text-slate-800">{{ $guru->nik ?? '-' }}</p>
                         </div>
 
